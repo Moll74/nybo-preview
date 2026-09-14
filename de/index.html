@@ -1,10 +1,13 @@
 <!doctype html>
-<html lang="da">
+<html lang="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Find forhandler — Nybo Workwear</title>
+<title>Nybo — Sustainable Workwear (Konzept)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
 :root{
   --paper:#FAF8F3; --paper2:#F1ECE3; --ink:#20201E; --char:#36454F; --sand:#D9D2C8;
@@ -37,7 +40,7 @@ nav .shopbtn:hover{background:var(--ink)}
 
 /* hero */
 .hero-scroll{position:relative}
-.hero-scroll.pin{height:150vh}
+.hero-scroll.pin{height:180vh}
 .hero-scroll.pin .hero{position:sticky;top:0;height:100vh;min-height:0}
 @media(max-width:820px){.hero-scroll.pin{height:auto}.hero-scroll.pin .hero{position:relative;height:auto;min-height:92vh}}
 .hero{position:relative;min-height:92vh;display:flex;align-items:center;padding-top:124px;padding-bottom:40px;perspective:1400px;overflow:hidden}
@@ -52,12 +55,13 @@ nav .shopbtn:hover{background:var(--ink)}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
 .cta-note{margin:16px 0 0;font-size:.9rem;color:var(--muted)}
 .cta-note b{color:var(--ink)}
-.hero-visual{position:relative;transform-style:preserve-3d;will-change:transform}
-.turntable{position:relative;transform-style:preserve-3d;will-change:transform}
-.hero-photo{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:18px;box-shadow:0 40px 80px -30px rgba(32,32,30,.45)}
-.turntable .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.turntable .front{position:relative}
-.turntable .back{transform:rotateY(180deg) scaleX(-1)}
+.hero-visual{position:relative;transform-style:preserve-3d}
+.hero-stage{position:relative;transform-style:preserve-3d;will-change:transform}
+.hv-glow{position:absolute;inset:-12%;background:radial-gradient(52% 44% at 50% 42%,rgba(194,0,22,.18),rgba(194,0,22,0) 70%);filter:blur(30px);transform:translateZ(-160px);pointer-events:none;z-index:0}
+.hv-card{position:relative;z-index:1;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:22px;box-shadow:0 60px 100px -40px rgba(32,32,30,.55),0 20px 40px -30px rgba(32,32,30,.4)}
+.hero-photo{position:absolute;top:50%;left:50%;width:100%;height:170%;object-fit:cover;will-change:transform;transform:translate(-50%,-50%)}
+.hv-vig{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(32,32,30,0) 30%,rgba(32,32,30,.78) 100%);z-index:1;will-change:opacity}
+.hv-sheen{position:absolute;inset:0;border-radius:22px;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,0) 36%,rgba(255,255,255,.55) 50%,rgba(255,255,255,0) 64%);opacity:0;transform:translateX(-40%);mix-blend-mode:screen;z-index:2}
 .badge{position:absolute;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:0 20px 40px -20px rgba(32,32,30,.35);display:flex;align-items:center;gap:10px;font-size:.8rem;font-weight:600;will-change:transform}
 .badge img{height:34px;width:auto;display:block}
 .badge.b1{top:6%;left:-8%;transform:translateZ(90px)}
@@ -84,7 +88,58 @@ section.blk{padding:110px 0}
 .gallery{background:var(--paper2)}
 .gwrap{perspective:1600px}
 .gstage{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;transform-style:preserve-3d;margin-top:52px}
-.gcard{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -34px rgba(32,32,30,.4);will-change:transform;transform-style:preserve-3d}
+.gcard{position:relative;background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -34px rgba(32,32,30,.4);will-change:transform;transform-style:preserve-3d}
+.g-sheen{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.38) 50%,rgba(255,255,255,0) 60%);opacity:0;transform:translateX(-40%);mix-blend-mode:screen;z-index:3}
+.sustain3d{position:relative}
+.sustain-frame{position:relative;overflow:hidden;border-radius:20px;aspect-ratio:4/5;box-shadow:0 50px 90px -40px rgba(32,32,30,.5)}
+.sustain-frame .sustain-photo{position:absolute;top:50%;left:50%;width:100%;height:200%;object-fit:cover;will-change:transform;transform:translate(-50%,-50%)}
+#baeredygtighed .reveal:not(.in){transform:translateY(160px)}
+/* 4-way stretch scene */
+.stretch-sec{overflow:hidden;background:var(--paper)}
+.stretch-stage{position:relative;height:clamp(380px,58vh,580px);margin:30px 0 26px}
+#fabricCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.clamp{position:absolute;left:0;top:0;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:14px;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:800;box-shadow:0 16px 30px -10px rgba(194,0,22,.8);z-index:3;will-change:left,top}
+.stretch-slogan{text-align:center;font-family:var(--f-d);font-weight:500;font-size:clamp(1.7rem,3.6vw,2.7rem);line-height:1.14;max-width:20ch;margin:0 auto;color:var(--ink);opacity:0;transform:translateY(22px)}
+.stretch-slogan b{color:var(--red)}
+@media(max-width:820px){.clamp{width:40px;height:40px;font-size:1.05rem}}
+/* editorial scroll-reveal (dynamic-presentation feel) */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}}
+/* logo sting — appears centred IN the picture at the end of a scene */
+.logo-sting{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.6);opacity:0;display:flex;flex-direction:column;align-items:center;gap:12px;z-index:3;pointer-events:none;will-change:transform,opacity}
+.logo-sting img{height:150px;width:auto;display:block;filter:brightness(0) invert(1) drop-shadow(0 8px 26px rgba(0,0,0,.5))}
+@media(max-width:820px){.logo-sting img{height:90px}}
+/* hero cert logos: no plates — the keyed-out logos sit straight on the photo; OEKO-TEX pair larger */
+.hero-stage .badge{background:none;border:none;box-shadow:none;padding:0;border-radius:0}
+.hero-stage .badge img{height:72px;filter:drop-shadow(0 6px 16px rgba(0,0,0,.38))}
+.hero-stage .badge.oeko img{height:104px}
+@media(max-width:820px){.hero-stage .badge img{height:50px}.hero-stage .badge.oeko img{height:70px}}
+/* hero cert logos in a row along the bottom of the picture, on a soft light band so every word reads */
+.hv-band{position:absolute;left:0;right:0;bottom:0;height:36%;background:linear-gradient(180deg,rgba(250,248,243,0) 0%,rgba(250,248,243,.55) 45%,rgba(250,248,243,.96) 100%);z-index:2;pointer-events:none}
+.hero-stage .badge-row{position:absolute;left:6%;right:6%;bottom:5%;display:flex;justify-content:space-between;align-items:center;gap:14px;z-index:4;transform:translateZ(80px);pointer-events:none}
+.hero-stage .badge-row .badge{position:static;background:none;border:none;box-shadow:none;padding:0;border-radius:0}
+.hero-stage .badge-row .badge img{height:84px;width:auto;display:block;filter:drop-shadow(0 3px 8px rgba(0,0,0,.15))}
+.hero-stage .badge-row .badge.oeko img{height:104px}
+@media(max-width:820px){.hero-stage .badge-row .badge img{height:52px}.hero-stage .badge-row .badge.oeko img{height:64px}}
+/* press band — "Som set i" */
+.press{padding:72px 0 64px;background:var(--paper);overflow:hidden}
+.press-head{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:30px}
+.press-head .sec-title{margin-left:auto;margin-right:auto;text-align:center}
+.press-head .sec-sub{text-align:center;margin-left:auto;margin-right:auto}
+.press-marquee{position:relative;perspective:1200px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.press-track{display:flex;gap:26px;width:max-content;animation:pressScroll 48s linear infinite;transform-style:preserve-3d;padding:18px 0 34px}
+.press-marquee:hover .press-track{animation-play-state:paused}
+@keyframes pressScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.mag{margin:0;flex:none;width:232px;border-radius:12px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(32,32,30,.5);transform:rotateY(-8deg);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
+.mag:nth-child(even){transform:rotateY(7deg)}
+.mag:hover{transform:rotateY(0) translateY(-10px) scale(1.04);box-shadow:0 46px 80px -34px rgba(32,32,30,.55)}
+.mag img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover}
+.mag figcaption{display:none}
+.press-names{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 26px;margin-top:18px;font-family:var(--f-d);font-size:1.15rem;color:var(--muted)}
+.press-names span{white-space:nowrap}
+@media(prefers-reduced-motion:reduce){.press-track{animation:none}}
+@media(max-width:820px){.mag{width:170px}.press-track{gap:16px}}
 .gcard img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--paper2)}
 .gcard .gc{padding:20px 22px 24px}
 .gcard .tagrow{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
@@ -226,9 +281,10 @@ nav .logo{height:86px}
 .cert{padding:24px 26px;gap:20px;font-size:1.08rem;border-radius:16px}
 .cert img{height:66px}
 .seg{background-size:cover;background-position:center 22%;background-repeat:no-repeat}
-.seg.s1{background-image:url(seg_care.jpg)}
-.seg.s2{background-image:url(seg_gastro.jpg)}
-.seg.s3{background-image:url(seg_service.jpg)}
+.seg.s1{background-image:url(../seg_care.jpg)}
+.seg.s2{background-image:url(../seg_gastro.jpg)}
+.seg.s3{background-image:url(../seg_service.jpg)}
+.seg.s1{background-position:center 38%}.seg.s2{background-position:center 16%}.seg.s3{background-position:center 32%}
 .seg::before{background:linear-gradient(180deg,rgba(32,32,30,.15),rgba(32,32,30,.82))}
 .shopgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:18px;margin-top:20px}
 .shopcard{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
@@ -304,10 +360,6 @@ nav .logo{height:86px}
 .aaa b{font-family:var(--f-d);color:#E8B84B;font-size:1rem}
 @media(max-width:820px){.contact-grid{grid-template-columns:1fr;gap:30px}}
 
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
-.reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1!important;transform:none!important;transition:none!important}}
-
 /* Nybo robot assistant */
 .chatfab{width:84px;height:96px;border-radius:0;background:none;box-shadow:none;padding:0;display:flex;align-items:flex-end;justify-content:center;filter:drop-shadow(0 14px 22px rgba(32,32,30,.35))}
 .chatfab:hover{transform:none}
@@ -329,6 +381,11 @@ nav .logo{height:86px}
 .chatfab:hover .rb-float{animation:rbJump .72s cubic-bezier(.34,1.56,.64,1) infinite}
 @keyframes rbJump{0%{transform:translateY(0) scale(1,1)}18%{transform:translateY(2px) scale(1.12,.86)}45%{transform:translateY(-26px) scale(.94,1.08)}70%{transform:translateY(0) scale(1.08,.9)}85%{transform:translateY(-7px) scale(1,1)}100%{transform:translateY(0) scale(1,1)}}
 @media(prefers-reduced-motion:reduce){.chatfab:hover .rb-float{animation:none}}
+
+.tenlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 40px}
+@media(max-width:820px){.tenlist{grid-template-columns:1fr}}
+
+.catcard{scroll-margin-top:150px}
 
 /* dealer map */
 /* required styles */
@@ -1002,396 +1059,327 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .leaflet-container{font-family:var(--f-b)}.osm-fallback .leaflet-tile{filter:grayscale(.85) brightness(1.06) contrast(.92)}.leaflet-popup-content{font-family:var(--f-b);font-size:.9rem;line-height:1.45;margin:12px 16px}.leaflet-popup-content b{font-family:var(--f-d);font-size:1.05rem;display:block;margin-bottom:4px}.leaflet-popup-content-wrapper{border-radius:12px}
 @media(max-width:820px){#dealerMap{height:380px}}
 </style>
-<style>
-:root{
-  --paper:#FAF8F3; --paper2:#F1ECE3; --ink:#20201E; --char:#36454F; --sand:#D9D2C8;
-  --muted:#6E6B64; --line:#E4DED3; --red:#C20016; --green:#3F7D5A; --white:#fff;
-  --f-d:"Fraunces",Georgia,serif; --f-b:"IBM Plex Sans",system-ui,sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-b);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-h1,h2,h3{font-family:var(--f-d);font-weight:500;line-height:1.05;margin:0;text-wrap:balance}
-p{margin:0}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
-.eyebrow{font-family:var(--f-b);font-size:.74rem;letter-spacing:.22em;text-transform:uppercase;color:var(--red);font-weight:600}
-.btn{display:inline-block;padding:14px 26px;border-radius:40px;font-weight:600;font-size:.95rem;transition:transform .2s,background .2s;cursor:pointer;border:1.5px solid var(--ink)}
-.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.btn.solid:hover{background:var(--red);border-color:var(--red);transform:translateY(-2px)}
-.btn.ghost:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px)}
-
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;
-  padding:16px 28px;background:color-mix(in srgb,var(--paper) 82%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s,padding .3s}
-nav.scrolled{border-color:var(--line);padding:10px 28px}
-nav .logo{height:40px}
-nav .navlinks{display:flex;gap:28px;align-items:center;font-size:.92rem;font-weight:500}
-nav .navlinks a:hover{color:var(--red)}
-nav .shopbtn{background:var(--red);color:#fff;padding:10px 20px;border-radius:30px;font-weight:600;border:none}
-nav .shopbtn:hover{background:var(--ink)}
-@media(max-width:820px){nav .navlinks a:not(.shopbtn){display:none}}
-
-/* hero */
-.hero{position:relative;min-height:92vh;display:flex;align-items:center;padding-top:124px;padding-bottom:40px;perspective:1400px;overflow:hidden}
-.hero-bgword{position:absolute;right:-4%;top:8%;font-family:var(--f-d);font-weight:600;font-size:34vw;color:var(--paper2);z-index:0;line-height:.8;user-select:none;pointer-events:none;will-change:transform}
-.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;width:100%}
-.hero-copy h1{font-size:clamp(2.8rem,6vw,5rem);letter-spacing:-.02em}
-.hero-copy h1 .em{font-style:italic;color:var(--char)}
-.hero-copy .lead{font-size:1.2rem;color:var(--muted);margin:22px 0 30px;max-width:30ch}
-.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
-.hero-visual{position:relative;transform-style:preserve-3d;will-change:transform}
-.hero-photo{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:18px;box-shadow:0 40px 80px -30px rgba(32,32,30,.45);transform:translateZ(40px)}
-.badge{position:absolute;background:var(--white);border:1px solid var(--line);border-radius:14px;padding:10px 14px;box-shadow:0 20px 40px -20px rgba(32,32,30,.35);display:flex;align-items:center;gap:10px;font-size:.8rem;font-weight:600;will-change:transform}
-.badge img{height:34px;width:auto;display:block}
-.badge.b1{top:6%;left:-8%;transform:translateZ(90px)}
-.badge.b2{bottom:12%;left:-6%;transform:translateZ(120px)}
-.badge.b3{bottom:26%;right:-7%;transform:translateZ(70px)}
-.scrollcue{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);z-index:3;display:flex;flex-direction:column;align-items:center;gap:8px}
-.scrollcue .dot{width:1px;height:34px;background:linear-gradient(var(--muted),transparent);animation:cue 1.8s ease-in-out infinite}
-@keyframes cue{0%,100%{opacity:.3;transform:scaleY(.6)}50%{opacity:1;transform:scaleY(1)}}
-@media(max-width:820px){.hero-grid{grid-template-columns:1fr}.hero-visual{margin-top:20px}.badge.b3{right:2%}.badge.b1{left:0}.badge.b2{left:0}}
-
-/* trust strip */
-.trust{background:var(--char);color:var(--paper);padding:20px 0}
-.trust .wrap{display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center;justify-content:center;font-size:.86rem;letter-spacing:.02em}
-.trust b{font-weight:600}
-.trust .sep{color:var(--sand);opacity:.5}
-
-/* section */
-section.blk{padding:110px 0}
-.sec-eyebrow{margin-bottom:14px}
-.sec-title{font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.015em;max-width:18ch}
-.sec-sub{color:var(--muted);font-size:1.12rem;max-width:52ch;margin-top:18px}
-
-/* 3D gallery */
-.gallery{background:var(--paper2)}
-.gwrap{perspective:1600px}
-.gstage{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;transform-style:preserve-3d;margin-top:52px}
-.gcard{background:var(--white);border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 60px -34px rgba(32,32,30,.4);will-change:transform;transform-style:preserve-3d}
-.gcard img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block;background:var(--paper2)}
-.gcard .gc{padding:20px 22px 24px}
-.gcard .tagrow{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap}
-.pill{font-size:.68rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:4px 9px;border-radius:20px;background:var(--paper2);color:var(--char)}
-.pill.eco{background:color-mix(in srgb,var(--green) 15%,transparent);color:var(--green)}
-.gcard h3{font-size:1.3rem;margin-bottom:6px}
-.gcard p{font-size:.92rem;color:var(--muted)}
-@media(max-width:820px){.gstage{grid-template-columns:1fr}}
-
-/* sustainability */
-.sustain-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-.sustain-photo{width:100%;border-radius:20px;aspect-ratio:5/4;object-fit:cover;box-shadow:0 40px 80px -40px rgba(32,32,30,.4)}
-.certrow{display:flex;gap:16px;flex-wrap:wrap;margin-top:30px}
-.cert{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;font-size:.82rem;font-weight:600}
-.cert img{height:42px;width:auto}
-.tenlist{margin-top:28px;display:grid;gap:12px}
-.tenlist .row{display:flex;gap:14px;align-items:flex-start;font-size:1rem}
-.tenlist .n{font-family:var(--f-d);font-weight:600;color:var(--red);font-size:1.1rem;min-width:1.4em}
-@media(max-width:820px){.sustain-grid{grid-template-columns:1fr;gap:32px}}
-.scope3{display:grid;grid-template-columns:1fr 1.5fr;gap:36px;align-items:center;background:color-mix(in srgb,var(--green) 12%,var(--paper));border:1px solid color-mix(in srgb,var(--green) 30%,var(--line));border-radius:20px;padding:34px 40px}
-.scope3 h3{font-size:1.8rem}
-.scope3 p{font-size:1.12rem;color:var(--ink)}
-@media(max-width:820px){.scope3{grid-template-columns:1fr;gap:14px;padding:26px}}
-
-/* segments */
-.segs{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
-.seg{position:relative;border-radius:18px;overflow:hidden;min-height:340px;display:flex;align-items:flex-end;color:#fff;padding:26px;background:var(--char);will-change:transform}
-.seg::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(32,32,30,.1),rgba(32,32,30,.8))}
-.seg .s{position:relative;z-index:2}
-.seg h3{color:#fff;font-size:1.5rem;margin-bottom:6px}
-.seg p{font-size:.9rem;color:rgba(255,255,255,.82)}
-.seg.s1{background:var(--char)} .seg.s2{background:#4a5a52} .seg.s3{background:#5a5148}
-@media(max-width:820px){.segs{grid-template-columns:1fr}}
-
-/* proof */
-.proof{background:var(--ink);color:var(--paper)}
-.proof .sec-title,.proof h3{color:var(--paper)}
-.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:50px}
-.q{background:color-mix(in srgb,var(--paper) 6%,transparent);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:26px}
-.q .stars{color:#E8B84B;letter-spacing:3px;margin-bottom:12px}
-.q p{font-size:1rem;line-height:1.5}
-.q .who{margin-top:16px;font-size:.85rem;color:var(--sand)}
-@media(max-width:820px){.quotes{grid-template-columns:1fr}}
-
-/* CTA band */
-.cta{padding:96px 0;text-align:center;background:linear-gradient(160deg,var(--char),#2a3640)}
-.cta h2{color:var(--paper);font-size:clamp(2rem,4vw,3rem)}
-.cta p{color:var(--sand);margin:16px auto 30px;max-width:46ch}
-.cta .btn.solid{background:var(--red);border-color:var(--red);color:#fff}
-.cta .btn.solid:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
-.cta .btn.ghost{border-color:var(--sand);color:var(--paper)}
-.cta .btn.ghost:hover{background:var(--paper);color:var(--ink)}
-
-/* footer */
-footer{background:var(--paper2);color:var(--muted);padding:66px 0 32px;font-size:.9rem}
-.foot-top{display:grid;grid-template-columns:1.15fr 1fr .8fr auto;gap:40px}
-.foot-col h4{font-family:var(--f-d);font-size:1.15rem;color:var(--ink);margin:0 0 16px;font-weight:500}
-.foot-col a{display:block;color:var(--muted);padding:6px 0}
-.foot-col a:hover{color:var(--red)}
-.foot-aaa{text-align:center;min-width:150px}
-.foot-aaa .m{font-family:var(--f-d);font-weight:600;color:var(--red);font-size:2.7rem;letter-spacing:-.02em;line-height:1}
-.foot-aaa .m sup{font-size:.85rem}
-.foot-aaa small{display:block;color:var(--muted);font-size:.72rem;margin-top:8px;line-height:1.5}
-.foot-aaa b{color:var(--ink)}
-.foot-bottom{border-top:1px solid var(--line);margin-top:44px;padding-top:24px;text-align:center;color:var(--muted);font-size:.85rem}
-.foot-bottom a{color:var(--muted)}
-@media(max-width:820px){.foot-top{grid-template-columns:1fr 1fr}.foot-aaa{grid-column:1/-1;text-align:left}}
-.concept-note{position:fixed;bottom:14px;right:14px;z-index:200;background:var(--ink);color:var(--paper);font-size:.7rem;padding:7px 12px;border-radius:20px;opacity:.85}
-@media(prefers-reduced-motion:reduce){*{animation:none!important}}
-/* ===== enhanced header ===== */
-#head{position:fixed;top:0;left:0;right:0;z-index:100;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
-#head.scrolled{border-color:var(--line)}
-.topbar{background:var(--ink);color:var(--sand);font-size:.8rem;transition:height .3s,opacity .3s}
-.topbar-in{display:flex;justify-content:space-between;align-items:center;height:38px}
-.topbar-r{display:flex;gap:20px;align-items:center}
-.topbar a,.topbar button{color:var(--sand);background:none;border:none;cursor:pointer;font:inherit}
-.topbar a:hover,.topbar button:hover{color:#fff}
-#head.scrolled .topbar{height:0;opacity:0;overflow:hidden}
-nav#nav{position:static;background:transparent;backdrop-filter:none;border-bottom:none;padding:8px 0;display:block}
-nav#nav.scrolled{padding:8px 0}
-.menu{list-style:none;display:flex;gap:4px;margin:0;padding:0}
-.menu>li{position:relative}
-.menu>li>a{display:block;padding:12px 15px;font-size:.95rem;font-weight:500;cursor:pointer;border-radius:8px}
-.menu>li>a:hover,.menu>li.open>a{color:var(--red)}
-.mega{position:absolute;top:100%;left:0;min-width:520px;background:var(--white);border:1px solid var(--line);border-radius:16px;box-shadow:0 30px 60px -30px rgba(32,32,30,.35);padding:22px 24px;opacity:0;visibility:hidden;transform:translateY(8px);transition:.2s;display:grid;grid-template-columns:1fr 1fr;gap:2px 26px;z-index:5}
-.menu>li:hover .mega,.menu>li:focus-within .mega,.menu>li.open .mega{opacity:1;visibility:visible;transform:translateY(0)}
-.mega h4{grid-column:1/-1;font-family:var(--f-b);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 6px}
-.mega a{display:block;padding:7px 10px;border-radius:8px;font-size:.92rem;color:var(--ink)}
-.mega a:hover{background:var(--paper2);color:var(--red)}
-.mega .feat{grid-column:1/-1;margin-top:10px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:.83rem}
-.nav-r{display:flex;gap:10px;align-items:center}
-.icon-btn{background:none;border:1px solid var(--line);border-radius:50%;width:40px;height:40px;cursor:pointer;font-size:1.2rem;display:grid;place-items:center;color:var(--ink)}
-.icon-btn:hover{border-color:var(--ink)}
-.searchbar{max-height:0;overflow:hidden;transition:max-height .3s;background:var(--white)}
-.searchbar.open{max-height:96px;border-top:1px solid var(--line)}
-.searchbar .in{display:flex;gap:10px;padding:16px 0}
-.searchbar input{flex:1;padding:14px 20px;border:1px solid var(--line);border-radius:30px;font:inherit;font-size:1rem;background:var(--paper)}
-.searchbar input:focus{outline:none;border-color:var(--red)}
-.modal{position:fixed;inset:0;z-index:200;background:rgba(32,32,30,.55);display:none;place-items:center;padding:20px}
-.modal.open{display:grid}
-.modal .box{background:var(--white);border-radius:20px;padding:38px;max-width:420px;width:100%;box-shadow:0 40px 90px -30px rgba(0,0,0,.5)}
-.modal h3{font-size:1.7rem;margin-bottom:6px}
-.modal .lead2{color:var(--muted);font-size:.95rem;margin-bottom:18px}
-.modal label{display:block;font-size:.82rem;font-weight:600;margin:14px 0 6px}
-.modal input{width:100%;padding:13px 16px;border:1px solid var(--line);border-radius:12px;font:inherit;background:var(--paper)}
-.modal input:focus{outline:none;border-color:var(--red)}
-.modal .full{width:100%;margin-top:22px;background:var(--ink);color:#fff;border:none;padding:15px;border-radius:12px;font-weight:600;cursor:pointer;font-size:1rem}
-.modal .full:hover{background:var(--red)}
-.modal .x{float:right;background:none;border:none;font-size:1.5rem;cursor:pointer;color:var(--muted);margin:-14px -10px 0 0;line-height:1}
-.modal .alt{text-align:center;margin-top:16px;font-size:.85rem;color:var(--muted)}
-.modal .alt a{color:var(--red);font-weight:600}
-.faqlist{margin-top:42px;max-width:860px}
-.faqitem{border-bottom:1px solid var(--line)}
-.faqq{width:100%;text-align:left;background:none;border:none;padding:24px 0;font-family:var(--f-d);font-size:1.2rem;font-weight:500;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;gap:20px}
-.faqq .pl{color:var(--red);transition:transform .25s;font-size:1.5rem;line-height:1}
-.faqitem.open .pl{transform:rotate(45deg)}
-.faqa{max-height:0;overflow:hidden;transition:max-height .3s}
-.faqa p{padding:0 0 24px;color:var(--muted);font-size:1rem;max-width:70ch}
-.faqitem.open .faqa{max-height:280px}
-@media(max-width:900px){.mega{min-width:min(90vw,520px);grid-template-columns:1fr}.menu>li>a{padding:10px 12px}}
-@media(max-width:680px){.topbar-in span:first-child{display:none}.menu{gap:0}}
-.langsel{position:relative}
-#langBtn{color:var(--sand);background:none;border:none;cursor:pointer;font:inherit;display:flex;align-items:center;gap:5px}
-#langBtn:hover{color:#fff}
-.langmenu{position:absolute;top:150%;right:0;background:var(--ink);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:8px;min-width:232px;display:none;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);max-height:60vh;overflow:auto}
-.langsel.open .langmenu{display:block}
-.langhead{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding:8px 10px 4px}
-.langmenu a{color:var(--sand);padding:8px 10px;border-radius:8px;font-size:.85rem;cursor:pointer;display:block}
-.langmenu a:hover{background:rgba(255,255,255,.08);color:#fff}
-.badge.b4{top:1%;right:-6%;transform:translateZ(100px)}
-@media(max-width:820px){.badge.b4{right:2%;top:-3%}}
-/* ==== refinements ==== */
-nav .logo{height:58px}
-.hero{padding-top:134px}
-.badge{padding:14px;gap:0;border-radius:16px}
-.badge img{height:66px}
-.badge span{display:none}
-.certrow{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.cert{padding:24px 26px;gap:20px;font-size:1.08rem;border-radius:16px}
-.cert img{height:66px}
-.seg{background-size:cover;background-position:center center;background-repeat:no-repeat}
-.seg.s1{background-image:url(seg_care.jpg)}
-.seg.s2{background-image:url(seg_gastro.jpg)}
-.seg.s3{background-image:url(seg_service.jpg)}
-.seg::before{background:linear-gradient(180deg,rgba(32,32,30,.15),rgba(32,32,30,.82))}
-.shopgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:18px;margin-top:20px}
-.shopcard{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.shopcard .cc{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:8px}
-.shopcard a{display:block;padding:5px 0;font-size:.92rem;color:var(--ink)}
-.shopcard a:hover{color:var(--red)}
-.dealgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(216px,1fr));gap:24px;margin-top:22px}
-.dealcol h4{font-family:var(--f-b);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 8px;padding-bottom:6px;border-bottom:1px solid var(--line)}
-.dealcol ul{list-style:none;margin:0;padding:0}
-.dealcol li{font-size:.86rem;color:var(--ink);padding:3px 0;line-height:1.35}
-.dealcol li span{color:var(--muted)}
-.dealnote{margin-top:26px;color:var(--muted);font-size:.9rem}
-@media(max-width:820px){.certrow{grid-template-columns:1fr}}
-.menu>li>a{padding:11px 12px;font-size:.92rem}
-.catgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px;margin-top:46px}
-.catcard{background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 24px 50px -34px rgba(32,32,30,.4);display:flex;flex-direction:column}
-.catcard img{width:100%;aspect-ratio:4/3;object-fit:cover;background:var(--paper2)}
-.catcard .cb{padding:20px 22px;display:flex;flex-direction:column;gap:6px;flex:1}
-.catcard h3{font-size:1.2rem}
-.catcard p{font-size:.9rem;color:var(--muted);flex:1}
-.catcard a{margin-top:10px;align-self:flex-start;color:var(--red);font-weight:600;font-size:.92rem}
-.contact{background:var(--char);color:var(--paper)}
-.contact .sec-title,.contact h3{color:var(--paper)}
-.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:40px;align-items:start}
-.callcard{background:color-mix(in srgb,var(--paper) 6%,transparent);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:30px}
-.callcard label{display:block;font-size:.8rem;font-weight:600;margin:14px 0 6px;color:var(--sand)}
-.callcard input,.callcard textarea{width:100%;padding:13px 16px;border:1px solid rgba(255,255,255,.2);border-radius:12px;font:inherit;background:rgba(255,255,255,.06);color:var(--paper)}
-.callcard input::placeholder,.callcard textarea::placeholder{color:rgba(255,255,255,.4)}
-.callcard input:focus,.callcard textarea:focus{outline:none;border-color:var(--red)}
-.callcard .full{width:100%;margin-top:20px;background:var(--red);color:#fff;border:none;padding:15px;border-radius:12px;font-weight:600;cursor:pointer;font-size:1rem}
-.callcard .full:hover{background:#fff;color:var(--ink)}
-.cinfo p{margin-bottom:18px;color:var(--sand);font-size:1.02rem;line-height:1.5}
-.cinfo b{color:var(--paper)}
-.cinfo .big{font-family:var(--f-d);font-size:1.7rem;color:#fff;display:block;margin-top:2px}
-.chatfab{position:fixed;bottom:22px;right:22px;z-index:150;width:62px;height:62px;border-radius:50%;background:var(--red);border:none;cursor:pointer;box-shadow:0 16px 36px -10px rgba(194,0,22,.55);color:#fff;font-size:1.6rem;display:grid;place-items:center;transition:transform .2s}
-.chatfab:hover{transform:scale(1.06)}
-.chatteaser{position:fixed;bottom:98px;right:24px;z-index:150;background:#fff;border:1px solid var(--line);border-radius:16px 16px 4px 16px;padding:13px 16px;max-width:250px;box-shadow:0 20px 50px -20px rgba(0,0,0,.3);font-size:.9rem;color:var(--ink);opacity:0;transform:translateY(10px);transition:.4s;pointer-events:none}
-.chatteaser.show{opacity:1;transform:translateY(0)}
-.chatpanel{position:fixed;bottom:98px;right:24px;z-index:151;width:342px;max-width:calc(100vw - 48px);background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 70px -20px rgba(0,0,0,.4);display:none;flex-direction:column;overflow:hidden}
-.chatpanel.open{display:flex}
-.chathead{background:var(--char);color:#fff;padding:15px 18px;display:flex;align-items:center;gap:10px}
-.chathead .av{width:34px;height:34px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-size:.9rem;flex:none}
-.chathead b{font-size:.98rem} .chathead small{color:var(--sand);display:block;font-size:.72rem}
-.chathead .cx{margin-left:auto;background:none;border:none;color:var(--sand);font-size:1.4rem;cursor:pointer;line-height:1}
-.chatbody{padding:16px;display:flex;flex-direction:column;gap:10px;max-height:300px;overflow:auto;background:var(--paper)}
-.msg{padding:10px 14px;border-radius:14px;font-size:.9rem;max-width:86%;line-height:1.42}
-.msg.bot{background:#fff;border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}
-.msg.me{background:var(--char);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
-.chipsq{display:flex;flex-wrap:wrap;gap:8px}
-.chipsq button{background:#fff;border:1px solid var(--line);border-radius:20px;padding:7px 12px;font-size:.8rem;cursor:pointer;color:var(--char)}
-.chipsq button:hover{border-color:var(--red);color:var(--red)}
-.chatinput{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#fff}
-.chatinput input{flex:1;border:1px solid var(--line);border-radius:20px;padding:10px 14px;font:inherit;font-size:.9rem}
-.chatinput input:focus{outline:none;border-color:var(--red)}
-.chatinput button{background:var(--red);color:#fff;border:none;border-radius:20px;padding:0 16px;cursor:pointer}
-.foot-legal{display:flex;gap:18px;flex-wrap:wrap}
-.foot-legal a:hover{color:#fff}
-.aaa{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--sand);border-radius:10px;padding:6px 12px;font-weight:600;color:var(--paper);font-size:.82rem}
-.aaa b{font-family:var(--f-d);color:#E8B84B;font-size:1rem}
-@media(max-width:820px){.contact-grid{grid-template-columns:1fr;gap:30px}}
-
-.plisthero{padding:132px 0 26px;background:var(--paper2)}
-.filterbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
-.filterbar button{background:#fff;border:1px solid var(--line);border-radius:24px;padding:9px 16px;font:inherit;font-size:.9rem;cursor:pointer;color:var(--char)}
-.filterbar button.active,.filterbar button:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:24px;padding:38px 0 96px}
-.pcard{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
-.pcard:hover{transform:translateY(-4px);box-shadow:0 30px 60px -34px rgba(32,32,30,.4)}
-.pcard img{width:100%;aspect-ratio:3/4;object-fit:cover;background:var(--paper2)}
-.pcard .pc{padding:16px 18px 20px;display:flex;flex-direction:column;flex:1}
-.pcard .pcb{font-size:.66rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--green);margin-bottom:6px;min-height:.95em}
-.pcard h3{font-size:1.06rem;margin-bottom:4px}
-.pcard .cat{font-size:.82rem;color:var(--muted)}
-.pcard .buy{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center}
-.pcard .buy a{color:var(--red);font-weight:600;font-size:.85rem}
-.pcard .buy span{color:var(--muted);font-size:.8rem}
-</style>
 <style>img{max-width:100%}[hidden]{display:none!important}</style>
+<style>html[lang="de"] .hero-copy h1{font-size:clamp(2.3rem,4.5vw,3.8rem)}</style>
 </head>
 <body>
 <header id="head">
   <div class="topbar"><div class="wrap topbar-in">
-    <span>Gratis fragt over 1.000 kr · Levering 1–3 hverdage · Dansk design siden 1962</span>
+    <span>Versandkostenfrei ab 1.000 DKK · Lieferung in 1–3 Werktagen · Dänisches Design seit 1962</span>
     <div class="topbar-r">
       <a href="kontakt.html">Kontakt</a>
-      <a href="index.html#faq">Hjælp / FAQ</a>
-      <button id="b2bOpen">B2B-login</button>
+      <a href="#faq">Hilfe / FAQ</a>
+      <button id="b2bOpen">B2B-Login</button>
       <div class="langsel">
-        <button id="langBtn" aria-haspopup="true">🌐 DA <span style="font-size:.7em">▾</span></button>
+        <button id="langBtn" aria-haspopup="true">🌐 DE <span style="font-size:.7em">▾</span></button>
         <div class="langmenu" id="langMenu">
-          <div class="langhead">Vælg sprog &amp; marked</div>
-          <a href="find-forhandler.html" style="font-weight:600;color:var(--red)">Dansk — Danmark</a><a href="de/find-forhandler.html">Deutsch — Deutschland</a><a href="en/find-forhandler.html">English — United Kingdom</a>
+          <div class="langhead">Sprache &amp; Markt wählen</div>
+          <a href="../index.html">Dansk — Danmark</a><a href="../de/index.html" style="font-weight:600;color:var(--red)">Deutsch — Deutschland</a><a href="../en/index.html">English — United Kingdom</a>
           <a>Nederlands — Nederland</a><a>Svenska — Sverige</a><a>Norsk — Norge</a>
           <a>Suomi — Suomi</a><a>Polski — Polska</a><a>Čeština — Česko</a>
-          <a>Français — Belgique</a><a href="de/find-forhandler.html">Deutsch — Österreich</a><a href="de/find-forhandler.html">Deutsch — Schweiz</a>
-          <a href="en/find-forhandler.html">English — Ireland</a><a>Français — France</a><a>Español — España</a><a>Íslenska — Ísland</a>
+          <a>Français — Belgique</a><a href="../de/index.html" style="font-weight:600;color:var(--red)">Deutsch — Österreich</a><a href="../de/index.html" style="font-weight:600;color:var(--red)">Deutsch — Schweiz</a>
+          <a href="../en/index.html">English — Ireland</a><a>Français — France</a><a>Español — España</a><a>Íslenska — Ísland</a>
         </div>
       </div>
     </div>
   </div></div>
   <nav id="nav"><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;padding-left:28px;padding-right:28px">
-    <img class="logo" src="logo_concept.png" alt="Nybo — Sustainable Workwear">
+    <img class="logo" src="../logo_concept.png" alt="Nybo — Sustainable Workwear">
     <ul class="menu">
-      <li><a href="produkter.html">Produkter</a>
+      <li><a href="produkter.html">Produkte</a>
         <div class="mega">
-          <h4>Kategorier</h4>
-          <a href="produkter.html#cat=kitler">Kitler &amp; tunikaer</a><a href="produkter.html#cat=bukser">Bukser</a>
-          <a href="produkter.html#cat=overdele">Overdele &amp; poloer</a><a href="produkter.html#cat=gastronomi">Kokke- &amp; servicebeklædning</a>
-          <a href="produkter.html#cat=forklaeder">Forklæder</a><a href="produkter.html#cat=veste">Veste &amp; jakker</a>
-          <a href="produkter.html#cat=tshirt">T-shirts</a><a href="produkter.html">Tilbehør</a>
+          <h4>Kategorien</h4>
+          <a href="produkter.html#cat=kitler">Kittel &amp; Kasacks</a><a href="produkter.html#cat=bukser">Hosen</a>
+          <a href="produkter.html#cat=overdele">Oberteile &amp; Polos</a><a href="produkter.html#cat=gastronomi">Koch- &amp; Servicebekleidung</a>
+          <a href="produkter.html#cat=forklaeder">Schürzen</a><a href="produkter.html#cat=veste">Westen &amp; Jacken</a>
+          <a href="produkter.html#cat=tshirt">T-shirts</a><a href="produkter.html">Zubehör</a>
           <div class="feat">★ Kollektioner: Charisma Premium · Sporty T800 · Nova Premium</div>
         </div></li>
-      <li><a href="baeredygtighed.html">Bæredygtighed</a>
+      <li><a href="baeredygtighed.html">Nachhaltigkeit</a>
         <div class="mega">
-          <h4>Ansvar &amp; ESG</h4>
-          <a href="baeredygtighed.html">ESG-strategi</a><a href="baeredygtighed.html">ESG-mål</a>
-          <a href="baeredygtighed.html">Certificeringer</a><a href="baeredygtighed.html">10 veje til miljøvenligt arbejdstøj</a>
-          <a href="baeredygtighed.html">Grüner Knopf</a><a href="baeredygtighed.html">Din Scope 3</a>
-          <div class="feat">🌿 EU Ecolabel · OEKO-TEX STeP · Made in Green · DPP-klar</div>
+          <h4>Verantwortung &amp; ESG</h4>
+          <a href="baeredygtighed.html">ESG-Strategie</a><a href="baeredygtighed.html">ESG-Ziele</a>
+          <a href="baeredygtighed.html">Zertifizierungen</a><a href="baeredygtighed.html">10 Wege zu umweltfreundlicherer Arbeitskleidung</a>
+          <a href="baeredygtighed.html">Grüner Knopf</a><a href="baeredygtighed.html">Ihr Scope 3</a>
+          <div class="feat">🌿 EU Ecolabel · OEKO-TEX STeP · Made in Green · DPP-ready</div>
         </div></li>
-      <li><a href="brancher.html">Brancher</a>
+      <li><a href="brancher.html">Branchen</a>
         <div class="mega">
-          <h4>Løsninger pr. branche</h4>
-          <a href="brancher.html">Pleje, Hospital &amp; Rengøring</a><a href="brancher.html">Restaurant, Hotel &amp; Café</a>
-          <a href="brancher.html">Service &amp; Erhverv</a><a href="brancher.html">Broderi &amp; tryk</a>
-          <div class="feat">Profilér arbejdstøjet med logo &amp; tryk</div>
+          <h4>Lösungen nach Branche</h4>
+          <a href="brancher.html">Pflege, Klinik &amp; Reinigung</a><a href="brancher.html">Restaurant, Hotel &amp; Café</a>
+          <a href="brancher.html">Service &amp; Gewerbe</a><a href="brancher.html">Stickerei &amp; Druck</a>
+          <div class="feat">Arbeitskleidung mit Logo &amp; Druck profilieren</div>
         </div></li>
-      <li><a href="kataloger.html">Kataloger</a>
+      <li><a href="kataloger.html">Kataloge</a>
         <div class="mega" style="grid-template-columns:1fr;min-width:290px">
-          <h4>Kataloger 2026</h4>
-          <a href="kataloger.html#cat-main">Hovedkatalog 2026</a>
-          <a href="kataloger.html#cat-health">Pleje &amp; Sundhed 2026</a>
-          <a href="kataloger.html#cat-horeca">Gastronomi · HoReCa 2026</a>
-          <a href="kataloger.html#cat-esg">Bæredygtighedsfolder (ESG)</a>
-          <div class="feat">Bladr online eller download som PDF</div>
+          <h4>Kataloge 2026</h4>
+          <a href="kataloger.html#cat-main">Hauptkatalog 2026</a>
+          <a href="kataloger.html#cat-health">Pflege &amp; Gesundheit 2026</a>
+          <a href="kataloger.html#cat-horeca">Gastronomie · HoReCa 2026</a>
+          <a href="kataloger.html#cat-esg">Nachhaltigkeitsbroschüre (ESG)</a>
+          <div class="feat">Online blättern oder als PDF herunterladen</div>
         </div></li>
-      <li><a href="om-os.html">Om os</a>
+      <li><a href="om-os.html">Über uns</a>
         <div class="mega" style="grid-template-columns:1fr;min-width:250px">
-          <a href="om-os.html">Historie — siden 1962</a>
-          <a href="om-os.html">Egen produktion i Letland</a>
-          <a href="baeredygtighed.html">Ansvarlighed &amp; certificeringer</a>
-          <a href="index.html#proof">Referencer &amp; presse</a>
+          <a href="om-os.html">Geschichte — seit 1962</a>
+          <a href="om-os.html">Eigene Produktion in Lettland</a>
+          <a href="baeredygtighed.html">Verantwortung &amp; Zertifizierungen</a>
+          <a href="#proof">Referenzen &amp; Presse</a>
         </div></li>
-      <li><a href="index.html#faq">FAQ</a></li>
-      <li><a href="find-forhandler.html">Find forhandler</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="find-forhandler.html">Händler finden</a></li>
     </ul>
     <div class="nav-r">
-      <button class="icon-btn" id="searchToggle" aria-label="Søg">⌕</button>
+      <button class="icon-btn" id="searchToggle" aria-label="Suchen">⌕</button>
       <a href="produkter.html" class="shopbtn">Webshop</a>
     </div>
   </div></nav>
   <div class="searchbar" id="searchbar"><div class="wrap in">
-    <input id="searchInput" type="search" placeholder="Søg efter produkter, brancher eller bæredygtighed…">
-    <button class="btn solid" style="padding:12px 26px">Søg</button>
+    <input id="searchInput" type="search" placeholder="Produkte, Branchen oder Nachhaltigkeit suchen…">
+    <button class="btn solid" style="padding:12px 26px">Suchen</button>
   </div></div>
 </header>
-<section class="plisthero"><div class="wrap"><div class="eyebrow">Find forhandler</div><h1 style="font-size:clamp(2.2rem,5vw,3.4rem);margin-top:8px;font-family:var(--f-d);font-weight:500">Forhandlere &amp; webshops</h1><p class="sec-sub" style="margin-top:12px;margin-left:0">Køb direkte, eller find en autoriseret Nybo-partner tæt på dig.</p></div></section>
+
+<section class="hero-scroll" id="heroScroll">
+<header class="hero" id="top">
+  <div class="hero-bgword" data-par="0.6">NÝBO</div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy" id="heroCopy">
+      <div class="eyebrow">Sustainable Workwear · seit 1962</div>
+      <h1>Arbeitskleidung mit <span class="em">Verantwortung</span> — bis in die letzte Naht.</h1>
+      <p class="lead">Entworfen in Dänemark, produziert in unserer eigenen EU-Fabrik. Angenehm zu tragen — die ganze Schicht lang.</p>
+      <div class="hero-proof">
+        <span class="hpill"><b>Dokumentiertes Scope 3</b> · verifizierter CO₂-Fußabdruck</span>
+      </div>
+      <div class="hero-cta">
+        <a href="#shop" class="btn solid">Kollektion shoppen</a>
+        <a href="#kontakt" class="btn ghost">Termin vereinbaren</a>
+        <a href="#baeredygtighed" class="btn ghost">Unsere Verantwortung</a>
+      </div>
+      <p class="cta-note">Vereinbaren Sie einen Termin und erhalten Sie einen <b>kostenlosen Nachhaltigkeits-Check</b> — Antwort innerhalb von 24 Stunden.</p>
+    </div>
+    <div class="hero-visual" id="heroVis">
+      <div class="hero-stage" id="heroStage">
+        <div class="hv-glow" aria-hidden="true"></div>
+        <div class="hv-card" id="hvCard">
+          <img class="hero-photo" src="../hero.jpg" alt="Nybo Arbeitskleidung im Einsatz">
+          <div class="hv-vig" id="heroVig" aria-hidden="true"></div>
+          <div class="hv-band" aria-hidden="true"></div>
+          <div class="hv-sheen" aria-hidden="true"></div>
+          <div class="logo-sting" id="heroLogo" aria-hidden="true"><img src="../logo_concept.png" alt=""></div>
+        </div>
+        <div class="badge-row" id="badgeRow">
+          <div class="badge oeko" data-depth="80"><img src="../c_oeko.png" alt="OEKO-TEX Standard 100"></div>
+          <div class="badge" data-depth="80"><img src="../c_ecolabel.png" alt="EU Ecolabel"></div>
+          <div class="badge" data-depth="80"><img src="../c_gruner.png" alt="Grüner Knopf"></div>
+          <div class="badge oeko" data-depth="80"><img src="../c_green.png" alt="OEKO-TEX Made in Green"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scrollcue">Scrollen<div class="dot"></div></div>
+</header>
+</section>
+
+<div class="trust" id="omos">
+  <div class="wrap">
+    <span><b>16</b> europäische Märkte</span><span class="sep">/</span>
+    <span>Eigene <b>EU-Produktion</b></span><span class="sep">/</span>
+    <span><b>AAA</b> Bonitätsbewertung</span><span class="sep">/</span>
+    <span><b>EU Ecolabel</b> · Grüner Knopf · OEKO-TEX · Made in Green</span><span class="sep">/</span>
+    <span><b>DPP</b>-ready vor 2027</span>
+  </div>
+</div>
+
+<section class="press" id="presse">
+  <div class="wrap">
+    <div class="press-head">
+      <div class="sec-eyebrow eyebrow">Anerkannt in der Branche</div>
+      <h2 class="sec-title">Bekannt aus der Fachpresse — von der Küche bis zur Klinik</h2>
+      <p class="sec-sub">Nybo Arbeitskleidung auf den Titelseiten der Fachmagazine, die unsere Kunden lesen.</p>
+    </div>
+  </div>
+  <div class="press-marquee" aria-label="Magazin-Cover mit Nybo Arbeitskleidung">
+    <div class="press-track">
+      <figure class="mag"><img src="../mag_chef.jpg" alt="Chef. — Performance tastes better" loading="lazy"><figcaption>Chef.</figcaption></figure>
+      <figure class="mag"><img src="../mag_dagensmedicin.jpg" alt="Dagens Medicin — Bessere Arbeitstage, bessere Patientenversorgung" loading="lazy"><figcaption>Dagens Medicin</figcaption></figure>
+      <figure class="mag"><img src="../mag_dyrlaeger.jpg" alt="Praktiserende Dyrlæger — Für die Tiere" loading="lazy"><figcaption>Praktiserende Dyrlæger</figcaption></figure>
+      <figure class="mag"><img src="../mag_tandlaege.jpg" alt="Tandlægebladet — Fokus auf das Wesentliche" loading="lazy"><figcaption>Tandlægebladet</figcaption></figure>
+      <figure class="mag"><img src="../mag_focus.jpg" alt="Focus — Mehr Zeit für das Wesentliche" loading="lazy"><figcaption>Focus</figcaption></figure>
+      <figure class="mag"><img src="../mag_hotelrestaurant.jpg" alt="Hotel &amp; Restaurant — People create great experiences" loading="lazy"><figcaption>Hotel &amp; Restaurant</figcaption></figure>
+      <figure class="mag"><img src="../mag_labtimes.jpg" alt="LabTimes — Für eine sauberere Zukunft" loading="lazy"><figcaption>LabTimes</figcaption></figure>
+      <figure class="mag"><img src="../mag_buildinggreen.jpg" alt="Building Green — Built for a cleaner tomorrow" loading="lazy"><figcaption>Building Green</figcaption></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_chef.jpg" alt="" loading="lazy"></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_dagensmedicin.jpg" alt="" loading="lazy"></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_dyrlaeger.jpg" alt="" loading="lazy"></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_tandlaege.jpg" alt="" loading="lazy"></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_focus.jpg" alt="" loading="lazy"></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_hotelrestaurant.jpg" alt="" loading="lazy"></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_labtimes.jpg" alt="" loading="lazy"></figure>
+      <figure class="mag" aria-hidden="true"><img src="../mag_buildinggreen.jpg" alt="" loading="lazy"></figure>
+    </div>
+  </div>
+  <div class="wrap press-names"><span>Chef.</span><span>Dagens Medicin</span><span>Praktiserende Dyrlæger</span><span>Tandlægebladet</span><span>Focus</span><span>Hotel &amp; Restaurant</span><span>LabTimes</span><span>Building Green</span></div>
+</section>
+
+<section class="blk gallery" id="produkter">
+  <div class="wrap">
+    <div class="sec-eyebrow eyebrow">Komfort-Stretch trifft dokumentierte Verantwortung</div>
+    <h2 class="sec-title">4-Wege-Stretch. Kompromissloser Komfort. Echte Nachhaltigkeit.</h2>
+    <p class="sec-sub">Wo Bewegungsfreiheit auf verifizierte Umweltverantwortung trifft — ein Feld, das niemand sonst besetzt. Gemacht für Pflege, Gesundheit und Gastronomie.</p>
+    <div class="gwrap"><div class="gstage" id="gstage">
+      <div class="gcard" data-i="0" data-depth="0.6">
+        <img src="../p_stretch.jpg" alt="Multi-Stretch-Arbeitshose Sporty T800">
+        <div class="gc"><div class="tagrow"><span class="pill">4-Wege-Stretch</span><span class="pill eco">OEKO-TEX</span></div>
+          <h3>Sporty T800</h3><p>Flexible Multi-Stretch-Hose mit verstellbarer Länge und ergonomischen Taschen.</p></div>
+        <div class="g-sheen" aria-hidden="true"></div>
+      </div>
+      <div class="gcard" data-i="1" data-depth="1">
+        <img src="../p_charisma.jpg" alt="Charisma Premium Kasack TENCEL">
+        <div class="gc"><div class="tagrow"><span class="pill">TENCEL™ Lyocell</span><span class="pill eco">EU Ecolabel</span></div>
+          <h3>Charisma Premium</h3><p>Temperaturregulierender Kasack aus TENCEL™ — designorientierter Komfort für die Pflege.</p></div>
+        <div class="g-sheen" aria-hidden="true"></div>
+      </div>
+      <div class="gcard" data-i="2" data-depth="0.75">
+        <img src="../p_chef.jpg" alt="Kochjacke Taste">
+        <div class="gc"><div class="tagrow"><span class="pill">Gastronomie</span><span class="pill eco">Made in Green</span></div>
+          <h3>Kochjacke Taste</h3><p>Funktionale Unisex-Kochjacke — industriewäschetauglich, gemacht für lebhafte Küchen.</p></div>
+        <div class="g-sheen" aria-hidden="true"></div>
+      </div>
+    </div></div>
+  </div>
+</section>
+
+<section class="blk stretch-sec" id="stretch">
+  <div class="wrap" style="text-align:center">
+    <div class="sec-eyebrow eyebrow" style="justify-content:center">4-Wege-Stretch</div>
+    <h2 class="sec-title" style="margin-left:auto;margin-right:auto">Dehnt sich in alle Richtungen</h2>
+    <p class="sec-sub" style="margin:8px auto 0">Kette und Schuss dehnen sich in beide Richtungen — der Stoff folgt dem Körper, nicht umgekehrt.</p>
+    <div class="stretch-stage" id="stretchStage">
+      <canvas id="fabricCanvas"></canvas>
+      <div class="clamp" id="clU">↑</div>
+      <div class="clamp" id="clD">↓</div>
+      <div class="clamp" id="clL">←</div>
+      <div class="clamp" id="clR">→</div>
+    </div>
+    <p class="stretch-slogan" id="stretchSlogan">Bewegt sich mit Ihnen — <b>bei jeder einzelnen Bewegung.</b></p>
+  </div>
+</section>
+
+<section class="blk" id="baeredygtighed">
+  <div class="wrap sustain-grid">
+    <div data-par="0.04">
+      <div class="sec-eyebrow eyebrow">Dokumentierte Verantwortung entlang der gesamten Wertschöpfungskette</div>
+      <h2 class="sec-title">Nachhaltigkeit, die Sie belegen können — nicht nur behaupten.</h2>
+      <p class="sec-sub">Die eigene EU-Produktion gibt Kontrolle und Rückverfolgbarkeit. Die Zertifizierungen sind keine Dekoration — sie sind die Dokumentation, die Einkäufer und Ausschreibungen verlangen.</p>
+      <div class="certrow">
+        <div class="cert"><img src="../c_ecolabel.jpg" alt="EU Ecolabel">EU Ecolabel</div>
+        <div class="cert"><img src="../c_gruner.jpg" alt="Grüner Knopf">Grüner Knopf</div>
+        <div class="cert"><img src="../c_oeko.jpg" alt="OEKO-TEX Standard 100">Standard 100</div>
+        <div class="cert"><img src="../c_green.jpg" alt="OEKO-TEX Made in Green">Made in Green</div>
+      </div>
+    </div>
+    <div class="sustain3d"><div class="sustain-frame" id="sustainFrame"><img class="sustain-photo" id="sustainImg" src="../esg.jpg" alt="Grünere Beschaffung bei Nybo"><div class="hv-vig" id="sustainVig" aria-hidden="true"></div><div class="logo-sting" id="sustainLogo" aria-hidden="true"><img src="../logo_concept.png" alt=""></div></div></div>
+  </div>
+  <div class="wrap" style="margin-top:56px">
+    <div class="scope3">
+      <div><div class="eyebrow" style="color:var(--green)">Für Einkauf &amp; ESG</div>
+        <h3 style="margin-top:8px">Ihr Scope 3 — dokumentiert</h3></div>
+      <p>Arbeitskleidung ist Teil Ihres Scope 3. Unsere zertifizierten, rückverfolgbaren Produkte und die DPP-Bereitschaft liefern die Dokumentation, die Ihr ESG-Reporting verlangt — damit die nachhaltige Wahl auch die einfache ist.</p>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:56px">
+    <h3 style="font-size:1.6rem;margin-bottom:6px">10 Wege zu umweltfreundlicherer Arbeitskleidung</h3>
+    <p class="sec-sub" style="margin-bottom:8px">Nybos zehn konkrete Tipps für eine umweltfreundlichere Beschaffung von Arbeitskleidung — kleine Entscheidungen, große Wirkung.</p>
+    <div class="tenlist">
+      <div class="row"><span class="n">01</span><span>Wählen Sie Kleidung, die oft getragen werden kann – und tragen Sie sie lange.</span></div>
+      <div class="row"><span class="n">02</span><span>Fordern Sie Reparatur statt Austausch.</span></div>
+      <div class="row"><span class="n">03</span><span>Kaufen Sie nur die Textilien, die wirklich gebraucht werden.</span></div>
+      <div class="row"><span class="n">04</span><span>Wählen Sie Textilien in hellen Farben.</span></div>
+      <div class="row"><span class="n">05</span><span>Bieten Sie den Nutzern weniger Auswahl.</span></div>
+      <div class="row"><span class="n">06</span><span>Wählen Sie Textilien aus umweltfreundlicheren Fasern.</span></div>
+      <div class="row"><span class="n">07</span><span>Wählen Sie Textilien mit dem richtigen Mix an Zertifizierungen — Produkt (OEKO-TEX Standard 100), Produktion (OEKO-TEX STeP) und Marke (Grüner Knopf).</span></div>
+      <div class="row"><span class="n">08</span><span>Verzichten Sie auf Logos auf der Kleidung.</span></div>
+      <div class="row"><span class="n">09</span><span>Wählen Sie Kleidung mit möglichst wenig Zubehör.</span></div>
+      <div class="row"><span class="n">10</span><span>Stellen Sie Anforderungen an das Umweltengagement Ihres Lieferanten.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk gallery" id="brancher">
+  <div class="wrap">
+    <div class="sec-eyebrow eyebrow">Gemacht für alle, die sie den ganzen Tag tragen</div>
+    <h2 class="sec-title">Branchen</h2>
+    <div class="segs">
+      <div class="seg s1" data-depth="24"><div class="s"><h3>Pflege &amp; Gesundheit</h3><p>Komfort, der die ganze Schicht hält — und dokumentierte Verantwortung für die Ausschreibung.</p></div></div>
+      <div class="seg s2" data-depth="40"><div class="s"><h3>Gastronomie</h3><p>Designorientierte Koch- und Servicekollektionen, die dem Tempo der Küche standhalten.</p></div></div>
+      <div class="seg s3" data-depth="56"><div class="s"><h3>Service &amp; Gewerbe</h3><p>Funktionale, strapazierfähige Arbeitskleidung mit Platz für Ihre Identität.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk proof" id="proof">
+  <div class="wrap">
+    <div class="sec-eyebrow eyebrow" style="color:#E8B84B">Andere sagen es besser als wir selbst</div>
+    <h2 class="sec-title">Vertrauen, gebaut auf Belegen</h2>
+    <div class="quotes">
+      <div class="q"><div class="stars">★★★★★</div><p>„Das Personal will sie tatsächlich tragen. Der Komfort ist spürbar, und die Haltbarkeit in der Industriewäsche ist erstklassig.“</p><div class="who">Einkaufsleitung · Pflegesektor</div></div>
+      <div class="q"><div class="stars">★★★★★</div><p>„Endlich ein Lieferant, der Nachhaltigkeit dokumentieren kann — das zählt direkt in unseren Ausschreibungen.“</p><div class="who">Textilservice · DE</div></div>
+      <div class="q"><div class="stars">★★★★★</div><p>„Das Design hebt sich von klassischer Arbeitskleidung ab, ohne Kompromisse bei der Funktion.“</p><div class="who">Küchenchef · Hotel</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="kataloger">
+  <div class="wrap">
+    <div class="sec-eyebrow eyebrow">Kollektionen &amp; Downloads</div>
+    <h2 class="sec-title">Kataloge</h2>
+    <p class="sec-sub">Blättern Sie in den Kollektionen oder laden Sie Katalog und Nachhaltigkeitsdokumentation als PDF herunter.</p>
+    <div class="catgrid">
+      <div class="catcard" id="cat-health"><img src="../cat_health.jpg" alt="Katalog Pflege &amp; Gesundheit"><div class="cb"><h3>Pflege &amp; Gesundheit</h3><p>Designorientierte Arbeitskleidung für Klinik, Pflege und Reinigung.</p><a href="#">Katalog ansehen →</a></div></div>
+      <div class="catcard" id="cat-horeca"><img src="../cat_horeca.jpg" alt="Katalog Gastronomie"><div class="cb"><h3>Gastronomie · HoReCa</h3><p>Koch- und Servicebekleidung für Restaurant, Hotel und Café.</p><a href="#">Katalog ansehen →</a></div></div>
+      <div class="catcard" id="cat-main"><img src="../cat_main.jpg" alt="Hauptkatalog"><div class="cb"><h3>Hauptkatalog</h3><p>Das gesamte Nybo-Sortiment an einem Ort.</p><a href="#">Katalog ansehen →</a></div></div>
+      <div class="catcard" id="cat-esg"><img src="../esg.jpg" alt="Nachhaltigkeitsbroschüre"><div class="cb"><h3>Nachhaltigkeitsbroschüre</h3><p>ESG-Strategie, Ziele und Dokumentation — für Ihre Ausschreibung und Ihr Scope 3.</p><a href="#">PDF herunterladen →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="blk" id="faq">
+  <div class="wrap">
+    <div class="sec-eyebrow eyebrow">Häufig gestellte Fragen</div>
+    <h2 class="sec-title">Fragen &amp; Antworten</h2>
+    <div class="faqlist">
+      <div class="faqitem"><button class="faqq">Kann ich direkt online kaufen oder muss ich über einen Händler gehen?<span class="pl">+</span></button><div class="faqa"><p>Beides. In neuen und kleineren Märkten kaufen Sie direkt im Webshop; in Märkten mit starken lokalen Händlern können Sie direkt kaufen oder Ihren nächsten Partner finden. Die Richtpreise bleiben auf dem Niveau der Händler, damit niemand unterboten wird.</p></div></div>
+      <div class="faqitem"><button class="faqq">Wie nachhaltig sind die Produkte — und können Sie das belegen?<span class="pl">+</span></button><div class="faqa"><p>Ja. Die Produkte sind nach EU Ecolabel, Grüner Knopf, OEKO-TEX STeP und Made in Green zertifiziert, und wir sind bereit für den digitalen Produktpass (DPP). Wir liefern die Dokumentation für Ihr ESG- und Scope-3-Reporting.</p></div></div>
+      <div class="faqitem"><button class="faqq">Ist die Kleidung industriewäschetauglich?<span class="pl">+</span></button><div class="faqa"><p>Ja. Die Kollektionen sind für die Industriewäsche (EN ISO 15797) entwickelt — für lange Lebensdauer und einen geringen Fußabdruck pro Nutzung.</p></div></div>
+      <div class="faqitem"><button class="faqq">Können wir Logo und Profildruck bekommen?<span class="pl">+</span></button><div class="faqa"><p>Ja — wir bieten professionelle Stickerei und Druck, damit Sie die Arbeitskleidung mit Ihrer eigenen Identität versehen können.</p></div></div>
+      <div class="faqitem"><button class="faqq">Unterstützen Sie größere Organisationen bei Ausschreibungen und ESG-Anforderungen?<span class="pl">+</span></button><div class="faqa"><p>Ja. Wir unterstützen öffentliche und private Ausschreibungen mit dokumentierter Nachhaltigkeit, Rückverfolgbarkeit und Beratung zu Scope 3.</p></div></div>
+    </div>
+  </div>
+</section>
+
 <section class="blk gallery" id="forhandler">
   <div class="wrap">
-    <div class="sec-eyebrow eyebrow">100 autoriserede forhandlere i 11 lande</div>
-    <h2 class="sec-title">Find forhandler</h2>
-    <p class="sec-sub">Køb online hos en webshop-partner, eller find din nærmeste autoriserede Nybo-forhandler.</p>
-    <h3 style="margin-top:44px;font-size:1.35rem">Shop online</h3>
+    <div class="sec-eyebrow eyebrow">100 autorisierte Händler in 11 Ländern</div>
+    <h2 class="sec-title">Händler finden</h2>
+    <p class="sec-sub">Kaufen Sie online bei einem Webshop-Partner oder finden Sie Ihren nächsten autorisierten Nybo-Händler.</p>
+    <h3 style="margin-top:44px;font-size:1.35rem">Online shoppen</h3>
     <div class="shopgrid">
-      <div class="shopcard"><div class="cc">Danmark</div>
+      <div class="shopcard"><div class="cc">Dänemark</div>
         <a href="https://arbejdstoj.com/nybo-workwear" target="_blank" rel="noopener">Arbejdstøj.com</a>
         <a href="https://www.imagewear.dk/se-vores-brands/nybo-arbejdstoej" target="_blank" rel="noopener">Imagewear.dk</a>
         <a href="https://www.color4care.dk/brands/nybo-workwear" target="_blank" rel="noopener">Color4care.dk</a>
         <a href="https://billig-arbejdstoj.dk/maerker/nybo-workwear" target="_blank" rel="noopener">Billig-arbejdstøj.dk</a></div>
-      <div class="shopcard"><div class="cc">Sverige</div>
+      <div class="shopcard"><div class="cc">Schweden</div>
         <a href="https://www.arbetskladerna.se/nybo-workwear" target="_blank" rel="noopener">Arbetskladerna.se</a>
         <a href="https://swedwear.se/nybo-workwear" target="_blank" rel="noopener">Swedwear.se</a>
         <a href="https://www.vardvaskan.se/brands/nybo-workwear" target="_blank" rel="noopener">Vårdväskan.se</a>
         <a href="https://teamworkwear.se/varumarken/nybo-workwear" target="_blank" rel="noopener">Team Workwear</a></div>
-      <div class="shopcard"><div class="cc">Norge &amp; Finland</div>
+      <div class="shopcard"><div class="cc">Norwegen &amp; Finnland</div>
         <a href="https://www.color4care.no/brands/nybo-workwear" target="_blank" rel="noopener">Color4care.no</a>
         <a href="https://www.color4care.fi/brands/nybo-workwear" target="_blank" rel="noopener">Color4care.fi</a>
         <a href="https://www.tyovaatetori.fi/nybo-workwear" target="_blank" rel="noopener">Työvaatetori.fi</a></div>
-      <div class="shopcard"><div class="cc">Tyskland</div>
+      <div class="shopcard"><div class="cc">Deutschland</div>
         <a href="https://guenstige-arbeitskleidung.de/marken/nybo-workwear" target="_blank" rel="noopener">Günstige-Arbeitskleidung</a>
         <a href="https://www.berufskleidung24.de/marken/nybo/" target="_blank" rel="noopener">Berufskleidung24.de</a>
         <a href="https://www.bruns-berufsmode.de/nybo/" target="_blank" rel="noopener">Bruns Berufsmode</a></div>
@@ -1400,74 +1388,367 @@ nav .logo{height:58px}
         <a href="https://workwear.online/nybo-workwear" target="_blank" rel="noopener">Workwear.online</a>
         <a href="https://cheap-workwear.com/brands/nybo-workwear" target="_blank" rel="noopener">Cheap-workwear.com</a></div>
     </div>
-    <h3 style="margin-top:48px;font-size:1.35rem">100 autoriserede forhandlere i 11 lande</h3>
-    <p class="sec-sub" style="margin:6px 0 0">Klik på et land eller en forhandler for at zoome ind på kortet — alle med adresse, telefon og e-mail.</p>
-    <div class="dchips" id="dchips"><button type="button" class="dchip active" data-c="">Alle lande <span>100</span></button><button type="button" class="dchip" data-c="Denmark">Danmark <span>31</span></button><button type="button" class="dchip" data-c="Sweden">Sverige <span>25</span></button><button type="button" class="dchip" data-c="Norway">Norge <span>14</span></button><button type="button" class="dchip" data-c="Germany">Tyskland <span>19</span></button><button type="button" class="dchip" data-c="Austria">Østrig <span>3</span></button><button type="button" class="dchip" data-c="Switzerland">Schweiz <span>1</span></button><button type="button" class="dchip" data-c="Belgium">Belgien <span>2</span></button><button type="button" class="dchip" data-c="Finland">Finland <span>1</span></button><button type="button" class="dchip" data-c="Faroe Islands">Færøerne <span>1</span></button><button type="button" class="dchip" data-c="Greenland">Grønland <span>2</span></button><button type="button" class="dchip" data-c="United Kingdom">Storbritannien <span>1</span></button></div>
-    <div id="dealerMap" role="region" aria-label="Kort over Nybo-forhandlere"></div>
-    <div class="dealgrid" id="dealgrid"><div class="dealcol" data-c="Denmark"><h4>Danmark <span class="cnt">31</span></h4><ul><li class="dl" data-i="0"><b>Imagewear</b> <span>· </span></li><li class="dl" data-i="1"><b>twoday</b> <span>· </span></li><li class="dl" data-i="2"><b>SJEB Aalborg</b> <span>· Aalborg</span></li><li class="dl" data-i="3"><b>Profil Design Trading ApS</b> <span>· Billund</span></li><li class="dl" data-i="4"><b>SJEB Brøndby</b> <span>· Brøndby</span></li><li class="dl" data-i="5"><b>Profil Design Trading ApS</b> <span>· Fredericia</span></li><li class="dl" data-i="6"><b>Frontline</b> <span>· Herning</span></li><li class="dl" data-i="7"><b>SJEB Hillerød</b> <span>· Hillerød</span></li><li class="dl" data-i="8"><b>SJEB Hjørring</b> <span>· Hjørring</span></li><li class="dl" data-i="9"><b>NDO Supply A/S</b> <span>· Hobro</span></li><li class="dl" data-i="10"><b>SJEB Horsens</b> <span>· Horsens</span></li><li class="dl" data-i="11"><b>Bacher Work Wear A/S</b> <span>· Kastrup</span></li><li class="dl" data-i="12"><b>SJEB Køge</b> <span>· Køge</span></li><li class="dl" data-i="13"><b>Poul A Erhvervsbeklædning A/S</b> <span>· Nykøbing M</span></li><li class="dl" data-i="14"><b>Bacher Work Wear A/S</b> <span>· Odense</span></li><li class="dl" data-i="15"><b>SJEB Odense</b> <span>· Odense</span></li><li class="dl" data-i="16"><b>CUSTOMIZE PLUS SIMONSEN</b> <span>· Randers SØ</span></li><li class="dl" data-i="17"><b>Statur</b> <span>· Roskilde</span></li><li class="dl" data-i="18"><b>Bygma Rønne</b> <span>· Rønne</span></li><li class="dl" data-i="19"><b>SJEB Rønnede</b> <span>· Rønnede</span></li><li class="dl" data-i="20"><b>Danlyx Firmatøj Skive</b> <span>· Skive</span></li><li class="dl" data-i="21"><b>Profil Design Trading ApS</b> <span>· Skjern</span></li><li class="dl" data-i="22"><b>Otto Johansen Erhvervsbeklædning A/S</b> <span>· Slagelse</span></li><li class="dl" data-i="23"><b>Billig-arbejdstøj.dk</b> <span>· Spjald</span></li><li class="dl" data-i="24"><b>Mr. Arthur</b> <span>· Struer</span></li><li class="dl" data-i="25"><b>Sun Design</b> <span>· Sunds</span></li><li class="dl" data-i="26"><b>Profil Design Trading ApS</b> <span>· Vejle</span></li><li class="dl" data-i="27"><b>Tøjeksperten Erhverv</b> <span>· Vejle</span></li><li class="dl" data-i="28"><b>Danlyx Firmatøj Viborg</b> <span>· Viborg</span></li><li class="dl" data-i="29"><b>Bacher Work Wear A/S</b> <span>· Viby</span></li><li class="dl" data-i="30"><b>SJEB Vordingborg</b> <span>· Vordingborg</span></li></ul></div><div class="dealcol" data-c="Sweden"><h4>Sverige <span class="cnt">25</span></h4><ul><li class="dl" data-i="31"><b>Entrématta</b> <span>· Avesta</span></li><li class="dl" data-i="32"><b>Bixz Yrkeskläder &amp; Företagsprofilering AB</b> <span>· Boden</span></li><li class="dl" data-i="33"><b>Arbetsklädshuset AKH AB</b> <span>· Bromma</span></li><li class="dl" data-i="34"><b>Lindahls Yrkeskläder AB</b> <span>· Emmaboda</span></li><li class="dl" data-i="35"><b>Vårdväskan AB</b> <span>· Falkenberg</span></li><li class="dl" data-i="36"><b>Deltab Profilplagg AB</b> <span>· Gävle</span></li><li class="dl" data-i="37"><b>TRM Tranding</b> <span>· Hisings Backa</span></li><li class="dl" data-i="38"><b>Hudikprofil AB</b> <span>· Hudiksvall</span></li><li class="dl" data-i="39"><b>Nejdefelts Yrkes och Profilkläder</b> <span>· Johanneshov</span></li><li class="dl" data-i="40"><b>Mercus Yrkeskläder AB</b> <span>· Jönköping</span></li><li class="dl" data-i="41"><b>RC Reklam</b> <span>· Karlskrona</span></li><li class="dl" data-i="42"><b>TRM Workwear</b> <span>· Kungsbacka</span></li><li class="dl" data-i="43"><b>Arbetsklädshuset AKH AB</b> <span>· Landskrona</span></li><li class="dl" data-i="44"><b>Göran Rydén Förs</b> <span>· Lindköping</span></li><li class="dl" data-i="45"><b>Profa Skyddsprodukter AB</b> <span>· Lund</span></li><li class="dl" data-i="46"><b>Pirat Reklam AB</b> <span>· Nyköping</span></li><li class="dl" data-i="47"><b>Idépoolen i Pitea AB</b> <span>· Piteå</span></li><li class="dl" data-i="48"><b>Arbetsklädshuset AKH AB</b> <span>· Stockholm</span></li><li class="dl" data-i="49"><b>Billiga-arbetskläder</b> <span>· Trelleborg</span></li><li class="dl" data-i="50"><b>Invite AB</b> <span>· Trosa</span></li><li class="dl" data-i="51"><b>Jobline Umeå AB</b> <span>· Umeå</span></li><li class="dl" data-i="52"><b>Arbetsklädshuset AKH AB</b> <span>· Uppsala</span></li><li class="dl" data-i="53"><b>Arbetsklädshuset AKH AB</b> <span>· Västerås</span></li><li class="dl" data-i="54"><b>Fanhulstvätten AB</b> <span>· Älmhult</span></li><li class="dl" data-i="55"><b>Örebro Yrkeskläder AB</b> <span>· Örebro</span></li></ul></div><div class="dealcol" data-c="Norway"><h4>Norge <span class="cnt">14</span></h4><ul><li class="dl" data-i="56"><b>Skovly Engros AS</b> <span>· Flatåsen</span></li><li class="dl" data-i="57"><b>Tekstil-Vask AS</b> <span>· Haugesund</span></li><li class="dl" data-i="58"><b>Smart Profil Trondheim AS</b> <span>· Heimdal</span></li><li class="dl" data-i="59"><b>Premiere-Produkter AS</b> <span>· Hundvåg-Stavanger</span></li><li class="dl" data-i="60"><b>Skovly Engros AS</b> <span>· Kongsvinger</span></li><li class="dl" data-i="61"><b>NORHAND INDUSTRI AS</b> <span>· Nordheimsund</span></li><li class="dl" data-i="62"><b>Arnestad Storkjøkken AS</b> <span>· Oslo</span></li><li class="dl" data-i="63"><b>Billige-arbeidsklær.no</b> <span>· Oslo</span></li><li class="dl" data-i="64"><b>Servicio AS</b> <span>· Oslo</span></li><li class="dl" data-i="65"><b>Lindrup Martinsen</b> <span>· Tromsø</span></li><li class="dl" data-i="66"><b>NorEngros Markedshuset AS</b> <span>· Tromsø</span></li><li class="dl" data-i="67"><b>Kokkejakker.no AS</b> <span>· Verdal</span></li><li class="dl" data-i="68"><b>A Oksnes AS</b> <span>· Ålesund</span></li><li class="dl" data-i="69"><b>Beauty Product Thorsen AS</b> <span>· Ås</span></li></ul></div><div class="dealcol" data-c="Germany"><h4>Tyskland <span class="cnt">19</span></h4><ul><li class="dl" data-i="70"><b>Günstige-Arbeitskleidung</b> <span>· </span></li><li class="dl" data-i="71"><b>Reisinger Premium Workwear</b> <span>· Altusried</span></li><li class="dl" data-i="72"><b>Lochmann Berufskleidung GmbH</b> <span>· Backnang</span></li><li class="dl" data-i="73"><b>Berufskleidung24.de GmbH</b> <span>· Bad Urach</span></li><li class="dl" data-i="74"><b>Poggensee Berufsbekleidungsvertrieb GmbH</b> <span>· Bargfeld-Stegen</span></li><li class="dl" data-i="75"><b>Rita Rochlitz Arbeitsschutz</b> <span>· Groß Godems</span></li><li class="dl" data-i="76"><b>HOFSOMMER Hamburg Berufskleidung &amp; Mehr</b> <span>· Hamburg</span></li><li class="dl" data-i="77"><b>TextilWUDI</b> <span>· Hettenshausen</span></li><li class="dl" data-i="78"><b>Hirschtex Heland u. Hickmann GbR</b> <span>· Koblenz</span></li><li class="dl" data-i="79"><b>Männel Health Care Support &amp; DSS GmbH</b> <span>· Kraichtal</span></li><li class="dl" data-i="80"><b>RHEINTEX-Textile Kompetenz für Hotel &amp; Gastronimie</b> <span>· Köln</span></li><li class="dl" data-i="81"><b>Ernst Hilsenbeck GmbH</b> <span>· Laichingen</span></li><li class="dl" data-i="82"><b>Berufskleidung Baum</b> <span>· Landau</span></li><li class="dl" data-i="83"><b>Kurtenbach GmbH &amp; Co. KG</b> <span>· Limburg</span></li><li class="dl" data-i="84"><b>acp collection GmbH</b> <span>· München</span></li><li class="dl" data-i="85"><b>Jürgen Bohnenstengel HIT</b> <span>· Nürnberg</span></li><li class="dl" data-i="86"><b>Bruns Berufmode GmbH &amp; Co. KG</b> <span>· Oldenburg</span></li><li class="dl" data-i="87"><b>Arbeitsschutz u. Berufbekleidung Bischkopf GmbH</b> <span>· Rastatt</span></li><li class="dl" data-i="88"><b>Praxiswaesche.de</b> <span>· Sassenberg</span></li></ul></div><div class="dealcol" data-c="Austria"><h4>Østrig <span class="cnt">3</span></h4><ul><li class="dl" data-i="89"><b>Shiefer Berufsmode GmbH</b> <span>· Linz</span></li><li class="dl" data-i="90"><b>Hospital-Textil Handelsgesellschaft mbH</b> <span>· Marchtrenk</span></li><li class="dl" data-i="91"><b>Der Walter Berufskleidung GmbH</b> <span>· Wien</span></li></ul></div><div class="dealcol" data-c="Switzerland"><h4>Schweiz <span class="cnt">1</span></h4><ul><li class="dl" data-i="92"><b>Oehrli AG Schürzen + Brufsmode</b> <span>· Emmenbrücke</span></li></ul></div><div class="dealcol" data-c="Belgium"><h4>Belgien <span class="cnt">2</span></h4><ul><li class="dl" data-i="93"><b>Van Herck B.V.B.A</b> <span>· Geel</span></li><li class="dl" data-i="94"><b>BAKK Werkkledij bvba</b> <span>· Lier</span></li></ul></div><div class="dealcol" data-c="Finland"><h4>Finland <span class="cnt">1</span></h4><ul><li class="dl" data-i="95"><b>Comforta Oy</b> <span>· Kajanni</span></li></ul></div><div class="dealcol" data-c="Faroe Islands"><h4>Færøerne <span class="cnt">1</span></h4><ul><li class="dl" data-i="96"><b>Kemilux</b> <span>· Tórshavn</span></li></ul></div><div class="dealcol" data-c="Greenland"><h4>Grønland <span class="cnt">2</span></h4><ul><li class="dl" data-i="97"><b>Handelsselskabet H.J. A/S</b> <span>· Give</span></li><li class="dl" data-i="98"><b>NDO Supply A/S</b> <span>· Hobro</span></li></ul></div><div class="dealcol" data-c="United Kingdom"><h4>Storbritannien <span class="cnt">1</span></h4><ul><li class="dl" data-i="99"><b>Cheap-workwear</b> <span>· </span></li></ul></div></div>
-    <p class="dealnote">Kan du ikke finde en forhandler tæt på dig? Kontakt os — så finder vi den rette partner.</p>
+    <h3 style="margin-top:48px;font-size:1.35rem">100 autorisierte Händler in 11 Ländern</h3>
+    <p class="sec-sub" style="margin:6px 0 0">Klicken Sie auf ein Land oder einen Händler, um in die Karte zu zoomen — alle mit Adresse, Telefon und E-Mail.</p>
+    <div class="dchips" id="dchips"><button type="button" class="dchip active" data-c="">Alle Länder <span>100</span></button><button type="button" class="dchip" data-c="Denmark">Dänemark <span>31</span></button><button type="button" class="dchip" data-c="Sweden">Schweden <span>25</span></button><button type="button" class="dchip" data-c="Norway">Norwegen <span>14</span></button><button type="button" class="dchip" data-c="Germany">Deutschland <span>19</span></button><button type="button" class="dchip" data-c="Austria">Österreich <span>3</span></button><button type="button" class="dchip" data-c="Switzerland">Schweiz <span>1</span></button><button type="button" class="dchip" data-c="Belgium">Belgien <span>2</span></button><button type="button" class="dchip" data-c="Finland">Finnland <span>1</span></button><button type="button" class="dchip" data-c="Faroe Islands">Färöer <span>1</span></button><button type="button" class="dchip" data-c="Greenland">Grönland <span>2</span></button><button type="button" class="dchip" data-c="United Kingdom">Großbritannien <span>1</span></button></div>
+    <div id="dealerMap" role="region" aria-label="Karte der Nybo-Händler"></div>
+    <div class="dealgrid" id="dealgrid"><div class="dealcol" data-c="Denmark"><h4>Dänemark <span class="cnt">31</span></h4><ul><li class="dl" data-i="0"><b>Imagewear</b> <span>· </span></li><li class="dl" data-i="1"><b>twoday</b> <span>· </span></li><li class="dl" data-i="2"><b>SJEB Aalborg</b> <span>· Aalborg</span></li><li class="dl" data-i="3"><b>Profil Design Trading ApS</b> <span>· Billund</span></li><li class="dl" data-i="4"><b>SJEB Brøndby</b> <span>· Brøndby</span></li><li class="dl" data-i="5"><b>Profil Design Trading ApS</b> <span>· Fredericia</span></li><li class="dl" data-i="6"><b>Frontline</b> <span>· Herning</span></li><li class="dl" data-i="7"><b>SJEB Hillerød</b> <span>· Hillerød</span></li><li class="dl" data-i="8"><b>SJEB Hjørring</b> <span>· Hjørring</span></li><li class="dl" data-i="9"><b>NDO Supply A/S</b> <span>· Hobro</span></li><li class="dl" data-i="10"><b>SJEB Horsens</b> <span>· Horsens</span></li><li class="dl" data-i="11"><b>Bacher Work Wear A/S</b> <span>· Kastrup</span></li><li class="dl" data-i="12"><b>SJEB Køge</b> <span>· Køge</span></li><li class="dl" data-i="13"><b>Poul A Erhvervsbeklædning A/S</b> <span>· Nykøbing M</span></li><li class="dl" data-i="14"><b>Bacher Work Wear A/S</b> <span>· Odense</span></li><li class="dl" data-i="15"><b>SJEB Odense</b> <span>· Odense</span></li><li class="dl" data-i="16"><b>CUSTOMIZE PLUS SIMONSEN</b> <span>· Randers SØ</span></li><li class="dl" data-i="17"><b>Statur</b> <span>· Roskilde</span></li><li class="dl" data-i="18"><b>Bygma Rønne</b> <span>· Rønne</span></li><li class="dl" data-i="19"><b>SJEB Rønnede</b> <span>· Rønnede</span></li><li class="dl" data-i="20"><b>Danlyx Firmatøj Skive</b> <span>· Skive</span></li><li class="dl" data-i="21"><b>Profil Design Trading ApS</b> <span>· Skjern</span></li><li class="dl" data-i="22"><b>Otto Johansen Erhvervsbeklædning A/S</b> <span>· Slagelse</span></li><li class="dl" data-i="23"><b>Billig-arbejdstøj.dk</b> <span>· Spjald</span></li><li class="dl" data-i="24"><b>Mr. Arthur</b> <span>· Struer</span></li><li class="dl" data-i="25"><b>Sun Design</b> <span>· Sunds</span></li><li class="dl" data-i="26"><b>Profil Design Trading ApS</b> <span>· Vejle</span></li><li class="dl" data-i="27"><b>Tøjeksperten Erhverv</b> <span>· Vejle</span></li><li class="dl" data-i="28"><b>Danlyx Firmatøj Viborg</b> <span>· Viborg</span></li><li class="dl" data-i="29"><b>Bacher Work Wear A/S</b> <span>· Viby</span></li><li class="dl" data-i="30"><b>SJEB Vordingborg</b> <span>· Vordingborg</span></li></ul></div><div class="dealcol" data-c="Sweden"><h4>Schweden <span class="cnt">25</span></h4><ul><li class="dl" data-i="31"><b>Entrématta</b> <span>· Avesta</span></li><li class="dl" data-i="32"><b>Bixz Yrkeskläder &amp; Företagsprofilering AB</b> <span>· Boden</span></li><li class="dl" data-i="33"><b>Arbetsklädshuset AKH AB</b> <span>· Bromma</span></li><li class="dl" data-i="34"><b>Lindahls Yrkeskläder AB</b> <span>· Emmaboda</span></li><li class="dl" data-i="35"><b>Vårdväskan AB</b> <span>· Falkenberg</span></li><li class="dl" data-i="36"><b>Deltab Profilplagg AB</b> <span>· Gävle</span></li><li class="dl" data-i="37"><b>TRM Tranding</b> <span>· Hisings Backa</span></li><li class="dl" data-i="38"><b>Hudikprofil AB</b> <span>· Hudiksvall</span></li><li class="dl" data-i="39"><b>Nejdefelts Yrkes och Profilkläder</b> <span>· Johanneshov</span></li><li class="dl" data-i="40"><b>Mercus Yrkeskläder AB</b> <span>· Jönköping</span></li><li class="dl" data-i="41"><b>RC Reklam</b> <span>· Karlskrona</span></li><li class="dl" data-i="42"><b>TRM Workwear</b> <span>· Kungsbacka</span></li><li class="dl" data-i="43"><b>Arbetsklädshuset AKH AB</b> <span>· Landskrona</span></li><li class="dl" data-i="44"><b>Göran Rydén Förs</b> <span>· Lindköping</span></li><li class="dl" data-i="45"><b>Profa Skyddsprodukter AB</b> <span>· Lund</span></li><li class="dl" data-i="46"><b>Pirat Reklam AB</b> <span>· Nyköping</span></li><li class="dl" data-i="47"><b>Idépoolen i Pitea AB</b> <span>· Piteå</span></li><li class="dl" data-i="48"><b>Arbetsklädshuset AKH AB</b> <span>· Stockholm</span></li><li class="dl" data-i="49"><b>Billiga-arbetskläder</b> <span>· Trelleborg</span></li><li class="dl" data-i="50"><b>Invite AB</b> <span>· Trosa</span></li><li class="dl" data-i="51"><b>Jobline Umeå AB</b> <span>· Umeå</span></li><li class="dl" data-i="52"><b>Arbetsklädshuset AKH AB</b> <span>· Uppsala</span></li><li class="dl" data-i="53"><b>Arbetsklädshuset AKH AB</b> <span>· Västerås</span></li><li class="dl" data-i="54"><b>Fanhulstvätten AB</b> <span>· Älmhult</span></li><li class="dl" data-i="55"><b>Örebro Yrkeskläder AB</b> <span>· Örebro</span></li></ul></div><div class="dealcol" data-c="Norway"><h4>Norwegen <span class="cnt">14</span></h4><ul><li class="dl" data-i="56"><b>Skovly Engros AS</b> <span>· Flatåsen</span></li><li class="dl" data-i="57"><b>Tekstil-Vask AS</b> <span>· Haugesund</span></li><li class="dl" data-i="58"><b>Smart Profil Trondheim AS</b> <span>· Heimdal</span></li><li class="dl" data-i="59"><b>Premiere-Produkter AS</b> <span>· Hundvåg-Stavanger</span></li><li class="dl" data-i="60"><b>Skovly Engros AS</b> <span>· Kongsvinger</span></li><li class="dl" data-i="61"><b>NORHAND INDUSTRI AS</b> <span>· Nordheimsund</span></li><li class="dl" data-i="62"><b>Arnestad Storkjøkken AS</b> <span>· Oslo</span></li><li class="dl" data-i="63"><b>Billige-arbeidsklær.no</b> <span>· Oslo</span></li><li class="dl" data-i="64"><b>Servicio AS</b> <span>· Oslo</span></li><li class="dl" data-i="65"><b>Lindrup Martinsen</b> <span>· Tromsø</span></li><li class="dl" data-i="66"><b>NorEngros Markedshuset AS</b> <span>· Tromsø</span></li><li class="dl" data-i="67"><b>Kokkejakker.no AS</b> <span>· Verdal</span></li><li class="dl" data-i="68"><b>A Oksnes AS</b> <span>· Ålesund</span></li><li class="dl" data-i="69"><b>Beauty Product Thorsen AS</b> <span>· Ås</span></li></ul></div><div class="dealcol" data-c="Germany"><h4>Deutschland <span class="cnt">19</span></h4><ul><li class="dl" data-i="70"><b>Günstige-Arbeitskleidung</b> <span>· </span></li><li class="dl" data-i="71"><b>Reisinger Premium Workwear</b> <span>· Altusried</span></li><li class="dl" data-i="72"><b>Lochmann Berufskleidung GmbH</b> <span>· Backnang</span></li><li class="dl" data-i="73"><b>Berufskleidung24.de GmbH</b> <span>· Bad Urach</span></li><li class="dl" data-i="74"><b>Poggensee Berufsbekleidungsvertrieb GmbH</b> <span>· Bargfeld-Stegen</span></li><li class="dl" data-i="75"><b>Rita Rochlitz Arbeitsschutz</b> <span>· Groß Godems</span></li><li class="dl" data-i="76"><b>HOFSOMMER Hamburg Berufskleidung &amp; Mehr</b> <span>· Hamburg</span></li><li class="dl" data-i="77"><b>TextilWUDI</b> <span>· Hettenshausen</span></li><li class="dl" data-i="78"><b>Hirschtex Heland u. Hickmann GbR</b> <span>· Koblenz</span></li><li class="dl" data-i="79"><b>Männel Health Care Support &amp; DSS GmbH</b> <span>· Kraichtal</span></li><li class="dl" data-i="80"><b>RHEINTEX-Textile Kompetenz für Hotel &amp; Gastronimie</b> <span>· Köln</span></li><li class="dl" data-i="81"><b>Ernst Hilsenbeck GmbH</b> <span>· Laichingen</span></li><li class="dl" data-i="82"><b>Berufskleidung Baum</b> <span>· Landau</span></li><li class="dl" data-i="83"><b>Kurtenbach GmbH &amp; Co. KG</b> <span>· Limburg</span></li><li class="dl" data-i="84"><b>acp collection GmbH</b> <span>· München</span></li><li class="dl" data-i="85"><b>Jürgen Bohnenstengel HIT</b> <span>· Nürnberg</span></li><li class="dl" data-i="86"><b>Bruns Berufmode GmbH &amp; Co. KG</b> <span>· Oldenburg</span></li><li class="dl" data-i="87"><b>Arbeitsschutz u. Berufbekleidung Bischkopf GmbH</b> <span>· Rastatt</span></li><li class="dl" data-i="88"><b>Praxiswaesche.de</b> <span>· Sassenberg</span></li></ul></div><div class="dealcol" data-c="Austria"><h4>Österreich <span class="cnt">3</span></h4><ul><li class="dl" data-i="89"><b>Shiefer Berufsmode GmbH</b> <span>· Linz</span></li><li class="dl" data-i="90"><b>Hospital-Textil Handelsgesellschaft mbH</b> <span>· Marchtrenk</span></li><li class="dl" data-i="91"><b>Der Walter Berufskleidung GmbH</b> <span>· Wien</span></li></ul></div><div class="dealcol" data-c="Switzerland"><h4>Schweiz <span class="cnt">1</span></h4><ul><li class="dl" data-i="92"><b>Oehrli AG Schürzen + Brufsmode</b> <span>· Emmenbrücke</span></li></ul></div><div class="dealcol" data-c="Belgium"><h4>Belgien <span class="cnt">2</span></h4><ul><li class="dl" data-i="93"><b>Van Herck B.V.B.A</b> <span>· Geel</span></li><li class="dl" data-i="94"><b>BAKK Werkkledij bvba</b> <span>· Lier</span></li></ul></div><div class="dealcol" data-c="Finland"><h4>Finnland <span class="cnt">1</span></h4><ul><li class="dl" data-i="95"><b>Comforta Oy</b> <span>· Kajanni</span></li></ul></div><div class="dealcol" data-c="Faroe Islands"><h4>Färöer <span class="cnt">1</span></h4><ul><li class="dl" data-i="96"><b>Kemilux</b> <span>· Tórshavn</span></li></ul></div><div class="dealcol" data-c="Greenland"><h4>Grönland <span class="cnt">2</span></h4><ul><li class="dl" data-i="97"><b>Handelsselskabet H.J. A/S</b> <span>· Give</span></li><li class="dl" data-i="98"><b>NDO Supply A/S</b> <span>· Hobro</span></li></ul></div><div class="dealcol" data-c="United Kingdom"><h4>Großbritannien <span class="cnt">1</span></h4><ul><li class="dl" data-i="99"><b>Cheap-workwear</b> <span>· </span></li></ul></div></div>
+    <p class="dealnote">Keinen Händler in Ihrer Nähe gefunden? Kontaktieren Sie uns — wir finden den richtigen Partner.</p>
     <script id="dealerData" type="application/json">[{"name": "Imagewear", "address": "Vagtelvænget 20", "city": "", "zip": "Assens", "country": "Denmark", "phone": "", "email": "info@imagewear.dk", "lat": 55.27532, "lng": 9.91241}, {"name": "twoday", "address": "", "city": "", "zip": "", "country": "Denmark", "phone": "", "email": "morten.christensen@twoday.com", "lat": 0.0, "lng": 0.0}, {"name": "SJEB Aalborg", "address": "Håndværkervej 16", "city": "Aalborg", "zip": "9000", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 57.0320198, "lng": 9.9233548}, {"name": "Profil Design Trading ApS", "address": "Montanavej 9", "city": "Billund", "zip": "7190", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "allan@profiltrading.dk", "lat": 55.73814, "lng": 9.0926}, {"name": "SJEB Brøndby", "address": "Søndre Ringvej 35A", "city": "Brøndby", "zip": "2605", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.65814, "lng": 12.3895981}, {"name": "Profil Design Trading ApS", "address": "Snaremosevej 23F", "city": "Fredericia", "zip": "7000", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "Allan@profiltrading.dk", "lat": 55.54238, "lng": 9.69289}, {"name": "Frontline", "address": "Silkeborgvej 14", "city": "Herning", "zip": "7400", "country": "Denmark", "phone": "+45 97269841", "email": "info@frontline.dk", "lat": 56.1348693062, "lng": 8.9853797265}, {"name": "SJEB Hillerød", "address": "Askvang 3", "city": "Hillerød", "zip": "3400", "country": "Denmark", "phone": "", "email": "info@sjeb.dk", "lat": 55.9273419, "lng": 12.2641976}, {"name": "SJEB Hjørring", "address": "Egholmvej 1A", "city": "Hjørring", "zip": "9800", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 57.4524619, "lng": 10.0192291}, {"name": "NDO Supply A/S", "address": "Skovbovej 34", "city": "Hobro", "zip": "9500", "country": "Denmark", "phone": "98544566", "email": "post@ndosupply.dk", "lat": 56.65931, "lng": 9.89171}, {"name": "SJEB Horsens", "address": "Hattingvej 7b", "city": "Horsens", "zip": "8700", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.86151, "lng": 9.81843}, {"name": "Bacher Work Wear A/S", "address": "Kirstinehøj 5", "city": "Kastrup", "zip": "2770", "country": "Denmark", "phone": "+45 32505200", "email": "salg@bacher.com", "lat": 55.6142621062, "lng": 12.6183107978}, {"name": "SJEB Køge", "address": "Unionsvej 10", "city": "Køge", "zip": "4600", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.5012454, "lng": 12.1934752}, {"name": "Poul A Erhvervsbeklædning A/S", "address": "Toftegade 24", "city": "Nykøbing M", "zip": "7900", "country": "Denmark", "phone": "97725922", "email": "poulaerhverv@mors.dk", "lat": 56.794178, "lng": 8.858846}, {"name": "Bacher Work Wear A/S", "address": "Blangstedgårdsvej 66A", "city": "Odense", "zip": "5220", "country": "Denmark", "phone": "32505200", "email": "salg@bacher.dk", "lat": 55.38603, "lng": 10.4428}, {"name": "SJEB Odense", "address": "Tarupvej 53", "city": "Odense", "zip": "5210", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.4134994, "lng": 10.340705}, {"name": "CUSTOMIZE PLUS SIMONSEN", "address": "Udbyhøjvej 146", "city": "Randers SØ", "zip": "8930", "country": "Denmark", "phone": "42909022", "email": "kontakt@c-ps.dk", "lat": 56.47176, "lng": 10.06692}, {"name": "Statur", "address": "Flengsager 22", "city": "Roskilde", "zip": "4000", "country": "Denmark", "phone": "2826 0755", "email": "tp@statur.dk", "lat": 55.63386, "lng": 12.03069}, {"name": "Bygma Rønne", "address": "Zahrtmannsvej 67", "city": "Rønne", "zip": "3700", "country": "Denmark", "phone": "", "email": "roenne@bygma.dk", "lat": 55.0970466, "lng": 14.7078811}, {"name": "SJEB Rønnede", "address": "Industrivej 72", "city": "Rønnede", "zip": "4683", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.256961, "lng": 12.024125}, {"name": "Danlyx Firmatøj Skive", "address": "Jegstrupvej 4 L-M", "city": "Skive", "zip": "7800", "country": "Denmark", "phone": "60519331", "email": "danlyx@danlyx.dk", "lat": 56.54067, "lng": 9.04996}, {"name": "Profil Design Trading ApS", "address": "Bredgade 13A", "city": "Skjern", "zip": "6900", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "allan@profiltrading.dk", "lat": 55.94463, "lng": 8.49606}, {"name": "Otto Johansen Erhvervsbeklædning A/S", "address": "Marievangsvej 48", "city": "Slagelse", "zip": "4200", "country": "Denmark", "phone": "", "email": "erhverv@otto-johansen.dk", "lat": 55.39964, "lng": 11.330872}, {"name": "Billig-arbejdstøj.dk", "address": "Ølstrupvej 2A", "city": "Spjald", "zip": "6971", "country": "Denmark", "phone": "96742030", "email": "info@billig-arbejdstoj.dk", "lat": 56.11978, "lng": 8.5018}, {"name": "Mr. Arthur", "address": "Østergade 23", "city": "Struer", "zip": "7600", "country": "Denmark", "phone": "9785 0025", "email": "kundeservice@mr.dk", "lat": 56.49189, "lng": 8.59496}, {"name": "Sun Design", "address": "Genvejen 11", "city": "Sunds", "zip": "7451", "country": "Denmark", "phone": "97142200", "email": "post@sundesign.dk", "lat": 56.20028, "lng": 9.01489}, {"name": "Profil Design Trading ApS", "address": "Bugattivej 9", "city": "Vejle", "zip": "7100", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "Allan@profiltrading.dk", "lat": 55.67194, "lng": 9.58759}, {"name": "Tøjeksperten Erhverv", "address": "Valdemar Poulsensvej 1", "city": "Vejle", "zip": "7100", "country": "Denmark", "phone": "72349000", "email": "erhverv@tojeksperten.dk", "lat": 55.72292, "lng": 9.56739}, {"name": "Danlyx Firmatøj Viborg", "address": "Livøvej 35", "city": "Viborg", "zip": "8800", "country": "Denmark", "phone": "4444 0402", "email": "danlyx@danlyx.dk", "lat": 56.45121, "lng": 9.36834}, {"name": "Bacher Work Wear A/S", "address": "Jens Juuls Vej 16", "city": "Viby", "zip": "8260", "country": "Denmark", "phone": "3250 5200", "email": "salg@bacher.dk", "lat": 56.11301, "lng": 10.13149}, {"name": "SJEB Vordingborg", "address": "Kamhjulet 1", "city": "Vordingborg", "zip": "4760", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.024948, "lng": 11.890601}, {"name": "Entrématta", "address": "Prästgatan 50", "city": "Avesta", "zip": "77435", "country": "Sweden", "phone": "+46 70 595 77 17", "email": "robert@entremattan.se", "lat": 60.135796, "lng": 16.160567}, {"name": "Bixz Yrkeskläder & Företagsprofilering AB", "address": "Ugglegatan 10", "city": "Boden", "zip": "96173", "country": "Sweden", "phone": "+46 921 153 60", "email": "rikard@bixz.se", "lat": 65.818241, "lng": 21.706841}, {"name": "Arbetsklädshuset AKH AB", "address": "Ulvsundavägen 146", "city": "Bromma", "zip": "16867", "country": "Sweden", "phone": "+46 825 9290", "email": "britt-marie.öberg@akh.nu", "lat": 59.349672, "lng": 17.957101}, {"name": "Lindahls Yrkeskläder AB", "address": "Stenvägen 6", "city": "Emmaboda", "zip": "36131", "country": "Sweden", "phone": "+46 70 84 87 23", "email": "asa@lindahlsyrkesklader.se", "lat": 56.625297, "lng": 15.550194}, {"name": "Vårdväskan AB", "address": "Oktanvägen 17", "city": "Falkenberg", "zip": "31132", "country": "Sweden", "phone": "+46 346-12212", "email": "support@vardvaskan.se", "lat": 56.90812, "lng": 12.4599}, {"name": "Deltab Profilplagg AB", "address": "Sanmogatan 4", "city": "Gävle", "zip": "80646", "country": "Sweden", "phone": "+46 261 82180", "email": "nils.axner@deltab.se", "lat": 60.706671, "lng": 17.160323}, {"name": "TRM Tranding", "address": "Backa Bergögata 8", "city": "Hisings Backa", "zip": "42246", "country": "Sweden", "phone": "+46 735 0333 73", "email": "Reino@trmworkwear.se", "lat": 57.748091, "lng": 11.998154}, {"name": "Hudikprofil AB", "address": "Norra Industrivägen 3", "city": "Hudiksvall", "zip": "82434", "country": "Sweden", "phone": "+46 650 184 204", "email": "Christer@hudikprofil.se", "lat": 61.744732, "lng": 17.11561}, {"name": "Nejdefelts Yrkes och Profilkläder", "address": "Livdjursgatan 6", "city": "Johanneshov", "zip": "12162", "country": "Sweden", "phone": "+46 8 399 790", "email": "", "lat": 59.292362, "lng": 18.074938}, {"name": "Mercus Yrkeskläder AB", "address": "Kämpvägen 31", "city": "Jönköping", "zip": "55302", "country": "Sweden", "phone": "+46 36 10 01 20", "email": "jonkoping@mercus.se", "lat": 57.76267, "lng": 14.156852}, {"name": "RC Reklam", "address": "Tennv¨ägen 5", "city": "Karlskrona", "zip": "37150", "country": "Sweden", "phone": "+46 734 24 11 60", "email": "paul@rcreklam.se", "lat": 56.218479, "lng": 15.641947}, {"name": "TRM Workwear", "address": "Verkstadsgatan 7", "city": "Kungsbacka", "zip": "43441", "country": "Sweden", "phone": "+46 735 0333 73", "email": "Reino@trmworkwear.se", "lat": 57.47976, "lng": 12.0843}, {"name": "Arbetsklädshuset AKH AB", "address": "Rattvägen 21", "city": "Landskrona", "zip": "26151", "country": "Sweden", "phone": "+46 418 49 04 40", "email": "patrik.larsson@akh.se", "lat": 55.873683, "lng": 12.870496}, {"name": "Göran Rydén Förs", "address": "Stengatan 11", "city": "Lindköping", "zip": "53155", "country": "Sweden", "phone": "+46 510 65110", "email": "", "lat": 58.519351, "lng": 13.121021}, {"name": "Profa Skyddsprodukter AB", "address": "Skiffervägen 80", "city": "Lund", "zip": "22478", "country": "Sweden", "phone": "+46 10 1140", "email": "", "lat": 55.692151, "lng": 13.213724}, {"name": "Pirat Reklam AB", "address": "Kungshagsvägen 5", "city": "Nyköping", "zip": "61135", "country": "Sweden", "phone": "+46 155 28 87 44", "email": "sven@piratreklam.se", "lat": 58.745604, "lng": 17.021543}, {"name": "Idépoolen i Pitea AB", "address": "Batterigatan 3", "city": "Piteå", "zip": "94147", "country": "Sweden", "phone": "+46 911 2211 90", "email": "per.pettersson@idepoolen.se", "lat": 65.319218, "lng": 21.440436}, {"name": "Arbetsklädshuset AKH AB", "address": "Heliosgatan 1", "city": "Stockholm", "zip": "12030", "country": "Sweden", "phone": "+46 846 20820", "email": "sanna@akh.nu", "lat": 59.301222, "lng": 18.094706}, {"name": "Billiga-arbetskläder", "address": "Genvägen1", "city": "Trelleborg", "zip": "23162", "country": "Sweden", "phone": "+46410350185", "email": "info@billiga-arbetsklader.se", "lat": 55.38099, "lng": 13.11096}, {"name": "Invite AB", "address": "Industrigatan 25", "city": "Trosa", "zip": "61923", "country": "Sweden", "phone": "+46 156 16861", "email": "kundtjanst@inviteeurope.com", "lat": 58.909632, "lng": 17.55115}, {"name": "Jobline Umeå AB", "address": "Industrivägen 8", "city": "Umeå", "zip": "90130", "country": "Sweden", "phone": "+46 90 13 37 05", "email": "info@joblineume.se", "lat": 63.838103, "lng": 20.239146}, {"name": "Arbetsklädshuset AKH AB", "address": "Björkgatan 71", "city": "Uppsala", "zip": "75320", "country": "Sweden", "phone": "+46 76644 4868", "email": "linus.larson@arbetskladshuset.se", "lat": 59.850247, "lng": 17.66654}, {"name": "Arbetsklädshuset AKH AB", "address": "Isolatorvägen 1", "city": "Västerås", "zip": "72137", "country": "Sweden", "phone": "+46 218 11210", "email": "annie.wiklund@akh.nu", "lat": 59.63928, "lng": 16.556004}, {"name": "Fanhulstvätten AB", "address": "Stålgatan 3", "city": "Älmhult", "zip": "34334", "country": "Sweden", "phone": "+46 0476 155 08", "email": "", "lat": 56.535094, "lng": 14.135064}, {"name": "Örebro Yrkeskläder AB", "address": "Aspholmsvägen 14", "city": "Örebro", "zip": "70227", "country": "Sweden", "phone": "+46 19271241", "email": "", "lat": 59.259463, "lng": 15.186969}, {"name": "Skovly Engros AS", "address": "Øvre Flatåsveg 12", "city": "Flatåsen", "zip": "7079", "country": "Norway", "phone": "+47 957 84948", "email": "mhoem@skovly.no", "lat": 63.37190620000001, "lng": 10.338462299999946}, {"name": "Tekstil-Vask AS", "address": "Raglamyrvegen 25A", "city": "Haugesund", "zip": "5536", "country": "Norway", "phone": "+47 527 21 854", "email": "post@tekstil-vask.no", "lat": 59.390225, "lng": 5.322801}, {"name": "Smart Profil Trondheim AS", "address": "Kvernildmyra 1", "city": "Heimdal", "zip": "7072", "country": "Norway", "phone": "+47 73 606057", "email": "christine@smartprofil.no", "lat": 63.336049, "lng": 10.368392}, {"name": "Premiere-Produkter AS", "address": "Austbøsletta 6", "city": "Hundvåg-Stavanger", "zip": "4085", "country": "Norway", "phone": "+47 95255402", "email": "arild@premiere-produkter.no", "lat": 58.993887, "lng": 5.742675}, {"name": "Skovly Engros AS", "address": "Eidskogveien 46B", "city": "Kongsvinger", "zip": "2211", "country": "Norway", "phone": "+47 918 50 951", "email": "ghusebye@skovly.no", "lat": 60.1743504, "lng": 12.01964750000002}, {"name": "NORHAND INDUSTRI AS", "address": "Steindalsvegen 104", "city": "Nordheimsund", "zip": "5600", "country": "Norway", "phone": "+47 99095153", "email": "tk@norhand.no", "lat": 60.370887, "lng": 6.145635}, {"name": "Arnestad Storkjøkken AS", "address": "Professor Birkelandsvei 24 A", "city": "Oslo", "zip": "1081", "country": "Norway", "phone": "+47 23141516", "email": "tore@asas.no", "lat": 59.939007, "lng": 10.878352}, {"name": "Billige-arbeidsklær.no", "address": "C/o Ahtene Vat Service AS", "city": "Oslo", "zip": "0405", "country": "Norway", "phone": "+4723962861", "email": "info@billige-arbeidsklaer.no", "lat": 59.947576, "lng": 10.767693}, {"name": "Servicio AS", "address": "Enebakkveien 117C", "city": "Oslo", "zip": "0680", "country": "Norway", "phone": "+47 97669588", "email": "birgitte@servicio.no", "lat": 59.89873, "lng": 10.797427}, {"name": "Lindrup Martinsen", "address": "Fr. Nansens plass 6", "city": "Tromsø", "zip": "9008", "country": "Norway", "phone": "+47 77603714", "email": "Kristin@lindrupmartinsen.no", "lat": 69.655433, "lng": 18.969158}, {"name": "NorEngros Markedshuset AS", "address": "Strandvegen 106", "city": "Tromsø", "zip": "9006", "country": "Norway", "phone": "(+47) 45691354", "email": "henri.madvig@norengros.no", "lat": 69.6353042, "lng": 18.932255917}, {"name": "Kokkejakker.no AS", "address": "Neptunvegen 2", "city": "Verdal", "zip": "7652", "country": "Norway", "phone": "+47 40886857", "email": "info@kokkejakker.no", "lat": 63.7852167, "lng": 11.4481311}, {"name": "A Oksnes AS", "address": "Røysegata 1", "city": "Ålesund", "zip": "6003", "country": "Norway", "phone": "+47 70 12 10 82", "email": "arne@aoksnes.no", "lat": 62.471307, "lng": 6.162478}, {"name": "Beauty Product Thorsen AS", "address": "Myrveien 17", "city": "Ås", "zip": "1431", "country": "Norway", "phone": "+47 6497 4060", "email": "anne@biovital.no", "lat": 59.671174, "lng": 10.797649}, {"name": "Günstige-Arbeitskleidung", "address": "", "city": "", "zip": "", "country": "Germany", "phone": "+498000009762", "email": "info@guenstige-arbeitskleidung.de", "lat": 51.165691, "lng": 10.451526}, {"name": "Reisinger Premium Workwear", "address": "Hauptstr. 22", "city": "Altusried", "zip": "87452", "country": "Germany", "phone": "08373 2090092", "email": "info@reisinger-workwear.de", "lat": 47.80719, "lng": 10.21021}, {"name": "Lochmann Berufskleidung GmbH", "address": "Sulzenbacher Str. 178", "city": "Backnang", "zip": "71522", "country": "Germany", "phone": "+49 07191 88329", "email": "", "lat": 48.91581, "lng": 9.42818}, {"name": "Berufskleidung24.de GmbH", "address": "Rübteile 18", "city": "Bad Urach", "zip": "72574", "country": "Germany", "phone": "+49 (0)7125 – 3090660", "email": "info@berufskleidung24.de", "lat": 48.48649, "lng": 9.470498}, {"name": "Poggensee Berufsbekleidungsvertrieb GmbH", "address": "Elmenhorster Strasse 4", "city": "Bargfeld-Stegen", "zip": "23863", "country": "Germany", "phone": "", "email": "info@poggensee-berufsbekleidung.de", "lat": 53.76641, "lng": 10.18999}, {"name": "Rita Rochlitz Arbeitsschutz", "address": "Am Ring 8", "city": "Groß Godems", "zip": "19372", "country": "Germany", "phone": "+49 387 258003", "email": "rita.rochlitz@t-online.de", "lat": 53.36482, "lng": 11.79472}, {"name": "HOFSOMMER Hamburg Berufskleidung & Mehr", "address": "Kollaustrasse 185-189", "city": "Hamburg", "zip": "22453", "country": "Germany", "phone": "+49405895-108", "email": "info@berufskleidung-hofsommer.de", "lat": 53.61303, "lng": 9.95243}, {"name": "TextilWUDI", "address": "Logenweg 6a", "city": "Hettenshausen", "zip": "85276", "country": "Germany", "phone": "49 (0) 8441 47090 0", "email": "info@textilwudi.de", "lat": 48.49608, "lng": 11.503863}, {"name": "Hirschtex Heland u. Hickmann GbR", "address": "Emser Strasse 354,", "city": "Koblenz", "zip": "56076", "country": "Germany", "phone": "+49 0261 15640", "email": "", "lat": 50.35655, "lng": 7.59942}, {"name": "Männel Health Care Support & DSS GmbH", "address": "Im Eiselbrunnen 15", "city": "Kraichtal", "zip": "76703", "country": "Germany", "phone": "+49 7251 96480", "email": "info@maennel.de", "lat": 49.14710795, "lng": 8.657257353805475}, {"name": "RHEINTEX-Textile Kompetenz für Hotel & Gastronimie", "address": "Beuelsweg 9", "city": "Köln", "zip": "50733", "country": "Germany", "phone": "+49 221 25 94 3342", "email": "info@rheintex.de", "lat": 50.96224, "lng": 6.95964}, {"name": "Ernst Hilsenbeck GmbH", "address": "Gottlieb-Daimler-Str. 21", "city": "Laichingen", "zip": "89150", "country": "Germany", "phone": "+49 7333 961320", "email": "beatrix.haugk@hilsenbeck.de", "lat": 48.489755, "lng": 9.70438}, {"name": "Berufskleidung Baum", "address": "Max-Planck-Straße 7", "city": "Landau", "zip": "76829", "country": "Germany", "phone": "+49 6341 87545", "email": "info@berufskleidung-baum.de", "lat": 49.18899, "lng": 8.13835}, {"name": "Kurtenbach GmbH & Co. KG", "address": "Am Fleckenberg 2", "city": "Limburg", "zip": "65549", "country": "Germany", "phone": "+49 6431 503 420", "email": "michael.schober@Kurtenbach.de", "lat": 50.403973, "lng": 8.062084}, {"name": "acp collection GmbH", "address": "Fürstenrieder Str. 281", "city": "München", "zip": "81377", "country": "Germany", "phone": "0049 8922 840 0", "email": "office@acpcollection.com", "lat": 48.1085646, "lng": 11.4999928}, {"name": "Jürgen Bohnenstengel HIT", "address": "Gabelsbergerstraße 8", "city": "Nürnberg", "zip": "90459", "country": "Germany", "phone": "0049 911 3766420", "email": "info@imagetextil.de", "lat": 49.4392, "lng": 11.07845}, {"name": "Bruns Berufmode GmbH & Co. KG", "address": "Posthalterweg 17", "city": "Oldenburg", "zip": "26129", "country": "Germany", "phone": "0441 – 7 77 00 81", "email": "info@bruns-berufsmode.de", "lat": 53.16065, "lng": 8.17148}, {"name": "Arbeitsschutz u. Berufbekleidung Bischkopf GmbH", "address": "Dreherstrasse 1", "city": "Rastatt", "zip": "76437", "country": "Germany", "phone": "", "email": "info@bischkopf-gmbh.de", "lat": 48.85746, "lng": 8.20168}, {"name": "Praxiswaesche.de", "address": "Versmolder Straße 1", "city": "Sassenberg", "zip": "48336", "country": "Germany", "phone": "+49 02583-1254", "email": "praxiswaesche@waescherei-rose.de", "lat": 51.9965, "lng": 8.05261}, {"name": "Shiefer Berufsmode GmbH", "address": "", "city": "Linz", "zip": "4020", "country": "Austria", "phone": "+43 7323 30030", "email": "office@schiefer-linz.at", "lat": 48.30067, "lng": 14.29264}, {"name": "Hospital-Textil Handelsgesellschaft mbH", "address": "Albert-Schweitzer-Strasse 7", "city": "Marchtrenk", "zip": "4614", "country": "Austria", "phone": "+43 72 43 52 032 0", "email": "office@hospital-textil.at", "lat": 48.198161, "lng": 14.147581}, {"name": "Der Walter Berufskleidung GmbH", "address": "Landgutgasse 15", "city": "Wien", "zip": "1100", "country": "Austria", "phone": "+43 1604 4231", "email": "office@derwalter.at", "lat": 48.18109, "lng": 16.37659}, {"name": "Oehrli AG Schürzen + Brufsmode", "address": "Schachenstraße 10a", "city": "Emmenbrücke", "zip": "6020", "country": "Switzerland", "phone": "+41 41 4291 090", "email": "info@oehrli-lu.ch", "lat": 47.06807, "lng": 8.28795}, {"name": "Van Herck B.V.B.A", "address": "Gasthuisstraat 46", "city": "Geel", "zip": "2440", "country": "Belgium", "phone": "+32 145 88480", "email": "info@van-herck.be", "lat": 51.159349, "lng": 4.996465}, {"name": "BAKK Werkkledij bvba", "address": "Waversteenweg 120", "city": "Lier", "zip": "2500", "country": "Belgium", "phone": "+32 3489 1622", "email": "info@bakk.be", "lat": 51.123959, "lng": 4.568052}, {"name": "Comforta Oy", "address": "Tehdaskatu 15", "city": "Kajanni", "zip": "87100", "country": "Finland", "phone": "+358201443700", "email": "", "lat": 64.23106, "lng": 27.69689}, {"name": "Kemilux", "address": "Á Hjalla 14", "city": "Tórshavn", "zip": "100", "country": "Faroe Islands", "phone": "+298662000", "email": "kemilux@kemilux.com", "lat": 62.04834, "lng": -6.79566}, {"name": "Handelsselskabet H.J. A/S", "address": "Ryttervangen 13", "city": "Give", "zip": "7323", "country": "Greenland", "phone": "+45 75735826", "email": "", "lat": 64.18141, "lng": -51.694138}, {"name": "NDO Supply A/S", "address": "Skovbovej 34, Valsgård", "city": "Hobro", "zip": "9500", "country": "Greenland", "phone": "+45 98 54 45 66", "email": "lonny@ndosupply.dk", "lat": 61.161978, "lng": -45.432021}, {"name": "Cheap-workwear", "address": "", "city": "", "zip": "", "country": "United Kingdom", "phone": "+45 96 74 20 30", "email": "info@cheap-workwear.com", "lat": 51.507351, "lng": -0.127758}]</script>
+  </div>
+</section>
+
+<section class="blk contact" id="kontakt">
+  <div class="wrap">
+    <div class="sec-eyebrow eyebrow" style="color:#E8B84B">Unverbindlich · Antwort innerhalb von 24 Stunden</div>
+    <h2 class="sec-title">Termin vereinbaren — und einen kostenlosen Nachhaltigkeits-Check erhalten</h2>
+    <p class="contact-lead">Wir prüfen Ihre aktuelle Arbeitskleidung und melden uns mit einem konkreten Plan — bereit für Ihre Ausschreibung oder Beschaffung.</p>
+    <div class="contact-grid">
+      <div class="callcard">
+        <form id="leadForm" novalidate>
+          <label>Ich möchte</label>
+          <select name="intent" required>
+            <option value="">Bitte wählen…</option>
+            <option>einen Termin / Rückruf vereinbaren</option>
+            <option>einen kostenlosen Nachhaltigkeits-Check erhalten</option>
+            <option>einen Katalog anfordern</option>
+            <option>Muster bestellen</option>
+            <option>eine Preisindikation / ein Angebot erhalten</option>
+          </select>
+          <label>Name</label><input name="name" placeholder="Ihr Name" required>
+          <label>Unternehmen</label><input name="company" placeholder="Unternehmen / Einrichtung">
+          <label>Telefon</label><input name="phone" placeholder="+45 ...">
+          <label>E-Mail</label><input type="email" name="email" placeholder="sie@unternehmen.de" required>
+          <label>Nachricht (optional)</label><textarea name="msg" rows="2" placeholder="Z. B. Anzahl Mitarbeitende, Branchen, Zeithorizont"></textarea>
+          <button class="full" type="submit">Senden — Antwort innerhalb von 24 Stunden</button>
+          <p class="formnote">Wir nutzen Ihre Daten ausschließlich, um Sie zu kontaktieren. Kein Spam.</p>
+        </form>
+        <div class="leadok" id="leadOk" hidden>
+          <div class="okmark">✓</div>
+          <h3>Vielen Dank — wir melden uns innerhalb von 24 Stunden.</h3>
+          <p>Eilig? Rufen Sie an: <b>+45 8727 3000</b>.</p>
+        </div>
+      </div>
+      <div class="cinfo">
+        <div class="offerbox">
+          <div class="obh">Das erhalten Sie — innerhalb von 24 Stunden</div>
+          <ul>
+            <li>Dokumentierte <b>Scope 3</b>-Indikation für Ihr Sortiment</li>
+            <li>Vorschläge mit <b>anerkannten Umweltzeichen</b> (EU Ecolabel · Grüner Knopf · OEKO-TEX · Made in Green)</li>
+            <li><b>Komfort-Stretch</b>-Alternativen zu Ihren aktuellen Styles</li>
+            <li><b>Preisindikation</b> — bereit für Ausschreibung oder Beschaffung</li>
+          </ul>
+        </div>
+        <p>Rufen Sie uns an<span class="big">+45 8727 3000</span></p>
+        <p>Schreiben Sie uns<span class="big" style="font-size:1.25rem">info@nybo.com</span></p>
+        <p><b>Nybo Workwear A/S</b><br>Industrivej 24-26 · DK-8800 Viborg<br>Mo–Do 8–16 · Fr 8–15</p>
+        <p>B2B-Kunde? <b>Anmelden</b> für Ihre Nettopreise und Bestellhistorie.</p>
+      </div>
+    </div>
   </div>
 </section>
 
 <section class="cta" id="shop">
   <div class="wrap">
-    <h2>Bestil online — eller find din forhandler</h2>
-    <p>Handl direkte fra fabrikken med fuld sporbarhed, eller få personlig rådgivning hos en autoriseret Nybo-partner.</p>
+    <h2>Online bestellen — oder Händler finden</h2>
+    <p>Kaufen Sie direkt ab Werk mit voller Rückverfolgbarkeit oder lassen Sie sich persönlich von einem autorisierten Nybo-Partner beraten.</p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a href="#" class="btn solid">Gå til webshop</a>
-      <a href="#forhandler" class="btn ghost">Find forhandler</a>
+      <a href="#" class="btn solid">Zum Webshop</a>
+      <a href="#forhandler" class="btn ghost">Händler finden</a>
     </div>
   </div>
 </section>
 
-
 <footer>
   <div class="wrap">
     <div class="foot-top">
-      <div class="foot-col"><h4>Kundeservice</h4>
-        <a href="kataloger.html">Kataloger</a><a href="brancher.html">Broderi og tryk</a>
-        <a href="index.html#">Vaskeanvisninger</a><a href="index.html#">Regler for returvarer</a>
-        <a href="index.html#">Salgs- og leveringsbetingelser</a><a href="index.html#">Cookie politik</a><a href="index.html#">Persondatapolitik</a></div>
-      <div class="foot-col"><h4>Om os</h4>
-        <a href="baeredygtighed.html">Ansvarlighed</a><a href="baeredygtighed.html">10 veje til grønt indkøb</a>
-        <a href="baeredygtighed.html">Certificeringer</a><a href="index.html#">Whistleblower</a><a href="kataloger.html">Bæredygtighedsfolder</a></div>
+      <div class="foot-col"><h4>Kundenservice</h4>
+        <a href="kataloger.html">Kataloge</a><a href="brancher.html">Stickerei und Druck</a>
+        <a href="#">Pflegehinweise</a><a href="#">Rückgabebedingungen</a>
+        <a href="#">Verkaufs- und Lieferbedingungen</a><a href="#">Cookie-Richtlinie</a><a href="#">Datenschutzerklärung</a></div>
+      <div class="foot-col"><h4>Über uns</h4>
+        <a href="baeredygtighed.html">Verantwortung</a><a href="baeredygtighed.html">10 Wege zur grünen Beschaffung</a>
+        <a href="baeredygtighed.html">Zertifizierungen</a><a href="#">Whistleblower</a><a href="kataloger.html">Nachhaltigkeitsbroschüre</a></div>
       <div class="foot-col"><h4>Kontakt</h4>
-        <a href="kontakt.html">Kontakt os</a><a href="find-forhandler.html">Find forhandler</a><a href="index.html#">Impressum / Imprint</a></div>
+        <a href="kontakt.html">Kontaktieren Sie uns</a><a href="find-forhandler.html">Händler finden</a><a href="#">Impressum / Imprint</a></div>
       <div class="foot-aaa">
         <div class="m">AAA<sup>®</sup></div>
-        <small><b>Nybo Workwear A/S</b><br>Højeste kreditværdighed<br>© Dun &amp; Bradstreet 2026</small>
+        <small><b>Nybo Workwear A/S</b><br>Höchste Bonität<br>© Dun &amp; Bradstreet 2026</small>
       </div>
     </div>
-    <div class="foot-bottom">Nybo Workwear A/S · Industrivej 24-26 · DK-8800 Viborg · +45 8727 3000 · <a href="mailto:info@nybo.com">info@nybo.com</a> &nbsp;·&nbsp; <span style="opacity:.7">Koncept-mockup til strategioplæg — ikke et live-site</span></div>
+    <div class="foot-bottom">Nybo Workwear A/S · Industrivej 24-26 · DK-8800 Viborg · +45 8727 3000 · <a href="mailto:info@nybo.com">info@nybo.com</a> &nbsp;·&nbsp; <span style="opacity:.7">Konzept-Mockup für ein Strategiepapier — keine Live-Website</span></div>
   </div>
 </footer>
 <div class="modal" id="b2bModal" aria-hidden="true">
   <div class="box">
-    <button class="x" id="b2bClose" aria-label="Luk">&times;</button>
-    <h3>B2B-login</h3>
-    <p class="lead2">Log ind for at se dine nettopriser, ordrehistorik og forhandler-værktøjer.</p>
-    <label>E-mail</label><input type="email" placeholder="dig@virksomhed.dk">
-    <label>Adgangskode</label><input type="password" placeholder="••••••••">
-    <button class="full">Log ind</button>
-    <div class="alt">Glemt kodeord?&nbsp;&nbsp;·&nbsp;&nbsp;<a href="#">Bliv B2B-kunde</a></div>
+    <button class="x" id="b2bClose" aria-label="Schließen">&times;</button>
+    <h3>B2B-Login</h3>
+    <p class="lead2">Melden Sie sich an, um Ihre Nettopreise, Bestellhistorie und Händler-Tools zu sehen.</p>
+    <label>E-Mail</label><input type="email" placeholder="sie@unternehmen.de">
+    <label>Passwort</label><input type="password" placeholder="••••••••">
+    <button class="full">Anmelden</button>
+    <div class="alt">Passwort vergessen? ·<a href="#">B2B-Kunde werden</a></div>
   </div>
 </div>
-<button class="chatfab" id="chatFab" aria-label="Chat med Nybo-assistenten"><svg class="robot" viewBox="0 0 80 96" aria-hidden="true"><g class="rb-float"><line x1="40" y1="14" x2="40" y2="5" stroke="#36454F" stroke-width="3" stroke-linecap="round"/><circle class="rb-light" cx="40" cy="5" r="4.2" fill="#C20016"/><rect x="18" y="12" width="44" height="34" rx="12" fill="#36454F"/><rect x="24" y="19" width="32" height="20" rx="8" fill="#FAF8F3"/><g class="rb-eyes"><circle cx="34" cy="29" r="3.3" fill="#20201E"/><circle cx="46" cy="29" r="3.3" fill="#20201E"/></g><rect x="36" y="46" width="8" height="5" fill="#36454F"/><rect x="14" y="51" width="52" height="36" rx="12" fill="#36454F"/><rect x="22" y="58" width="36" height="19" rx="5" fill="#FAF8F3"/><text x="40" y="72" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="600" font-size="12.5" letter-spacing=".6" fill="#20201E">N<tspan fill="#C20016">Ý</tspan>BO</text><g class="rb-arm"><rect x="4" y="54" width="9" height="22" rx="4.5" fill="#36454F"/></g><rect x="67" y="54" width="9" height="22" rx="4.5" fill="#36454F"/><rect x="24" y="86" width="12" height="8" rx="3" fill="#36454F"/><rect x="44" y="86" width="12" height="8" rx="3" fill="#36454F"/></g></svg><span class="closex" aria-hidden="true">×</span></button>
-<div class="chatteaser" id="chatTeaser"><b>Hej</b> — Har du spørgsmål?</div>
-<div class="chatpanel" id="chatPanel" role="dialog" aria-label="Nybo AI-assistent">
-  <div class="chathead"><div class="av">N</div><div><b>Nybo-assistent</b><small>AI · svarer med det samme</small></div><button class="cx" id="chatClose" aria-label="Luk">&times;</button></div>
+<button class="chatfab" id="chatFab" aria-label="Mit dem Nybo-Assistenten chatten"><svg class="robot" viewBox="0 0 80 96" aria-hidden="true"><g class="rb-float"><line x1="40" y1="14" x2="40" y2="5" stroke="#36454F" stroke-width="3" stroke-linecap="round"/><circle class="rb-light" cx="40" cy="5" r="4.2" fill="#C20016"/><rect x="18" y="12" width="44" height="34" rx="12" fill="#36454F"/><rect x="24" y="19" width="32" height="20" rx="8" fill="#FAF8F3"/><g class="rb-eyes"><circle cx="34" cy="29" r="3.3" fill="#20201E"/><circle cx="46" cy="29" r="3.3" fill="#20201E"/></g><rect x="36" y="46" width="8" height="5" fill="#36454F"/><rect x="14" y="51" width="52" height="36" rx="12" fill="#36454F"/><rect x="22" y="58" width="36" height="19" rx="5" fill="#FAF8F3"/><text x="40" y="72" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="600" font-size="12.5" letter-spacing=".6" fill="#20201E">N<tspan fill="#C20016">Ý</tspan>BO</text><g class="rb-arm"><rect x="4" y="54" width="9" height="22" rx="4.5" fill="#36454F"/></g><rect x="67" y="54" width="9" height="22" rx="4.5" fill="#36454F"/><rect x="24" y="86" width="12" height="8" rx="3" fill="#36454F"/><rect x="44" y="86" width="12" height="8" rx="3" fill="#36454F"/></g></svg><span class="closex" aria-hidden="true">×</span></button>
+<div class="chatteaser" id="chatTeaser"><b>Hallo</b> — Haben Sie Fragen?</div>
+<div class="chatpanel" id="chatPanel" role="dialog" aria-label="Nybo KI-Assistent">
+  <div class="chathead"><div class="av">N</div><div><b>Nybo-Assistent</b><small>KI · antwortet sofort</small></div><button class="cx" id="chatClose" aria-label="Schließen">&times;</button></div>
   <div class="chatbody" id="chatBody">
-    <div class="msg bot">Hej! Jeg er Nybos AI-assistent. Jeg kan hjælpe med produkter, bæredygtighed, størrelser, forhandlere og din ordre. Hvad kan jeg hjælpe med?</div>
+    <div class="msg bot">Hallo! Ich bin der KI-Assistent von Nybo. Ich helfe bei Produkten, Nachhaltigkeit, Größen, Händlern und Ihrer Bestellung. Womit kann ich helfen?</div>
     <div class="chipsq">
-      <button>Er tøjet bæredygtigt?</button><button>Find en forhandler</button><button>Har I 4-vejs stretch?</button>
+      <button>Ist die Kleidung nachhaltig?</button><button>Händler finden</button><button>Haben Sie 4-Wege-Stretch?</button>
     </div>
   </div>
-  <div class="chatinput"><input id="chatInput" placeholder="Skriv en besked…"><button id="chatSend" aria-label="Send">→</button></div>
+  <div class="chatinput"><input id="chatInput" placeholder="Nachricht schreiben…"><button id="chatSend" aria-label="Senden">→</button></div>
 </div>
 
-
-<script>(function(){var nav=document.getElementById("nav"),head=document.getElementById("head");function os(){var y=window.pageYOffset;if(nav)nav.classList.toggle("scrolled",y>30);if(head)head.classList.toggle("scrolled",y>18);}window.addEventListener("scroll",os,{passive:true});os();})();</script>
+<script>
+(function(){
+  var nav=document.getElementById('nav');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var pars=[].slice.call(document.querySelectorAll('[data-par]'));
+  var heroVis=document.getElementById('heroVis');
+  var heroStage=document.getElementById('heroStage');
+  var hvCard=document.getElementById('hvCard');
+  var heroImg=hvCard?hvCard.querySelector('.hero-photo'):null;
+  var sheen=hvCard?hvCard.querySelector('.hv-sheen'):null;
+  var heroScroll=document.getElementById('heroScroll');
+  var badges=[].slice.call(document.querySelectorAll('.badge'));
+  var segs=[].slice.call(document.querySelectorAll('.seg'));
+  var gstage=document.getElementById('gstage');
+  var gcards=[].slice.call(document.querySelectorAll('.gcard'));
+  var sustainFrame=document.getElementById('sustainFrame');
+  var sustainImg=document.getElementById('sustainImg');
+  var heroLogo=document.getElementById('heroLogo'),sustainLogo=document.getElementById('sustainLogo');
+  var heroCopy=document.getElementById('heroCopy'),heroVig=document.getElementById('heroVig'),sustainVig=document.getElementById('sustainVig');
+  var stStage=document.getElementById('stretchStage'),fabric=document.getElementById('fabric'),slogan=document.getElementById('stretchSlogan');
+  var pullU=document.getElementById('pullU'),pullD=document.getElementById('pullD'),pullL=document.getElementById('pullL'),pullR=document.getElementById('pullR');
+  var mq=window.matchMedia('(max-width:820px)');
+  var mx=0,my=0,tmx=0,tmy=0,pcur=0,ptar=0,gprog=0,sprog=0,stprog=0;
+  if(reduce&&slogan){slogan.style.opacity=1;slogan.style.transform='none';}
+  function onScroll(){
+    var y=window.pageYOffset;
+    nav.classList.toggle('scrolled', y>30);
+    if(reduce) return;
+    if(heroScroll){
+      var track=heroScroll.offsetHeight-window.innerHeight;
+      ptar=track>0 ? Math.min(1,Math.max(0,-heroScroll.getBoundingClientRect().top/track)) : 0;
+    }
+    pars.forEach(function(el){var s=parseFloat(el.getAttribute('data-par'))||0.1;el.style.transform='translateY('+(y*s*-1)+'px)';});
+    segs.forEach(function(el){
+      var r=el.getBoundingClientRect();var prog=(window.innerHeight-r.top)/(window.innerHeight+r.height);
+      prog=Math.max(0,Math.min(1,prog));var d=parseFloat(el.getAttribute('data-depth'))||24;
+      el.style.transform='translateY('+((prog-0.5)*d)+'px)';
+    });
+    if(gstage){
+      var gs=gstage.getBoundingClientRect();
+      gprog=Math.max(0,Math.min(1,(window.innerHeight-gs.top)/(window.innerHeight*0.9)));
+    }
+    if(sustainFrame){
+      var sr=sustainFrame.getBoundingClientRect();
+      sprog=Math.max(0,Math.min(1,(window.innerHeight-sr.top)/(window.innerHeight*0.85)));
+    }
+    if(stStage){
+      var rr=stStage.getBoundingClientRect();
+      stprog=Math.max(0,Math.min(1,(window.innerHeight-rr.top)/(window.innerHeight+rr.height)));
+    }
+  }
+  function onMove(e){
+    if(reduce||mq.matches) return;
+    var w=window.innerWidth,h=window.innerHeight;
+    tmx=(e.clientX/w-0.5)*2; tmy=(e.clientY/h-0.5)*2;
+  }
+  function easeIO(t){return t<0.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;}
+  function raf(){
+    mx+=(tmx-mx)*0.07; my+=(tmy-my)*0.07; pcur+=(ptar-pcur)*0.09;
+    if(!reduce && heroStage){
+      var mob=mq.matches;
+      var p=mob?0.5:pcur, e=easeIO(Math.min(1,Math.max(0,p)));
+      // frame stays fixed — the PHOTO pans & zooms inside it, like a film shot
+      if(heroImg){
+        var hz=mob?1.05:(1.0+e*1.1);             // cinematic push-in: full figure -> face
+        var hy=(0.5-p)*26+(mob?0:-my*2.2);       // vertical pan inside the fixed frame
+        var hx=mob?0:mx*2.2;
+        heroImg.style.transform='translate(calc(-50% + '+hx.toFixed(2)+'%), calc(-50% + '+hy.toFixed(2)+'%)) scale('+hz.toFixed(3)+')';
+      }
+      if(heroVig){heroVig.style.opacity=(mob?0:(1-e)).toFixed(3);}
+      if(sheen){
+        sheen.style.transform='translateX('+(-40+p*160).toFixed(1)+'%)';
+        sheen.style.opacity=(Math.sin(Math.min(1,Math.max(0,p))*Math.PI)*0.42).toFixed(3);
+      }
+      if(heroLogo){var lr=Math.min(1,Math.max(0,(pcur-0.72)/0.26));heroLogo.style.opacity=lr.toFixed(3);heroLogo.style.transform='translate(-50%,-50%) scale('+(0.6+0.4*lr).toFixed(3)+')';}
+      badges.forEach(function(b){var d=parseFloat(b.getAttribute('data-depth'))||60;
+        b.style.transform='translateZ('+d+'px)';});   // badges stay put — only the photo moves inside the frame
+    }
+    if(!reduce){
+      var mob2=mq.matches;
+      if(gcards.length){
+        gcards.forEach(function(c,i){
+          var delay=i*0.12;var t=Math.max(0,Math.min(1,(gprog-delay)/(1-delay)));var te=easeIO(t);
+          var tz=(1-te)*-340, oy=(1-te)*110, rx=(1-te)*18;
+          var dep=parseFloat(c.getAttribute('data-depth'))||0.8;
+          var px=mob2?0:mx*18*dep, py=mob2?0:my*13*dep;
+          c.style.transform='translateZ('+tz.toFixed(1)+'px) translateY('+oy.toFixed(1)+'px) translate3d('+px.toFixed(1)+'px,'+py.toFixed(1)+'px,0) rotateX('+rx.toFixed(2)+'deg)';
+          c.style.opacity=(0.15+0.85*te).toFixed(2);
+          var sh=c.querySelector('.g-sheen'); if(sh){sh.style.transform='translateX('+(-40+t*150).toFixed(1)+'%)';sh.style.opacity=(Math.sin(t*Math.PI)*0.6).toFixed(3);}
+        });
+        if(gstage&&!mob2){gstage.style.transform='rotateX('+(-my*4.5).toFixed(2)+'deg) rotateY('+(mx*5.5).toFixed(2)+'deg)';}
+      }
+      if(sustainImg){
+        var sp=sprog;
+        var szoom=1.0+Math.min(1,Math.max(0,sp))*0.9;      // Ken Burns push-in 1.0 -> 1.9
+        var spanY=(0.5-sp)*36+(mob2?0:-my*2);              // pan inside the fixed frame
+        if(sustainVig){sustainVig.style.opacity=(1-Math.min(1,Math.max(0,sp))).toFixed(3);}
+        var spanX=mob2?0:mx*2;
+        sustainImg.style.transform='translate(calc(-50% + '+spanX.toFixed(2)+'%), calc(-50% + '+spanY.toFixed(2)+'%)) scale('+szoom.toFixed(3)+')';
+        if(sustainLogo){var slr=Math.min(1,Math.max(0,(sp-0.62)/0.3));sustainLogo.style.opacity=slr.toFixed(3);sustainLogo.style.transform='translate(-50%,-50%) scale('+(0.6+0.4*slr).toFixed(3)+')';}
+      }
+      if(fabric){
+        var pull=Math.sin(Math.max(0,Math.min(1,stprog))*Math.PI);
+        var fsx=1+pull*0.36, fsy=1+pull*0.26;
+        var frx=mob2?0:-my*4, fry=mob2?0:mx*6;
+        fabric.style.transform='rotateX('+frx.toFixed(2)+'deg) rotateY('+fry.toFixed(2)+'deg) scale3d('+fsx.toFixed(3)+','+fsy.toFixed(3)+',1)';
+        var off=pull*50, psc=(1+pull*0.18).toFixed(2);
+        if(pullU)pullU.style.transform='translateY('+(-off).toFixed(1)+'px) scale('+psc+')';
+        if(pullD)pullD.style.transform='translateY('+off.toFixed(1)+'px) scale('+psc+')';
+        if(pullL)pullL.style.transform='translateX('+(-off).toFixed(1)+'px) scale('+psc+')';
+        if(pullR)pullR.style.transform='translateX('+off.toFixed(1)+'px) scale('+psc+')';
+        if(slogan){var so=Math.max(0,Math.min(1,(stprog-0.32)/0.26));slogan.style.opacity=so.toFixed(3);slogan.style.transform='translateY('+((1-so)*22).toFixed(1)+'px)';}
+      }
+    }
+    requestAnimationFrame(raf);
+  }
+  if(!reduce && heroScroll){heroScroll.classList.add('pin');}
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('pointermove',onMove,{passive:true});
+  onScroll(); requestAnimationFrame(raf);
+})();
+</script>
+<script>
+/* 4-way stretch — canvas fabric that visibly stretches in all directions on a loop */
+(function(){
+  var cv=document.getElementById('fabricCanvas'); if(!cv) return;
+  var ctx=cv.getContext('2d');
+  var stage=document.getElementById('stretchStage');
+  var clU=document.getElementById('clU'),clD=document.getElementById('clD'),clL=document.getElementById('clL'),clR=document.getElementById('clR');
+  var slogan=document.getElementById('stretchSlogan');
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DPR=Math.min(2,window.devicePixelRatio||1),W=0,H=0;
+  function resize(){W=stage.clientWidth;H=stage.clientHeight;cv.width=W*DPR;cv.height=H*DPR;ctx.setTransform(DPR,0,0,DPR,0,0);}
+  resize(); window.addEventListener('resize',resize);
+  var vis=0;
+  function onScr(){var r=stage.getBoundingClientRect();vis=Math.max(0,Math.min(1,(window.innerHeight-r.top)/(window.innerHeight*0.75)));
+    if(slogan){var so=Math.max(0,Math.min(1,(vis-0.28)/0.3));slogan.style.opacity=so.toFixed(3);slogan.style.transform='translateY('+((1-so)*22).toFixed(1)+'px)';}}
+  window.addEventListener('scroll',onScr,{passive:true}); onScr();
+  function rr(x,y,w,h,r){r=Math.min(r,w/2,h/2);ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+  var t0=performance.now(), lastVisible=true;
+  function frame(now){
+    requestAnimationFrame(frame);
+    if(vis<=0){return;}                              // skip drawing when off-screen
+    var cx=W/2, cy=H/2;
+    ctx.clearRect(0,0,W,H);
+    // pull cycle: stretch out and relax, forever
+    var cyc=(now-t0)/2600;
+    var raw=reduce?0.6:(0.5-0.5*Math.cos(cyc*Math.PI*2));   // 0..1..0
+    var e=raw*raw*(3-2*raw);                                 // smoothstep
+    var baseW=Math.min(W*0.42,300), baseH=Math.min(H*0.52,320);
+    var curW=baseW*(1+e*0.62), curH=baseH*(1+e*0.46);
+    var x=cx-curW/2, y=cy-curH/2, rad=28;
+    // drop shadow
+    ctx.save();ctx.shadowColor='rgba(32,32,30,0.5)';ctx.shadowBlur=60;ctx.shadowOffsetY=34;
+    rr(x,y,curW,curH,rad);ctx.fillStyle='#2a333a';ctx.fill();ctx.restore();
+    // fabric body + knit texture (clipped)
+    ctx.save();rr(x,y,curW,curH,rad);ctx.clip();
+    var g=ctx.createLinearGradient(x,y,x+curW,y+curH);g.addColorStop(0,'#3c4750');g.addColorStop(1,'#222a30');ctx.fillStyle=g;ctx.fillRect(x,y,curW,curH);
+    // knit chevrons — spacing grows with stretch so the weave visibly opens
+    var sx=17*(curW/baseW), sy=13*(curH/baseH);
+    ctx.strokeStyle='rgba(255,255,255,'+(0.12-e*0.04)+')';ctx.lineWidth=1.2;
+    for(var yy=y-sy; yy<y+curH+sy; yy+=sy){ctx.beginPath();
+      for(var xx=x-sx; xx<x+curW+sx; xx+=sx){ctx.moveTo(xx,yy+sy*0.5);ctx.lineTo(xx+sx*0.5,yy);ctx.lineTo(xx+sx,yy+sy*0.5);}
+      ctx.stroke();}
+    // directional tension streaks brighten as it stretches
+    ctx.strokeStyle='rgba(255,255,255,'+(e*0.16)+')';ctx.lineWidth=1.4;
+    ctx.beginPath();for(var i=1;i<5;i++){var ly=y+curH*i/5;ctx.moveTo(x+8,ly);ctx.lineTo(x+curW-8,ly);}ctx.stroke();
+    ctx.restore();
+    // red seam + tension glow
+    ctx.save();rr(x,y,curW,curH,rad);ctx.lineWidth=3+e*3;ctx.strokeStyle='rgba(194,0,22,'+(0.55+e*0.45)+')';ctx.stroke();ctx.restore();
+    // center label
+    ctx.fillStyle='rgba(255,255,255,0.92)';ctx.font='700 13px \"IBM Plex Sans\",system-ui,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+    ctx.fillText('4-WEGE-STRETCH',cx,cy);
+    // clamp handles ride the fabric edges (so you see them pulling it)
+    var gp=14+e*10;
+    if(clU){clU.style.left=cx+'px';clU.style.top=(y-gp)+'px';}
+    if(clD){clD.style.left=cx+'px';clD.style.top=(y+curH+gp)+'px';}
+    if(clL){clL.style.left=(x-gp)+'px';clL.style.top=cy+'px';}
+    if(clR){clR.style.left=(x+curW+gp)+'px';clR.style.top=cy+'px';}
+    // taut lines from clamps into the fabric
+    ctx.strokeStyle='rgba(194,0,22,'+(0.25+e*0.4)+')';ctx.lineWidth=2;ctx.beginPath();
+    ctx.moveTo(cx,y-gp);ctx.lineTo(cx,y); ctx.moveTo(cx,y+curH+gp);ctx.lineTo(cx,y+curH);
+    ctx.moveTo(x-gp,cy);ctx.lineTo(x,cy); ctx.moveTo(x+curW+gp,cy);ctx.lineTo(x+curW,cy);ctx.stroke();
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+<script>
+/* scroll-reveal: sections, headings and cards animate in as they enter view */
+(function(){
+  var sel='.sec-title,.sec-eyebrow,.sec-sub,.cert,.catcard,.shopcard,.dealcard,.scope3,.callcard,.offerbox,.cinfo,.faqitem,.hero-copy .eyebrow,.hero-copy h1,.hero-copy .lead,.hero-proof,.hero-cta,.cta-note';
+  var els=[].slice.call(document.querySelectorAll(sel));
+  if(!els.length) return;
+  els.forEach(function(el){
+    el.classList.add('reveal');
+    var sibs=el.parentNode?[].slice.call(el.parentNode.children).filter(function(c){return c.classList&&c.classList.contains('reveal');}):[el];
+    var idx=sibs.indexOf(el); if(idx>0)el.style.transitionDelay=Math.min(idx,6)*0.08+'s';
+  });
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(el){el.classList.add('in');});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(function(el){io.observe(el);});
+})();
+</script>
+<script>
+/* smooth momentum scrolling — eases the motion while keeping native scroll position (sticky/observers stay intact). Desktop pointer only. */
+(function(){
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=window.matchMedia('(pointer:fine)').matches;
+  if(reduce||!fine) return;
+  var target=window.scrollY||0, cur=target, running=false, self=false;
+  function maxS(){return Math.max(0,(document.documentElement.scrollHeight)-window.innerHeight);}
+  function clamp(v){return Math.max(0,Math.min(maxS(),v));}
+  function loop(){
+    var d=target-cur;
+    if(Math.abs(d)<0.4){cur=target;self=true;window.scrollTo(0,cur);self=false;running=false;return;}
+    cur+=d*0.11; self=true; window.scrollTo(0,cur); self=false;
+    schedule();
+  }
+  // step on the next frame, or on a 32ms timer if frames are being throttled — scrolling must never stall
+  function schedule(){var fired=false;requestAnimationFrame(function(){if(!fired){fired=true;loop();}});setTimeout(function(){if(!fired){fired=true;loop();}},32);}
+  function start(){if(!running){running=true;schedule();}}
+  var dead=false;
+  window.addEventListener('wheel',function(e){
+    if(dead||e.ctrlKey) return;
+    if(e.target&&e.target.closest&&e.target.closest('.chatbody,.langmenu,.chatpanel,.searchbar')) return;
+    e.preventDefault();
+    var dy=e.deltaY; if(e.deltaMode===1)dy*=16; else if(e.deltaMode===2)dy*=window.innerHeight;
+    target=clamp(target+dy); start();
+    var y0=window.scrollY, want=Math.abs(target-cur)>2;
+    setTimeout(function(){ if(want&&Math.abs(window.scrollY-y0)<1){dead=true;} },260);  // safety: if nothing moved, hand scrolling back to the browser
+  },{passive:false});
+  window.addEventListener('keydown',function(e){
+    var t=e.target; if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;
+    var vh=window.innerHeight, s=0;
+    if(e.key==='ArrowDown')s=100;else if(e.key==='ArrowUp')s=-100;
+    else if(e.key==='PageDown'||e.key===' ')s=vh*0.9;else if(e.key==='PageUp')s=-vh*0.9;
+    else if(e.key==='End'){target=maxS();e.preventDefault();start();return;}
+    else if(e.key==='Home'){target=0;e.preventDefault();start();return;}
+    else return;
+    target=clamp(target+s); e.preventDefault(); start();
+  });
+  window.addEventListener('scroll',function(){if(!self&&!running){target=cur=window.scrollY;}},{passive:true});
+  window.addEventListener('resize',function(){target=clamp(target);});
+})();
+</script>
 <script>
 (function(){
   var head=document.getElementById('head');
@@ -1486,6 +1767,15 @@ nav .logo{height:58px}
   document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeM();if(sb)sb.classList.remove('open');if(ls)ls.classList.remove('open');}});
   [].slice.call(document.querySelectorAll('.faqq')).forEach(function(b){b.addEventListener('click',function(){b.parentNode.classList.toggle('open');});});
   [].slice.call(document.querySelectorAll('.menu>li')).forEach(function(li){var a=li.querySelector('a'),m=li.querySelector('.mega');if(m&&a){a.addEventListener('click',function(e){if(window.innerWidth<900){e.preventDefault();li.classList.toggle('open');}});}});
+  // lead form (mockup: validate + show confirmation, no backend)
+  var lf=document.getElementById('leadForm'),lok=document.getElementById('leadOk');
+  if(lf)lf.addEventListener('submit',function(e){e.preventDefault();
+    var ok=true;[].slice.call(lf.querySelectorAll('[required]')).forEach(function(f){
+      if(!f.value.trim()){ok=false;f.style.borderColor='var(--red)';}else{f.style.borderColor='';}});
+    var em=lf.querySelector('[name=email]'); if(em&&em.value&&!/.+@.+\..+/.test(em.value)){ok=false;em.style.borderColor='var(--red)';}
+    if(!ok)return;
+    lf.hidden=true; if(lok)lok.hidden=false;
+  });
 })();
 </script>
 <script>
@@ -1504,53 +1794,19 @@ nav .logo{height:58px}
   setTimeout(function(){if(!panel.classList.contains('open'))teaser.classList.add('show');},2600);
   setTimeout(function(){teaser.classList.remove('show');},13000);
   var replies={
-    'bæredygtig':'Ja! Vores produkter er certificeret under EU Ecolabel, Grüner Knopf, OEKO-TEX STeP og Made in Green — og vi er DPP-klar. Vi leverer også dokumentation til din Scope 3-rapportering.',
-    'forhandler':'Du finder alle vores forhandlere og webshops under "Find forhandler". Fortæl mig dit land, så peger jeg dig videre.',
-    'stretch':'Ja — bl.a. Sporty T800 med 4-vejs stretch og New Gen-serien. Komfort og dokumenteret ansvar i ét.',
-    'pris':'Priser ser du i webshoppen, og B2B-kunder får nettopriser efter login. Skal jeg hjælpe med en B2B-konto?',
-    'størrel':'Vi har detaljerede størrelsesguides på hvert produkt. Fortæl mig hvilken style, så finder jeg guiden.'
+    'nachhaltig':'Ja! Unsere Produkte sind nach EU Ecolabel, Grüner Knopf, OEKO-TEX STeP und Made in Green zertifiziert — und wir sind DPP-ready. Wir liefern auch die Dokumentation für Ihr Scope-3-Reporting.',
+    'händler':'Alle unsere Händler und Webshops finden Sie unter "Händler finden". Nennen Sie mir Ihr Land, dann weise ich Ihnen den Weg.',
+    'stretch':'Ja — u. a. die Sporty T800 mit 4-Wege-Stretch und die New-Gen-Serie. Komfort und dokumentierte Verantwortung in einem.',
+    'preis':'Preise sehen Sie im Webshop; B2B-Kunden erhalten nach der Anmeldung Nettopreise. Soll ich bei einem B2B-Konto helfen?',
+    'größe':'Zu jedem Produkt gibt es detaillierte Größentabellen. Nennen Sie mir den Style, dann finde ich die Tabelle.'
   };
-  function botReply(t){t=t.toLowerCase();var r='Godt spørgsmål! En kollega kan hjælpe med detaljerne — eller book et opkald under Kontakt. (Koncept-demo af assistenten.)';
+  function botReply(t){t=t.toLowerCase();var r='Gute Frage! Ein Kollege hilft gern mit den Details — oder vereinbaren Sie einen Rückruf unter Kontakt. (Konzept-Demo des Assistenten.)';
     for(var k in replies){if(t.indexOf(k)>=0){r=replies[k];break;}} return r;}
   function add(txt,who){var d=document.createElement('div');d.className='msg '+who;d.textContent=txt;body.appendChild(d);body.scrollTop=body.scrollHeight;}
   function ask(txt){if(!txt)return;add(txt,'me');setTimeout(function(){add(botReply(txt),'bot');},480);}
   send.addEventListener('click',function(){var v=inp.value.trim();if(v){ask(v);inp.value='';}});
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'){var v=inp.value.trim();if(v){ask(v);inp.value='';}}});
   [].slice.call(document.querySelectorAll('.chipsq button')).forEach(function(b){b.addEventListener('click',function(){ask(b.textContent);});});
-})();
-</script>
-
-<script>
-(function(){var fb=document.getElementById('filterbar');if(!fb)return;var cards=[].slice.call(document.querySelectorAll('.pcard'));
-function apply(f){[].slice.call(fb.children).forEach(function(x){x.classList.toggle('active',x.getAttribute('data-f')===f);});
-cards.forEach(function(c){c.style.display=(f==='all'||c.getAttribute('data-cat')===f)?'':'none';});}
-fb.addEventListener('click',function(e){var b=e.target.closest('button');if(b)apply(b.getAttribute('data-f'));});
-var h=(location.hash||'').replace('#cat=','');if(h&&fb.querySelector('[data-f="'+h+'"]'))apply(h);
-})();
-</script>
-<script>(function(){var lf=document.getElementById("leadForm"),lok=document.getElementById("leadOk");if(!lf)return;lf.addEventListener("submit",function(e){e.preventDefault();var ok=true;[].slice.call(lf.querySelectorAll("[required]")).forEach(function(f){if(!f.value.trim()){ok=false;f.style.borderColor="var(--red)";}else{f.style.borderColor="";}});var em=lf.querySelector("[name=email]");if(em&&em.value&&!/.+@.+\..+/.test(em.value)){ok=false;em.style.borderColor="var(--red)";}if(!ok)return;lf.hidden=true;if(lok)lok.hidden=false;});})();</script>
-
-<script>
-/* scroll-reveal */
-(function(){var sel='.sec-title,.sec-eyebrow,.sec-sub,.cert,.catcard,.shopcard,.dealcard,.scope3,.callcard,.offerbox,.cinfo,.faqitem,.plisthero .eyebrow,.plisthero h1,.plisthero .sec-sub';var els=[].slice.call(document.querySelectorAll(sel));if(!els.length)return;els.forEach(function(el){el.classList.add("reveal");var sibs=el.parentNode?[].slice.call(el.parentNode.children).filter(function(c){return c.classList&&c.classList.contains("reveal");}):[el];var i=sibs.indexOf(el);if(i>0)el.style.transitionDelay=Math.min(i,6)*0.08+"s";});var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;if(reduce||!("IntersectionObserver" in window)){els.forEach(function(el){el.classList.add("in");});return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{threshold:0.12,rootMargin:"0px 0px -8% 0px"});els.forEach(function(el){io.observe(el);});})();
-</script>
-
-<script>
-/* smooth momentum scrolling */
-(function(){
-  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var fine=window.matchMedia('(pointer:fine)').matches;
-  if(reduce||!fine) return;
-  var target=window.scrollY||0, cur=target, running=false, self=false;
-  function maxS(){return Math.max(0,(document.documentElement.scrollHeight)-window.innerHeight);}
-  function clamp(v){return Math.max(0,Math.min(maxS(),v));}
-  function loop(){var d=target-cur;if(Math.abs(d)<0.4){cur=target;self=true;window.scrollTo(0,cur);self=false;running=false;return;}cur+=d*0.11;self=true;window.scrollTo(0,cur);self=false;schedule();}
-  function schedule(){var fired=false;requestAnimationFrame(function(){if(!fired){fired=true;loop();}});setTimeout(function(){if(!fired){fired=true;loop();}},32);}
-  function start(){if(!running){running=true;schedule();}}
-  var dead=false;window.addEventListener('wheel',function(e){if(dead||e.ctrlKey)return;if(e.target&&e.target.closest&&e.target.closest('.chatbody,.langmenu,.chatpanel,.searchbar'))return;e.preventDefault();var dy=e.deltaY;if(e.deltaMode===1)dy*=16;else if(e.deltaMode===2)dy*=window.innerHeight;target=clamp(target+dy);start();var y0=window.scrollY,want=Math.abs(target-cur)>2;setTimeout(function(){if(want&&Math.abs(window.scrollY-y0)<1){dead=true;}},260);},{passive:false});
-  window.addEventListener('keydown',function(e){var t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.isContentEditable))return;var vh=window.innerHeight,s=0;if(e.key==='ArrowDown')s=100;else if(e.key==='ArrowUp')s=-100;else if(e.key==='PageDown'||e.key===' ')s=vh*0.9;else if(e.key==='PageUp')s=-vh*0.9;else if(e.key==='End'){target=maxS();e.preventDefault();start();return;}else if(e.key==='Home'){target=0;e.preventDefault();start();return;}else return;target=clamp(target+s);e.preventDefault();start();});
-  window.addEventListener('scroll',function(){if(!self&&!running){target=cur=window.scrollY;}},{passive:true});
-  window.addEventListener('resize',function(){target=clamp(target);});
 })();
 </script>
 
