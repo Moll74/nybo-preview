@@ -999,7 +999,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .dchip span{color:var(--muted);font-weight:500;margin-left:4px}.dchip.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}.dchip.active span{color:var(--sand)}
 .dealcol h4 .cnt{font-weight:500;color:var(--muted);font-size:.85em;margin-left:4px}
 .dealcol li.dl{cursor:pointer}.dealcol li.dl:hover b{color:var(--red)}.dealcol li.dl.hit b{color:var(--red)}
-.leaflet-container{font-family:var(--f-b)}.leaflet-popup-content{font-family:var(--f-b);font-size:.9rem;line-height:1.45;margin:12px 16px}.leaflet-popup-content b{font-family:var(--f-d);font-size:1.05rem;display:block;margin-bottom:4px}.leaflet-popup-content-wrapper{border-radius:12px}
+.leaflet-container{font-family:var(--f-b)}.osm-fallback .leaflet-tile{filter:grayscale(.85) brightness(1.06) contrast(.92)}.leaflet-popup-content{font-family:var(--f-b);font-size:.9rem;line-height:1.45;margin:12px 16px}.leaflet-popup-content b{font-family:var(--f-d);font-size:1.05rem;display:block;margin-bottom:4px}.leaflet-popup-content-wrapper{border-radius:12px}
 @media(max-width:820px){#dealerMap{height:380px}}
 </style>
 <style>
@@ -1562,7 +1562,8 @@ var el=document.getElementById("dealerMap"),ds=document.getElementById("dealerDa
 var data=JSON.parse(ds.textContent);var esc=function(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
 if(typeof L==="undefined"){el.style.display="none";return;}
 var map=L.map(el,{scrollWheelZoom:false});
-L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{attribution:"&copy; OpenStreetMap &copy; CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
+var base=L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{attribution:"Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors",maxZoom:16}).addTo(map);
+var fellBack=false;base.on("tileerror",function(){if(fellBack)return;fellBack=true;map.removeLayer(base);el.classList.add("osm-fallback");L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors",maxZoom:19}).addTo(map);});
 var layer=L.layerGroup().addTo(map),markers={},current=null;
 function popup(d){return "<b>"+esc(d.name)+"</b>"+esc(d.address)+"<br>"+esc((d.zip?d.zip+" ":"")+d.city)+", "+esc(d.country)+(d.phone?"<br>Tlf. "+esc(d.phone):"")+(d.email?"<br><a href=\"mailto:"+esc(d.email)+"\">"+esc(d.email)+"</a>":"");}
 function render(country){layer.clearLayers();markers={};var b=[];data.forEach(function(d,i){if(country&&d.country!==country)return;var m=L.circleMarker([d.lat,d.lng],{radius:7,color:"#fff",weight:2,fillColor:"#C20016",fillOpacity:.95}).bindPopup(popup(d));m.addTo(layer);markers[i]=m;b.push([d.lat,d.lng]);});if(b.length)map.fitBounds(b,{padding:[36,36],maxZoom:country?7:5});
