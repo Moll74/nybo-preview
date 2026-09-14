@@ -291,6 +291,7 @@ JS = {
   "'Godt spørgsmål! En kollega kan hjælpe med detaljerne — eller book et opkald under Kontakt. (Koncept-demo af assistenten.)'":
   "'Good question! A colleague can help with the details — or book a call under Contact. (Concept demo of the assistant.)'",
   "'4-VEJS STRETCH'": "'4-WAY STRETCH'",
+  '"<br>Tlf. "': '"<br>Tel. "',
  },
  "de": {
   "'bæredygtig':'Ja! Vores produkter er certificeret under EU Ecolabel, Grüner Knopf, OEKO-TEX STeP og Made in Green — og vi er DPP-klar. Vi leverer også dokumentation til din Scope 3-rapportering.'":
@@ -306,5 +307,6 @@ JS = {
   "'Godt spørgsmål! En kollega kan hjælpe med detaljerne — eller book et opkald under Kontakt. (Koncept-demo af assistenten.)'":
   "'Gute Frage! Ein Kollege hilft gern mit den Details — oder vereinbaren Sie einen Rückruf unter Kontakt. (Konzept-Demo des Assistenten.)'",
   "'4-VEJS STRETCH'": "'4-WEGE-STRETCH'",
+  '"<br>Tlf. "': '"<br>Tel. "',
  },
 }

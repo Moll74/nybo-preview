@@ -1566,7 +1566,7 @@ var map=L.map(el,{scrollWheelZoom:false});
 var base=L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",{attribution:"Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors",maxZoom:16}).addTo(map);
 var fellBack=false;base.on("tileerror",function(){if(fellBack)return;fellBack=true;map.removeLayer(base);el.classList.add("osm-fallback");L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png",{attribution:"&copy; OpenStreetMap contributors",maxZoom:19}).addTo(map);});
 var layer=L.layerGroup().addTo(map),markers={},current=null;
-function popup(d){return "<b>"+esc(d.name)+"</b>"+esc(d.address)+"<br>"+esc((d.zip?d.zip+" ":"")+d.city)+", "+esc(d.country)+(d.phone?"<br>Tlf. "+esc(d.phone):"")+(d.email?"<br><a href=\"mailto:"+esc(d.email)+"\">"+esc(d.email)+"</a>":"");}
+function popup(d){return "<b>"+esc(d.name)+"</b>"+esc(d.address)+"<br>"+esc((d.zip?d.zip+" ":"")+d.city)+", "+esc(d.country)+(d.phone?"<br>Tel. "+esc(d.phone):"")+(d.email?"<br><a href=\"mailto:"+esc(d.email)+"\">"+esc(d.email)+"</a>":"");}
 function render(country){layer.clearLayers();markers={};var b=[];data.forEach(function(d,i){if(country&&d.country!==country)return;var m=L.circleMarker([d.lat,d.lng],{radius:7,color:"#fff",weight:2,fillColor:"#C20016",fillOpacity:.95}).bindPopup(popup(d));m.addTo(layer);markers[i]=m;b.push([d.lat,d.lng]);});if(b.length)map.fitBounds(b,{padding:[36,36],maxZoom:country?7:5});
  [].slice.call(document.querySelectorAll("#dealgrid .dealcol")).forEach(function(c){c.style.display=(!country||c.getAttribute("data-c")===country)?"":"none";});}
 render(null);
