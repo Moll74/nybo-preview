@@ -386,6 +386,678 @@ nav .logo{height:86px}
 @media(max-width:820px){.tenlist{grid-template-columns:1fr}}
 
 .catcard{scroll-margin-top:150px}
+
+/* dealer map */
+/* required styles */
+
+.leaflet-pane,
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-tile-container,
+.leaflet-pane > svg,
+.leaflet-pane > canvas,
+.leaflet-zoom-box,
+.leaflet-image-layer,
+.leaflet-layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+.leaflet-container {
+	overflow: hidden;
+	}
+.leaflet-tile,
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
+	  -webkit-user-drag: none;
+	}
+/* Prevents IE11 from highlighting tiles in blue */
+.leaflet-tile::selection {
+	background: transparent;
+}
+/* Safari renders non-retina tile on retina better with this, but Chrome is worse */
+.leaflet-safari .leaflet-tile {
+	image-rendering: -webkit-optimize-contrast;
+	}
+/* hack that prevents hw layers "stretching" when loading new tiles */
+.leaflet-safari .leaflet-tile-container {
+	width: 1600px;
+	height: 1600px;
+	-webkit-transform-origin: 0 0;
+	}
+.leaflet-marker-icon,
+.leaflet-marker-shadow {
+	display: block;
+	}
+/* .leaflet-container svg: reset svg max-width decleration shipped in Joomla! (joomla.org) 3.x */
+/* .leaflet-container img: map is broken in FF if you have max-width: 100% on tiles */
+.leaflet-container .leaflet-overlay-pane svg {
+	max-width: none !important;
+	max-height: none !important;
+	}
+.leaflet-container .leaflet-marker-pane img,
+.leaflet-container .leaflet-shadow-pane img,
+.leaflet-container .leaflet-tile-pane img,
+.leaflet-container img.leaflet-image-layer,
+.leaflet-container .leaflet-tile {
+	max-width: none !important;
+	max-height: none !important;
+	width: auto;
+	padding: 0;
+	}
+
+.leaflet-container img.leaflet-tile {
+	/* See: https://bugs.chromium.org/p/chromium/issues/detail?id=600120 */
+	mix-blend-mode: plus-lighter;
+}
+
+.leaflet-container.leaflet-touch-zoom {
+	-ms-touch-action: pan-x pan-y;
+	touch-action: pan-x pan-y;
+	}
+.leaflet-container.leaflet-touch-drag {
+	-ms-touch-action: pinch-zoom;
+	/* Fallback for FF which doesn't support pinch-zoom */
+	touch-action: none;
+	touch-action: pinch-zoom;
+}
+.leaflet-container.leaflet-touch-drag.leaflet-touch-zoom {
+	-ms-touch-action: none;
+	touch-action: none;
+}
+.leaflet-container {
+	-webkit-tap-highlight-color: transparent;
+}
+.leaflet-container a {
+	-webkit-tap-highlight-color: rgba(51, 181, 229, 0.4);
+}
+.leaflet-tile {
+	filter: inherit;
+	visibility: hidden;
+	}
+.leaflet-tile-loaded {
+	visibility: inherit;
+	}
+.leaflet-zoom-box {
+	width: 0;
+	height: 0;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	z-index: 800;
+	}
+/* workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=888319 */
+.leaflet-overlay-pane svg {
+	-moz-user-select: none;
+	}
+
+.leaflet-pane         { z-index: 400; }
+
+.leaflet-tile-pane    { z-index: 200; }
+.leaflet-overlay-pane { z-index: 400; }
+.leaflet-shadow-pane  { z-index: 500; }
+.leaflet-marker-pane  { z-index: 600; }
+.leaflet-tooltip-pane   { z-index: 650; }
+.leaflet-popup-pane   { z-index: 700; }
+
+.leaflet-map-pane canvas { z-index: 100; }
+.leaflet-map-pane svg    { z-index: 200; }
+
+.leaflet-vml-shape {
+	width: 1px;
+	height: 1px;
+	}
+.lvml {
+	behavior: url(#default#VML);
+	display: inline-block;
+	position: absolute;
+	}
+
+
+/* control positioning */
+
+.leaflet-control {
+	position: relative;
+	z-index: 800;
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+.leaflet-top,
+.leaflet-bottom {
+	position: absolute;
+	z-index: 1000;
+	pointer-events: none;
+	}
+.leaflet-top {
+	top: 0;
+	}
+.leaflet-right {
+	right: 0;
+	}
+.leaflet-bottom {
+	bottom: 0;
+	}
+.leaflet-left {
+	left: 0;
+	}
+.leaflet-control {
+	float: left;
+	clear: both;
+	}
+.leaflet-right .leaflet-control {
+	float: right;
+	}
+.leaflet-top .leaflet-control {
+	margin-top: 10px;
+	}
+.leaflet-bottom .leaflet-control {
+	margin-bottom: 10px;
+	}
+.leaflet-left .leaflet-control {
+	margin-left: 10px;
+	}
+.leaflet-right .leaflet-control {
+	margin-right: 10px;
+	}
+
+
+/* zoom and fade animations */
+
+.leaflet-fade-anim .leaflet-popup {
+	opacity: 0;
+	-webkit-transition: opacity 0.2s linear;
+	   -moz-transition: opacity 0.2s linear;
+	        transition: opacity 0.2s linear;
+	}
+.leaflet-fade-anim .leaflet-map-pane .leaflet-popup {
+	opacity: 1;
+	}
+.leaflet-zoom-animated {
+	-webkit-transform-origin: 0 0;
+	    -ms-transform-origin: 0 0;
+	        transform-origin: 0 0;
+	}
+svg.leaflet-zoom-animated {
+	will-change: transform;
+}
+
+.leaflet-zoom-anim .leaflet-zoom-animated {
+	-webkit-transition: -webkit-transform 0.25s cubic-bezier(0,0,0.25,1);
+	   -moz-transition:    -moz-transform 0.25s cubic-bezier(0,0,0.25,1);
+	        transition:         transform 0.25s cubic-bezier(0,0,0.25,1);
+	}
+.leaflet-zoom-anim .leaflet-tile,
+.leaflet-pan-anim .leaflet-tile {
+	-webkit-transition: none;
+	   -moz-transition: none;
+	        transition: none;
+	}
+
+.leaflet-zoom-anim .leaflet-zoom-hide {
+	visibility: hidden;
+	}
+
+
+/* cursors */
+
+.leaflet-interactive {
+	cursor: pointer;
+	}
+.leaflet-grab {
+	cursor: -webkit-grab;
+	cursor:    -moz-grab;
+	cursor:         grab;
+	}
+.leaflet-crosshair,
+.leaflet-crosshair .leaflet-interactive {
+	cursor: crosshair;
+	}
+.leaflet-popup-pane,
+.leaflet-control {
+	cursor: auto;
+	}
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-grab .leaflet-interactive,
+.leaflet-dragging .leaflet-marker-draggable {
+	cursor: move;
+	cursor: -webkit-grabbing;
+	cursor:    -moz-grabbing;
+	cursor:         grabbing;
+	}
+
+/* marker & overlays interactivity */
+.leaflet-marker-icon,
+.leaflet-marker-shadow,
+.leaflet-image-layer,
+.leaflet-pane > svg path,
+.leaflet-tile-container {
+	pointer-events: none;
+	}
+
+.leaflet-marker-icon.leaflet-interactive,
+.leaflet-image-layer.leaflet-interactive,
+.leaflet-pane > svg path.leaflet-interactive,
+svg.leaflet-image-layer.leaflet-interactive path {
+	pointer-events: visiblePainted; /* IE 9-10 doesn't have auto */
+	pointer-events: auto;
+	}
+
+/* visual tweaks */
+
+.leaflet-container {
+	background: #ddd;
+	outline-offset: 1px;
+	}
+.leaflet-container a {
+	color: #0078A8;
+	}
+.leaflet-zoom-box {
+	border: 2px dotted #38f;
+	background: rgba(255,255,255,0.5);
+	}
+
+
+/* general typography */
+.leaflet-container {
+	font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-size: 0.75rem;
+	line-height: 1.5;
+	}
+
+
+/* general toolbar styles */
+
+.leaflet-bar {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.65);
+	border-radius: 4px;
+	}
+.leaflet-bar a {
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	color: black;
+	}
+.leaflet-bar a,
+.leaflet-control-layers-toggle {
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+	display: block;
+	}
+.leaflet-bar a:hover,
+.leaflet-bar a:focus {
+	background-color: #f4f4f4;
+	}
+.leaflet-bar a:first-child {
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	}
+.leaflet-bar a:last-child {
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px;
+	border-bottom: none;
+	}
+.leaflet-bar a.leaflet-disabled {
+	cursor: default;
+	background-color: #f4f4f4;
+	color: #bbb;
+	}
+
+.leaflet-touch .leaflet-bar a {
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	}
+.leaflet-touch .leaflet-bar a:first-child {
+	border-top-left-radius: 2px;
+	border-top-right-radius: 2px;
+	}
+.leaflet-touch .leaflet-bar a:last-child {
+	border-bottom-left-radius: 2px;
+	border-bottom-right-radius: 2px;
+	}
+
+/* zoom control */
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+	font: bold 18px 'Lucida Console', Monaco, monospace;
+	text-indent: 1px;
+	}
+
+.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out  {
+	font-size: 22px;
+	}
+
+
+/* layers control */
+
+.leaflet-control-layers {
+	box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+	background: #fff;
+	border-radius: 5px;
+	}
+.leaflet-control-layers-toggle {
+	background-image: url(images/layers.png);
+	width: 36px;
+	height: 36px;
+	}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(images/layers-2x.png);
+	background-size: 26px 26px;
+	}
+.leaflet-touch .leaflet-control-layers-toggle {
+	width: 44px;
+	height: 44px;
+	}
+.leaflet-control-layers .leaflet-control-layers-list,
+.leaflet-control-layers-expanded .leaflet-control-layers-toggle {
+	display: none;
+	}
+.leaflet-control-layers-expanded .leaflet-control-layers-list {
+	display: block;
+	position: relative;
+	}
+.leaflet-control-layers-expanded {
+	padding: 6px 10px 6px 6px;
+	color: #333;
+	background: #fff;
+	}
+.leaflet-control-layers-scrollbar {
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding-right: 5px;
+	}
+.leaflet-control-layers-selector {
+	margin-top: 2px;
+	position: relative;
+	top: 1px;
+	}
+.leaflet-control-layers label {
+	display: block;
+	font-size: 13px;
+	font-size: 1.08333em;
+	}
+.leaflet-control-layers-separator {
+	height: 0;
+	border-top: 1px solid #ddd;
+	margin: 5px -10px 5px -6px;
+	}
+
+/* Default icon URLs */
+.leaflet-default-icon-path { /* used only in path-guessing heuristic, see L.Icon.Default */
+	background-image: url(images/marker-icon.png);
+	}
+
+
+/* attribution and scale controls */
+
+.leaflet-container .leaflet-control-attribution {
+	background: #fff;
+	background: rgba(255, 255, 255, 0.8);
+	margin: 0;
+	}
+.leaflet-control-attribution,
+.leaflet-control-scale-line {
+	padding: 0 5px;
+	color: #333;
+	line-height: 1.4;
+	}
+.leaflet-control-attribution a {
+	text-decoration: none;
+	}
+.leaflet-control-attribution a:hover,
+.leaflet-control-attribution a:focus {
+	text-decoration: underline;
+	}
+.leaflet-attribution-flag {
+	display: inline !important;
+	vertical-align: baseline !important;
+	width: 1em;
+	height: 0.6669em;
+	}
+.leaflet-left .leaflet-control-scale {
+	margin-left: 5px;
+	}
+.leaflet-bottom .leaflet-control-scale {
+	margin-bottom: 5px;
+	}
+.leaflet-control-scale-line {
+	border: 2px solid #777;
+	border-top: none;
+	line-height: 1.1;
+	padding: 2px 5px 1px;
+	white-space: nowrap;
+	-moz-box-sizing: border-box;
+	     box-sizing: border-box;
+	background: rgba(255, 255, 255, 0.8);
+	text-shadow: 1px 1px #fff;
+	}
+.leaflet-control-scale-line:not(:first-child) {
+	border-top: 2px solid #777;
+	border-bottom: none;
+	margin-top: -2px;
+	}
+.leaflet-control-scale-line:not(:first-child):not(:last-child) {
+	border-bottom: 2px solid #777;
+	}
+
+.leaflet-touch .leaflet-control-attribution,
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	box-shadow: none;
+	}
+.leaflet-touch .leaflet-control-layers,
+.leaflet-touch .leaflet-bar {
+	border: 2px solid rgba(0,0,0,0.2);
+	background-clip: padding-box;
+	}
+
+
+/* popup */
+
+.leaflet-popup {
+	position: absolute;
+	text-align: center;
+	margin-bottom: 20px;
+	}
+.leaflet-popup-content-wrapper {
+	padding: 1px;
+	text-align: left;
+	border-radius: 12px;
+	}
+.leaflet-popup-content {
+	margin: 13px 24px 13px 20px;
+	line-height: 1.3;
+	font-size: 13px;
+	font-size: 1.08333em;
+	min-height: 1px;
+	}
+.leaflet-popup-content p {
+	margin: 17px 0;
+	margin: 1.3em 0;
+	}
+.leaflet-popup-tip-container {
+	width: 40px;
+	height: 20px;
+	position: absolute;
+	left: 50%;
+	margin-top: -1px;
+	margin-left: -20px;
+	overflow: hidden;
+	pointer-events: none;
+	}
+.leaflet-popup-tip {
+	width: 17px;
+	height: 17px;
+	padding: 1px;
+
+	margin: -10px auto 0;
+	pointer-events: auto;
+
+	-webkit-transform: rotate(45deg);
+	   -moz-transform: rotate(45deg);
+	    -ms-transform: rotate(45deg);
+	        transform: rotate(45deg);
+	}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+	background: white;
+	color: #333;
+	box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+	}
+.leaflet-container a.leaflet-popup-close-button {
+	position: absolute;
+	top: 0;
+	right: 0;
+	border: none;
+	text-align: center;
+	width: 24px;
+	height: 24px;
+	font: 16px/24px Tahoma, Verdana, sans-serif;
+	color: #757575;
+	text-decoration: none;
+	background: transparent;
+	}
+.leaflet-container a.leaflet-popup-close-button:hover,
+.leaflet-container a.leaflet-popup-close-button:focus {
+	color: #585858;
+	}
+.leaflet-popup-scrolled {
+	overflow: auto;
+	}
+
+.leaflet-oldie .leaflet-popup-content-wrapper {
+	-ms-zoom: 1;
+	}
+.leaflet-oldie .leaflet-popup-tip {
+	width: 24px;
+	margin: 0 auto;
+
+	-ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678)";
+	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.70710678, M12=0.70710678, M21=-0.70710678, M22=0.70710678);
+	}
+
+.leaflet-oldie .leaflet-control-zoom,
+.leaflet-oldie .leaflet-control-layers,
+.leaflet-oldie .leaflet-popup-content-wrapper,
+.leaflet-oldie .leaflet-popup-tip {
+	border: 1px solid #999;
+	}
+
+
+/* div icon */
+
+.leaflet-div-icon {
+	background: #fff;
+	border: 1px solid #666;
+	}
+
+
+/* Tooltip */
+/* Base styles for the element that has a tooltip */
+.leaflet-tooltip {
+	position: absolute;
+	padding: 6px;
+	background-color: #fff;
+	border: 1px solid #fff;
+	border-radius: 3px;
+	color: #222;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	pointer-events: none;
+	box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+	}
+.leaflet-tooltip.leaflet-interactive {
+	cursor: pointer;
+	pointer-events: auto;
+	}
+.leaflet-tooltip-top:before,
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	position: absolute;
+	pointer-events: none;
+	border: 6px solid transparent;
+	background: transparent;
+	content: "";
+	}
+
+/* Directions */
+
+.leaflet-tooltip-bottom {
+	margin-top: 6px;
+}
+.leaflet-tooltip-top {
+	margin-top: -6px;
+}
+.leaflet-tooltip-bottom:before,
+.leaflet-tooltip-top:before {
+	left: 50%;
+	margin-left: -6px;
+	}
+.leaflet-tooltip-top:before {
+	bottom: 0;
+	margin-bottom: -12px;
+	border-top-color: #fff;
+	}
+.leaflet-tooltip-bottom:before {
+	top: 0;
+	margin-top: -12px;
+	margin-left: -6px;
+	border-bottom-color: #fff;
+	}
+.leaflet-tooltip-left {
+	margin-left: -6px;
+}
+.leaflet-tooltip-right {
+	margin-left: 6px;
+}
+.leaflet-tooltip-left:before,
+.leaflet-tooltip-right:before {
+	top: 50%;
+	margin-top: -6px;
+	}
+.leaflet-tooltip-left:before {
+	right: 0;
+	margin-right: -12px;
+	border-left-color: #fff;
+	}
+.leaflet-tooltip-right:before {
+	left: 0;
+	margin-left: -12px;
+	border-right-color: #fff;
+	}
+
+/* Printing */
+
+@media print {
+	/* Prevent printers from removing background-images of controls. */
+	.leaflet-control {
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
+		}
+	}
+
+#dealerMap{height:540px;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:var(--paper2);margin:18px 0 26px;z-index:1}
+.dchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.dchip{border:1px solid var(--line);background:var(--white);border-radius:999px;padding:8px 14px;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer;color:var(--ink)}
+.dchip span{color:var(--muted);font-weight:500;margin-left:4px}.dchip.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}.dchip.active span{color:var(--sand)}
+.dealcol h4 .cnt{font-weight:500;color:var(--muted);font-size:.85em;margin-left:4px}
+.dealcol li.dl{cursor:pointer}.dealcol li.dl:hover b{color:var(--red)}.dealcol li.dl.hit b{color:var(--red)}
+.leaflet-container{font-family:var(--f-b)}.leaflet-popup-content{font-family:var(--f-b);font-size:.9rem;line-height:1.45;margin:12px 16px}.leaflet-popup-content b{font-family:var(--f-d);font-size:1.05rem;display:block;margin-bottom:4px}.leaflet-popup-content-wrapper{border-radius:12px}
+@media(max-width:820px){#dealerMap{height:380px}}
 </style>
 <style>img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
@@ -687,7 +1359,7 @@ nav .logo{height:86px}
 
 <section class="blk gallery" id="forhandler">
   <div class="wrap">
-    <div class="sec-eyebrow eyebrow">100+ autoriserede forhandlere i 16 markeder</div>
+    <div class="sec-eyebrow eyebrow">100 autoriserede forhandlere i 11 lande</div>
     <h2 class="sec-title">Find forhandler</h2>
     <p class="sec-sub">Køb online hos en webshop-partner, eller find din nærmeste autoriserede Nybo-forhandler.</p>
     <h3 style="margin-top:44px;font-size:1.35rem">Shop online</h3>
@@ -715,33 +1387,13 @@ nav .logo{height:86px}
         <a href="https://workwear.online/nybo-workwear" target="_blank" rel="noopener">Workwear.online</a>
         <a href="https://cheap-workwear.com/brands/nybo-workwear" target="_blank" rel="noopener">Cheap-workwear.com</a></div>
     </div>
-    <h3 style="margin-top:48px;font-size:1.35rem">Autoriserede forhandlere</h3>
-    <div class="dealgrid">
-      <div class="dealcol"><h4>Danmark</h4><ul>
-        <li>SJEB <span>· 9 byer</span></li><li>Bacher Work Wear <span>· Kastrup</span></li>
-        <li>Profil Design Trading <span>· Vejle</span></li><li>Sun Design <span>· Sunds</span></li>
-        <li>Danlyx Firmatøj <span>· Skive</span></li><li>NDO Supply <span>· Hobro</span></li>
-        <li>Frontline <span>· Herning</span></li><li>Bygma <span>· Rønne</span></li></ul></div>
-      <div class="dealcol"><h4>Sverige</h4><ul>
-        <li>Arbetsklädshuset AKH <span>· Stockholm</span></li><li>Mercus Yrkeskläder <span>· Jönköping</span></li>
-        <li>Lindahls Yrkeskläder <span>· Emmaboda</span></li><li>Profa Skyddsprodukter <span>· Lund</span></li>
-        <li>Örebro Yrkeskläder <span>· Örebro</span></li><li>TRM Workwear <span>· Kungsbacka</span></li></ul></div>
-      <div class="dealcol"><h4>Norge</h4><ul>
-        <li>A. Øksnes <span>· Ålesund</span></li><li>Smart Profil <span>· Trondheim</span></li>
-        <li>Servicio <span>· Oslo</span></li><li>Premiere-Produkter <span>· Stavanger</span></li>
-        <li>Kokkejakker.no <span>· Verdal</span></li><li>NorEngros <span>· Tromsø</span></li></ul></div>
-      <div class="dealcol"><h4>Tyskland</h4><ul>
-        <li>acp collection <span>· München</span></li><li>Kurtenbach <span>· Limburg</span></li>
-        <li>RHEINTEX <span>· Köln</span></li><li>Bruns Berufsmode <span>· Oldenburg</span></li>
-        <li>Hofsommer <span>· Hamburg</span></li><li>Berufskleidung24 <span>· Bad Urach</span></li></ul></div>
-      <div class="dealcol"><h4>Østrig · Schweiz · Benelux</h4><ul>
-        <li>Hospital-Textil <span>· Marchtrenk (AT)</span></li><li>Der Walter <span>· Wien (AT)</span></li>
-        <li>Oehrli AG <span>· Emmenbrücke (CH)</span></li><li>Van Herck <span>· Geel (BE)</span></li>
-        <li>BAKK Werkkledij <span>· Lier (BE)</span></li></ul></div>
-      <div class="dealcol"><h4>Finland · Færøerne</h4><ul>
-        <li>Comforta <span>· Kajaani (FI)</span></li><li>Kemilux <span>· Tórshavn (FO)</span></li></ul></div>
-    </div>
-    <p class="dealnote">Se alle 100+ forhandlere på det interaktive kort — eller kontakt os, så finder vi den rette partner til dig.</p>
+    <h3 style="margin-top:48px;font-size:1.35rem">100 autoriserede forhandlere i 11 lande</h3>
+    <p class="sec-sub" style="margin:6px 0 0">Klik på et land eller en forhandler for at zoome ind på kortet — alle med adresse, telefon og e-mail.</p>
+    <div class="dchips" id="dchips"><button type="button" class="dchip active" data-c="">Alle lande <span>100</span></button><button type="button" class="dchip" data-c="Denmark">Danmark <span>31</span></button><button type="button" class="dchip" data-c="Sweden">Sverige <span>25</span></button><button type="button" class="dchip" data-c="Norway">Norge <span>14</span></button><button type="button" class="dchip" data-c="Germany">Tyskland <span>19</span></button><button type="button" class="dchip" data-c="Austria">Østrig <span>3</span></button><button type="button" class="dchip" data-c="Switzerland">Schweiz <span>1</span></button><button type="button" class="dchip" data-c="Belgium">Belgien <span>2</span></button><button type="button" class="dchip" data-c="Finland">Finland <span>1</span></button><button type="button" class="dchip" data-c="Faroe Islands">Færøerne <span>1</span></button><button type="button" class="dchip" data-c="Greenland">Grønland <span>2</span></button><button type="button" class="dchip" data-c="United Kingdom">Storbritannien <span>1</span></button></div>
+    <div id="dealerMap" role="region" aria-label="Kort over Nybo-forhandlere"></div>
+    <div class="dealgrid" id="dealgrid"><div class="dealcol" data-c="Denmark"><h4>Danmark <span class="cnt">31</span></h4><ul><li class="dl" data-i="0"><b>Imagewear</b> <span>· </span></li><li class="dl" data-i="1"><b>twoday</b> <span>· </span></li><li class="dl" data-i="2"><b>SJEB Aalborg</b> <span>· Aalborg</span></li><li class="dl" data-i="3"><b>Profil Design Trading ApS</b> <span>· Billund</span></li><li class="dl" data-i="4"><b>SJEB Brøndby</b> <span>· Brøndby</span></li><li class="dl" data-i="5"><b>Profil Design Trading ApS</b> <span>· Fredericia</span></li><li class="dl" data-i="6"><b>Frontline</b> <span>· Herning</span></li><li class="dl" data-i="7"><b>SJEB Hillerød</b> <span>· Hillerød</span></li><li class="dl" data-i="8"><b>SJEB Hjørring</b> <span>· Hjørring</span></li><li class="dl" data-i="9"><b>NDO Supply A/S</b> <span>· Hobro</span></li><li class="dl" data-i="10"><b>SJEB Horsens</b> <span>· Horsens</span></li><li class="dl" data-i="11"><b>Bacher Work Wear A/S</b> <span>· Kastrup</span></li><li class="dl" data-i="12"><b>SJEB Køge</b> <span>· Køge</span></li><li class="dl" data-i="13"><b>Poul A Erhvervsbeklædning A/S</b> <span>· Nykøbing M</span></li><li class="dl" data-i="14"><b>Bacher Work Wear A/S</b> <span>· Odense</span></li><li class="dl" data-i="15"><b>SJEB Odense</b> <span>· Odense</span></li><li class="dl" data-i="16"><b>CUSTOMIZE PLUS SIMONSEN</b> <span>· Randers SØ</span></li><li class="dl" data-i="17"><b>Statur</b> <span>· Roskilde</span></li><li class="dl" data-i="18"><b>Bygma Rønne</b> <span>· Rønne</span></li><li class="dl" data-i="19"><b>SJEB Rønnede</b> <span>· Rønnede</span></li><li class="dl" data-i="20"><b>Danlyx Firmatøj Skive</b> <span>· Skive</span></li><li class="dl" data-i="21"><b>Profil Design Trading ApS</b> <span>· Skjern</span></li><li class="dl" data-i="22"><b>Otto Johansen Erhvervsbeklædning A/S</b> <span>· Slagelse</span></li><li class="dl" data-i="23"><b>Billig-arbejdstøj.dk</b> <span>· Spjald</span></li><li class="dl" data-i="24"><b>Mr. Arthur</b> <span>· Struer</span></li><li class="dl" data-i="25"><b>Sun Design</b> <span>· Sunds</span></li><li class="dl" data-i="26"><b>Profil Design Trading ApS</b> <span>· Vejle</span></li><li class="dl" data-i="27"><b>Tøjeksperten Erhverv</b> <span>· Vejle</span></li><li class="dl" data-i="28"><b>Danlyx Firmatøj Viborg</b> <span>· Viborg</span></li><li class="dl" data-i="29"><b>Bacher Work Wear A/S</b> <span>· Viby</span></li><li class="dl" data-i="30"><b>SJEB Vordingborg</b> <span>· Vordingborg</span></li></ul></div><div class="dealcol" data-c="Sweden"><h4>Sverige <span class="cnt">25</span></h4><ul><li class="dl" data-i="31"><b>Entrématta</b> <span>· Avesta</span></li><li class="dl" data-i="32"><b>Bixz Yrkeskläder &amp; Företagsprofilering AB</b> <span>· Boden</span></li><li class="dl" data-i="33"><b>Arbetsklädshuset AKH AB</b> <span>· Bromma</span></li><li class="dl" data-i="34"><b>Lindahls Yrkeskläder AB</b> <span>· Emmaboda</span></li><li class="dl" data-i="35"><b>Vårdväskan AB</b> <span>· Falkenberg</span></li><li class="dl" data-i="36"><b>Deltab Profilplagg AB</b> <span>· Gävle</span></li><li class="dl" data-i="37"><b>TRM Tranding</b> <span>· Hisings Backa</span></li><li class="dl" data-i="38"><b>Hudikprofil AB</b> <span>· Hudiksvall</span></li><li class="dl" data-i="39"><b>Nejdefelts Yrkes och Profilkläder</b> <span>· Johanneshov</span></li><li class="dl" data-i="40"><b>Mercus Yrkeskläder AB</b> <span>· Jönköping</span></li><li class="dl" data-i="41"><b>RC Reklam</b> <span>· Karlskrona</span></li><li class="dl" data-i="42"><b>TRM Workwear</b> <span>· Kungsbacka</span></li><li class="dl" data-i="43"><b>Arbetsklädshuset AKH AB</b> <span>· Landskrona</span></li><li class="dl" data-i="44"><b>Göran Rydén Förs</b> <span>· Lindköping</span></li><li class="dl" data-i="45"><b>Profa Skyddsprodukter AB</b> <span>· Lund</span></li><li class="dl" data-i="46"><b>Pirat Reklam AB</b> <span>· Nyköping</span></li><li class="dl" data-i="47"><b>Idépoolen i Pitea AB</b> <span>· Piteå</span></li><li class="dl" data-i="48"><b>Arbetsklädshuset AKH AB</b> <span>· Stockholm</span></li><li class="dl" data-i="49"><b>Billiga-arbetskläder</b> <span>· Trelleborg</span></li><li class="dl" data-i="50"><b>Invite AB</b> <span>· Trosa</span></li><li class="dl" data-i="51"><b>Jobline Umeå AB</b> <span>· Umeå</span></li><li class="dl" data-i="52"><b>Arbetsklädshuset AKH AB</b> <span>· Uppsala</span></li><li class="dl" data-i="53"><b>Arbetsklädshuset AKH AB</b> <span>· Västerås</span></li><li class="dl" data-i="54"><b>Fanhulstvätten AB</b> <span>· Älmhult</span></li><li class="dl" data-i="55"><b>Örebro Yrkeskläder AB</b> <span>· Örebro</span></li></ul></div><div class="dealcol" data-c="Norway"><h4>Norge <span class="cnt">14</span></h4><ul><li class="dl" data-i="56"><b>Skovly Engros AS</b> <span>· Flatåsen</span></li><li class="dl" data-i="57"><b>Tekstil-Vask AS</b> <span>· Haugesund</span></li><li class="dl" data-i="58"><b>Smart Profil Trondheim AS</b> <span>· Heimdal</span></li><li class="dl" data-i="59"><b>Premiere-Produkter AS</b> <span>· Hundvåg-Stavanger</span></li><li class="dl" data-i="60"><b>Skovly Engros AS</b> <span>· Kongsvinger</span></li><li class="dl" data-i="61"><b>NORHAND INDUSTRI AS</b> <span>· Nordheimsund</span></li><li class="dl" data-i="62"><b>Arnestad Storkjøkken AS</b> <span>· Oslo</span></li><li class="dl" data-i="63"><b>Billige-arbeidsklær.no</b> <span>· Oslo</span></li><li class="dl" data-i="64"><b>Servicio AS</b> <span>· Oslo</span></li><li class="dl" data-i="65"><b>Lindrup Martinsen</b> <span>· Tromsø</span></li><li class="dl" data-i="66"><b>NorEngros Markedshuset AS</b> <span>· Tromsø</span></li><li class="dl" data-i="67"><b>Kokkejakker.no AS</b> <span>· Verdal</span></li><li class="dl" data-i="68"><b>A Oksnes AS</b> <span>· Ålesund</span></li><li class="dl" data-i="69"><b>Beauty Product Thorsen AS</b> <span>· Ås</span></li></ul></div><div class="dealcol" data-c="Germany"><h4>Tyskland <span class="cnt">19</span></h4><ul><li class="dl" data-i="70"><b>Günstige-Arbeitskleidung</b> <span>· </span></li><li class="dl" data-i="71"><b>Reisinger Premium Workwear</b> <span>· Altusried</span></li><li class="dl" data-i="72"><b>Lochmann Berufskleidung GmbH</b> <span>· Backnang</span></li><li class="dl" data-i="73"><b>Berufskleidung24.de GmbH</b> <span>· Bad Urach</span></li><li class="dl" data-i="74"><b>Poggensee Berufsbekleidungsvertrieb GmbH</b> <span>· Bargfeld-Stegen</span></li><li class="dl" data-i="75"><b>Rita Rochlitz Arbeitsschutz</b> <span>· Groß Godems</span></li><li class="dl" data-i="76"><b>HOFSOMMER Hamburg Berufskleidung &amp; Mehr</b> <span>· Hamburg</span></li><li class="dl" data-i="77"><b>TextilWUDI</b> <span>· Hettenshausen</span></li><li class="dl" data-i="78"><b>Hirschtex Heland u. Hickmann GbR</b> <span>· Koblenz</span></li><li class="dl" data-i="79"><b>Männel Health Care Support &amp; DSS GmbH</b> <span>· Kraichtal</span></li><li class="dl" data-i="80"><b>RHEINTEX-Textile Kompetenz für Hotel &amp; Gastronimie</b> <span>· Köln</span></li><li class="dl" data-i="81"><b>Ernst Hilsenbeck GmbH</b> <span>· Laichingen</span></li><li class="dl" data-i="82"><b>Berufskleidung Baum</b> <span>· Landau</span></li><li class="dl" data-i="83"><b>Kurtenbach GmbH &amp; Co. KG</b> <span>· Limburg</span></li><li class="dl" data-i="84"><b>acp collection GmbH</b> <span>· München</span></li><li class="dl" data-i="85"><b>Jürgen Bohnenstengel HIT</b> <span>· Nürnberg</span></li><li class="dl" data-i="86"><b>Bruns Berufmode GmbH &amp; Co. KG</b> <span>· Oldenburg</span></li><li class="dl" data-i="87"><b>Arbeitsschutz u. Berufbekleidung Bischkopf GmbH</b> <span>· Rastatt</span></li><li class="dl" data-i="88"><b>Praxiswaesche.de</b> <span>· Sassenberg</span></li></ul></div><div class="dealcol" data-c="Austria"><h4>Østrig <span class="cnt">3</span></h4><ul><li class="dl" data-i="89"><b>Shiefer Berufsmode GmbH</b> <span>· Linz</span></li><li class="dl" data-i="90"><b>Hospital-Textil Handelsgesellschaft mbH</b> <span>· Marchtrenk</span></li><li class="dl" data-i="91"><b>Der Walter Berufskleidung GmbH</b> <span>· Wien</span></li></ul></div><div class="dealcol" data-c="Switzerland"><h4>Schweiz <span class="cnt">1</span></h4><ul><li class="dl" data-i="92"><b>Oehrli AG Schürzen + Brufsmode</b> <span>· Emmenbrücke</span></li></ul></div><div class="dealcol" data-c="Belgium"><h4>Belgien <span class="cnt">2</span></h4><ul><li class="dl" data-i="93"><b>Van Herck B.V.B.A</b> <span>· Geel</span></li><li class="dl" data-i="94"><b>BAKK Werkkledij bvba</b> <span>· Lier</span></li></ul></div><div class="dealcol" data-c="Finland"><h4>Finland <span class="cnt">1</span></h4><ul><li class="dl" data-i="95"><b>Comforta Oy</b> <span>· Kajanni</span></li></ul></div><div class="dealcol" data-c="Faroe Islands"><h4>Færøerne <span class="cnt">1</span></h4><ul><li class="dl" data-i="96"><b>Kemilux</b> <span>· Tórshavn</span></li></ul></div><div class="dealcol" data-c="Greenland"><h4>Grønland <span class="cnt">2</span></h4><ul><li class="dl" data-i="97"><b>Handelsselskabet H.J. A/S</b> <span>· Give</span></li><li class="dl" data-i="98"><b>NDO Supply A/S</b> <span>· Hobro</span></li></ul></div><div class="dealcol" data-c="United Kingdom"><h4>Storbritannien <span class="cnt">1</span></h4><ul><li class="dl" data-i="99"><b>Cheap-workwear</b> <span>· </span></li></ul></div></div>
+    <p class="dealnote">Kan du ikke finde en forhandler tæt på dig? Kontakt os — så finder vi den rette partner.</p>
+    <script id="dealerData" type="application/json">[{"name": "Imagewear", "address": "Vagtelvænget 20", "city": "", "zip": "Assens", "country": "Denmark", "phone": "", "email": "info@imagewear.dk", "lat": 55.27532, "lng": 9.91241}, {"name": "twoday", "address": "", "city": "", "zip": "", "country": "Denmark", "phone": "", "email": "morten.christensen@twoday.com", "lat": 0.0, "lng": 0.0}, {"name": "SJEB Aalborg", "address": "Håndværkervej 16", "city": "Aalborg", "zip": "9000", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 57.0320198, "lng": 9.9233548}, {"name": "Profil Design Trading ApS", "address": "Montanavej 9", "city": "Billund", "zip": "7190", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "allan@profiltrading.dk", "lat": 55.73814, "lng": 9.0926}, {"name": "SJEB Brøndby", "address": "Søndre Ringvej 35A", "city": "Brøndby", "zip": "2605", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.65814, "lng": 12.3895981}, {"name": "Profil Design Trading ApS", "address": "Snaremosevej 23F", "city": "Fredericia", "zip": "7000", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "Allan@profiltrading.dk", "lat": 55.54238, "lng": 9.69289}, {"name": "Frontline", "address": "Silkeborgvej 14", "city": "Herning", "zip": "7400", "country": "Denmark", "phone": "+45 97269841", "email": "info@frontline.dk", "lat": 56.1348693062, "lng": 8.9853797265}, {"name": "SJEB Hillerød", "address": "Askvang 3", "city": "Hillerød", "zip": "3400", "country": "Denmark", "phone": "", "email": "info@sjeb.dk", "lat": 55.9273419, "lng": 12.2641976}, {"name": "SJEB Hjørring", "address": "Egholmvej 1A", "city": "Hjørring", "zip": "9800", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 57.4524619, "lng": 10.0192291}, {"name": "NDO Supply A/S", "address": "Skovbovej 34", "city": "Hobro", "zip": "9500", "country": "Denmark", "phone": "98544566", "email": "post@ndosupply.dk", "lat": 56.65931, "lng": 9.89171}, {"name": "SJEB Horsens", "address": "Hattingvej 7b", "city": "Horsens", "zip": "8700", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.86151, "lng": 9.81843}, {"name": "Bacher Work Wear A/S", "address": "Kirstinehøj 5", "city": "Kastrup", "zip": "2770", "country": "Denmark", "phone": "+45 32505200", "email": "salg@bacher.com", "lat": 55.6142621062, "lng": 12.6183107978}, {"name": "SJEB Køge", "address": "Unionsvej 10", "city": "Køge", "zip": "4600", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.5012454, "lng": 12.1934752}, {"name": "Poul A Erhvervsbeklædning A/S", "address": "Toftegade 24", "city": "Nykøbing M", "zip": "7900", "country": "Denmark", "phone": "97725922", "email": "poulaerhverv@mors.dk", "lat": 56.794178, "lng": 8.858846}, {"name": "Bacher Work Wear A/S", "address": "Blangstedgårdsvej 66A", "city": "Odense", "zip": "5220", "country": "Denmark", "phone": "32505200", "email": "salg@bacher.dk", "lat": 55.38603, "lng": 10.4428}, {"name": "SJEB Odense", "address": "Tarupvej 53", "city": "Odense", "zip": "5210", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.4134994, "lng": 10.340705}, {"name": "CUSTOMIZE PLUS SIMONSEN", "address": "Udbyhøjvej 146", "city": "Randers SØ", "zip": "8930", "country": "Denmark", "phone": "42909022", "email": "kontakt@c-ps.dk", "lat": 56.47176, "lng": 10.06692}, {"name": "Statur", "address": "Flengsager 22", "city": "Roskilde", "zip": "4000", "country": "Denmark", "phone": "2826 0755", "email": "tp@statur.dk", "lat": 55.63386, "lng": 12.03069}, {"name": "Bygma Rønne", "address": "Zahrtmannsvej 67", "city": "Rønne", "zip": "3700", "country": "Denmark", "phone": "", "email": "roenne@bygma.dk", "lat": 55.0970466, "lng": 14.7078811}, {"name": "SJEB Rønnede", "address": "Industrivej 72", "city": "Rønnede", "zip": "4683", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.256961, "lng": 12.024125}, {"name": "Danlyx Firmatøj Skive", "address": "Jegstrupvej 4 L-M", "city": "Skive", "zip": "7800", "country": "Denmark", "phone": "60519331", "email": "danlyx@danlyx.dk", "lat": 56.54067, "lng": 9.04996}, {"name": "Profil Design Trading ApS", "address": "Bredgade 13A", "city": "Skjern", "zip": "6900", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "allan@profiltrading.dk", "lat": 55.94463, "lng": 8.49606}, {"name": "Otto Johansen Erhvervsbeklædning A/S", "address": "Marievangsvej 48", "city": "Slagelse", "zip": "4200", "country": "Denmark", "phone": "", "email": "erhverv@otto-johansen.dk", "lat": 55.39964, "lng": 11.330872}, {"name": "Billig-arbejdstøj.dk", "address": "Ølstrupvej 2A", "city": "Spjald", "zip": "6971", "country": "Denmark", "phone": "96742030", "email": "info@billig-arbejdstoj.dk", "lat": 56.11978, "lng": 8.5018}, {"name": "Mr. Arthur", "address": "Østergade 23", "city": "Struer", "zip": "7600", "country": "Denmark", "phone": "9785 0025", "email": "kundeservice@mr.dk", "lat": 56.49189, "lng": 8.59496}, {"name": "Sun Design", "address": "Genvejen 11", "city": "Sunds", "zip": "7451", "country": "Denmark", "phone": "97142200", "email": "post@sundesign.dk", "lat": 56.20028, "lng": 9.01489}, {"name": "Profil Design Trading ApS", "address": "Bugattivej 9", "city": "Vejle", "zip": "7100", "country": "Denmark", "phone": "+45 40 19 24 35", "email": "Allan@profiltrading.dk", "lat": 55.67194, "lng": 9.58759}, {"name": "Tøjeksperten Erhverv", "address": "Valdemar Poulsensvej 1", "city": "Vejle", "zip": "7100", "country": "Denmark", "phone": "72349000", "email": "erhverv@tojeksperten.dk", "lat": 55.72292, "lng": 9.56739}, {"name": "Danlyx Firmatøj Viborg", "address": "Livøvej 35", "city": "Viborg", "zip": "8800", "country": "Denmark", "phone": "4444 0402", "email": "danlyx@danlyx.dk", "lat": 56.45121, "lng": 9.36834}, {"name": "Bacher Work Wear A/S", "address": "Jens Juuls Vej 16", "city": "Viby", "zip": "8260", "country": "Denmark", "phone": "3250 5200", "email": "salg@bacher.dk", "lat": 56.11301, "lng": 10.13149}, {"name": "SJEB Vordingborg", "address": "Kamhjulet 1", "city": "Vordingborg", "zip": "4760", "country": "Denmark", "phone": "70 257 267", "email": "info@sjeb.dk", "lat": 55.024948, "lng": 11.890601}, {"name": "Entrématta", "address": "Prästgatan 50", "city": "Avesta", "zip": "77435", "country": "Sweden", "phone": "+46 70 595 77 17", "email": "robert@entremattan.se", "lat": 60.135796, "lng": 16.160567}, {"name": "Bixz Yrkeskläder & Företagsprofilering AB", "address": "Ugglegatan 10", "city": "Boden", "zip": "96173", "country": "Sweden", "phone": "+46 921 153 60", "email": "rikard@bixz.se", "lat": 65.818241, "lng": 21.706841}, {"name": "Arbetsklädshuset AKH AB", "address": "Ulvsundavägen 146", "city": "Bromma", "zip": "16867", "country": "Sweden", "phone": "+46 825 9290", "email": "britt-marie.öberg@akh.nu", "lat": 59.349672, "lng": 17.957101}, {"name": "Lindahls Yrkeskläder AB", "address": "Stenvägen 6", "city": "Emmaboda", "zip": "36131", "country": "Sweden", "phone": "+46 70 84 87 23", "email": "asa@lindahlsyrkesklader.se", "lat": 56.625297, "lng": 15.550194}, {"name": "Vårdväskan AB", "address": "Oktanvägen 17", "city": "Falkenberg", "zip": "31132", "country": "Sweden", "phone": "+46 346-12212", "email": "support@vardvaskan.se", "lat": 56.90812, "lng": 12.4599}, {"name": "Deltab Profilplagg AB", "address": "Sanmogatan 4", "city": "Gävle", "zip": "80646", "country": "Sweden", "phone": "+46 261 82180", "email": "nils.axner@deltab.se", "lat": 60.706671, "lng": 17.160323}, {"name": "TRM Tranding", "address": "Backa Bergögata 8", "city": "Hisings Backa", "zip": "42246", "country": "Sweden", "phone": "+46 735 0333 73", "email": "Reino@trmworkwear.se", "lat": 57.748091, "lng": 11.998154}, {"name": "Hudikprofil AB", "address": "Norra Industrivägen 3", "city": "Hudiksvall", "zip": "82434", "country": "Sweden", "phone": "+46 650 184 204", "email": "Christer@hudikprofil.se", "lat": 61.744732, "lng": 17.11561}, {"name": "Nejdefelts Yrkes och Profilkläder", "address": "Livdjursgatan 6", "city": "Johanneshov", "zip": "12162", "country": "Sweden", "phone": "+46 8 399 790", "email": "", "lat": 59.292362, "lng": 18.074938}, {"name": "Mercus Yrkeskläder AB", "address": "Kämpvägen 31", "city": "Jönköping", "zip": "55302", "country": "Sweden", "phone": "+46 36 10 01 20", "email": "jonkoping@mercus.se", "lat": 57.76267, "lng": 14.156852}, {"name": "RC Reklam", "address": "Tennv¨ägen 5", "city": "Karlskrona", "zip": "37150", "country": "Sweden", "phone": "+46 734 24 11 60", "email": "paul@rcreklam.se", "lat": 56.218479, "lng": 15.641947}, {"name": "TRM Workwear", "address": "Verkstadsgatan 7", "city": "Kungsbacka", "zip": "43441", "country": "Sweden", "phone": "+46 735 0333 73", "email": "Reino@trmworkwear.se", "lat": 57.47976, "lng": 12.0843}, {"name": "Arbetsklädshuset AKH AB", "address": "Rattvägen 21", "city": "Landskrona", "zip": "26151", "country": "Sweden", "phone": "+46 418 49 04 40", "email": "patrik.larsson@akh.se", "lat": 55.873683, "lng": 12.870496}, {"name": "Göran Rydén Förs", "address": "Stengatan 11", "city": "Lindköping", "zip": "53155", "country": "Sweden", "phone": "+46 510 65110", "email": "", "lat": 58.519351, "lng": 13.121021}, {"name": "Profa Skyddsprodukter AB", "address": "Skiffervägen 80", "city": "Lund", "zip": "22478", "country": "Sweden", "phone": "+46 10 1140", "email": "", "lat": 55.692151, "lng": 13.213724}, {"name": "Pirat Reklam AB", "address": "Kungshagsvägen 5", "city": "Nyköping", "zip": "61135", "country": "Sweden", "phone": "+46 155 28 87 44", "email": "sven@piratreklam.se", "lat": 58.745604, "lng": 17.021543}, {"name": "Idépoolen i Pitea AB", "address": "Batterigatan 3", "city": "Piteå", "zip": "94147", "country": "Sweden", "phone": "+46 911 2211 90", "email": "per.pettersson@idepoolen.se", "lat": 65.319218, "lng": 21.440436}, {"name": "Arbetsklädshuset AKH AB", "address": "Heliosgatan 1", "city": "Stockholm", "zip": "12030", "country": "Sweden", "phone": "+46 846 20820", "email": "sanna@akh.nu", "lat": 59.301222, "lng": 18.094706}, {"name": "Billiga-arbetskläder", "address": "Genvägen1", "city": "Trelleborg", "zip": "23162", "country": "Sweden", "phone": "+46410350185", "email": "info@billiga-arbetsklader.se", "lat": 55.38099, "lng": 13.11096}, {"name": "Invite AB", "address": "Industrigatan 25", "city": "Trosa", "zip": "61923", "country": "Sweden", "phone": "+46 156 16861", "email": "kundtjanst@inviteeurope.com", "lat": 58.909632, "lng": 17.55115}, {"name": "Jobline Umeå AB", "address": "Industrivägen 8", "city": "Umeå", "zip": "90130", "country": "Sweden", "phone": "+46 90 13 37 05", "email": "info@joblineume.se", "lat": 63.838103, "lng": 20.239146}, {"name": "Arbetsklädshuset AKH AB", "address": "Björkgatan 71", "city": "Uppsala", "zip": "75320", "country": "Sweden", "phone": "+46 76644 4868", "email": "linus.larson@arbetskladshuset.se", "lat": 59.850247, "lng": 17.66654}, {"name": "Arbetsklädshuset AKH AB", "address": "Isolatorvägen 1", "city": "Västerås", "zip": "72137", "country": "Sweden", "phone": "+46 218 11210", "email": "annie.wiklund@akh.nu", "lat": 59.63928, "lng": 16.556004}, {"name": "Fanhulstvätten AB", "address": "Stålgatan 3", "city": "Älmhult", "zip": "34334", "country": "Sweden", "phone": "+46 0476 155 08", "email": "", "lat": 56.535094, "lng": 14.135064}, {"name": "Örebro Yrkeskläder AB", "address": "Aspholmsvägen 14", "city": "Örebro", "zip": "70227", "country": "Sweden", "phone": "+46 19271241", "email": "", "lat": 59.259463, "lng": 15.186969}, {"name": "Skovly Engros AS", "address": "Øvre Flatåsveg 12", "city": "Flatåsen", "zip": "7079", "country": "Norway", "phone": "+47 957 84948", "email": "mhoem@skovly.no", "lat": 63.37190620000001, "lng": 10.338462299999946}, {"name": "Tekstil-Vask AS", "address": "Raglamyrvegen 25A", "city": "Haugesund", "zip": "5536", "country": "Norway", "phone": "+47 527 21 854", "email": "post@tekstil-vask.no", "lat": 59.390225, "lng": 5.322801}, {"name": "Smart Profil Trondheim AS", "address": "Kvernildmyra 1", "city": "Heimdal", "zip": "7072", "country": "Norway", "phone": "+47 73 606057", "email": "christine@smartprofil.no", "lat": 63.336049, "lng": 10.368392}, {"name": "Premiere-Produkter AS", "address": "Austbøsletta 6", "city": "Hundvåg-Stavanger", "zip": "4085", "country": "Norway", "phone": "+47 95255402", "email": "arild@premiere-produkter.no", "lat": 58.993887, "lng": 5.742675}, {"name": "Skovly Engros AS", "address": "Eidskogveien 46B", "city": "Kongsvinger", "zip": "2211", "country": "Norway", "phone": "+47 918 50 951", "email": "ghusebye@skovly.no", "lat": 60.1743504, "lng": 12.01964750000002}, {"name": "NORHAND INDUSTRI AS", "address": "Steindalsvegen 104", "city": "Nordheimsund", "zip": "5600", "country": "Norway", "phone": "+47 99095153", "email": "tk@norhand.no", "lat": 60.370887, "lng": 6.145635}, {"name": "Arnestad Storkjøkken AS", "address": "Professor Birkelandsvei 24 A", "city": "Oslo", "zip": "1081", "country": "Norway", "phone": "+47 23141516", "email": "tore@asas.no", "lat": 59.939007, "lng": 10.878352}, {"name": "Billige-arbeidsklær.no", "address": "C/o Ahtene Vat Service AS", "city": "Oslo", "zip": "0405", "country": "Norway", "phone": "+4723962861", "email": "info@billige-arbeidsklaer.no", "lat": 59.947576, "lng": 10.767693}, {"name": "Servicio AS", "address": "Enebakkveien 117C", "city": "Oslo", "zip": "0680", "country": "Norway", "phone": "+47 97669588", "email": "birgitte@servicio.no", "lat": 59.89873, "lng": 10.797427}, {"name": "Lindrup Martinsen", "address": "Fr. Nansens plass 6", "city": "Tromsø", "zip": "9008", "country": "Norway", "phone": "+47 77603714", "email": "Kristin@lindrupmartinsen.no", "lat": 69.655433, "lng": 18.969158}, {"name": "NorEngros Markedshuset AS", "address": "Strandvegen 106", "city": "Tromsø", "zip": "9006", "country": "Norway", "phone": "(+47) 45691354", "email": "henri.madvig@norengros.no", "lat": 69.6353042, "lng": 18.932255917}, {"name": "Kokkejakker.no AS", "address": "Neptunvegen 2", "city": "Verdal", "zip": "7652", "country": "Norway", "phone": "+47 40886857", "email": "info@kokkejakker.no", "lat": 63.7852167, "lng": 11.4481311}, {"name": "A Oksnes AS", "address": "Røysegata 1", "city": "Ålesund", "zip": "6003", "country": "Norway", "phone": "+47 70 12 10 82", "email": "arne@aoksnes.no", "lat": 62.471307, "lng": 6.162478}, {"name": "Beauty Product Thorsen AS", "address": "Myrveien 17", "city": "Ås", "zip": "1431", "country": "Norway", "phone": "+47 6497 4060", "email": "anne@biovital.no", "lat": 59.671174, "lng": 10.797649}, {"name": "Günstige-Arbeitskleidung", "address": "", "city": "", "zip": "", "country": "Germany", "phone": "+498000009762", "email": "info@guenstige-arbeitskleidung.de", "lat": 51.165691, "lng": 10.451526}, {"name": "Reisinger Premium Workwear", "address": "Hauptstr. 22", "city": "Altusried", "zip": "87452", "country": "Germany", "phone": "08373 2090092", "email": "info@reisinger-workwear.de", "lat": 47.80719, "lng": 10.21021}, {"name": "Lochmann Berufskleidung GmbH", "address": "Sulzenbacher Str. 178", "city": "Backnang", "zip": "71522", "country": "Germany", "phone": "+49 07191 88329", "email": "", "lat": 48.91581, "lng": 9.42818}, {"name": "Berufskleidung24.de GmbH", "address": "Rübteile 18", "city": "Bad Urach", "zip": "72574", "country": "Germany", "phone": "+49 (0)7125 – 3090660", "email": "info@berufskleidung24.de", "lat": 48.48649, "lng": 9.470498}, {"name": "Poggensee Berufsbekleidungsvertrieb GmbH", "address": "Elmenhorster Strasse 4", "city": "Bargfeld-Stegen", "zip": "23863", "country": "Germany", "phone": "", "email": "info@poggensee-berufsbekleidung.de", "lat": 53.76641, "lng": 10.18999}, {"name": "Rita Rochlitz Arbeitsschutz", "address": "Am Ring 8", "city": "Groß Godems", "zip": "19372", "country": "Germany", "phone": "+49 387 258003", "email": "rita.rochlitz@t-online.de", "lat": 53.36482, "lng": 11.79472}, {"name": "HOFSOMMER Hamburg Berufskleidung & Mehr", "address": "Kollaustrasse 185-189", "city": "Hamburg", "zip": "22453", "country": "Germany", "phone": "+49405895-108", "email": "info@berufskleidung-hofsommer.de", "lat": 53.61303, "lng": 9.95243}, {"name": "TextilWUDI", "address": "Logenweg 6a", "city": "Hettenshausen", "zip": "85276", "country": "Germany", "phone": "49 (0) 8441 47090 0", "email": "info@textilwudi.de", "lat": 48.49608, "lng": 11.503863}, {"name": "Hirschtex Heland u. Hickmann GbR", "address": "Emser Strasse 354,", "city": "Koblenz", "zip": "56076", "country": "Germany", "phone": "+49 0261 15640", "email": "", "lat": 50.35655, "lng": 7.59942}, {"name": "Männel Health Care Support & DSS GmbH", "address": "Im Eiselbrunnen 15", "city": "Kraichtal", "zip": "76703", "country": "Germany", "phone": "+49 7251 96480", "email": "info@maennel.de", "lat": 49.14710795, "lng": 8.657257353805475}, {"name": "RHEINTEX-Textile Kompetenz für Hotel & Gastronimie", "address": "Beuelsweg 9", "city": "Köln", "zip": "50733", "country": "Germany", "phone": "+49 221 25 94 3342", "email": "info@rheintex.de", "lat": 50.96224, "lng": 6.95964}, {"name": "Ernst Hilsenbeck GmbH", "address": "Gottlieb-Daimler-Str. 21", "city": "Laichingen", "zip": "89150", "country": "Germany", "phone": "+49 7333 961320", "email": "beatrix.haugk@hilsenbeck.de", "lat": 48.489755, "lng": 9.70438}, {"name": "Berufskleidung Baum", "address": "Max-Planck-Straße 7", "city": "Landau", "zip": "76829", "country": "Germany", "phone": "+49 6341 87545", "email": "info@berufskleidung-baum.de", "lat": 49.18899, "lng": 8.13835}, {"name": "Kurtenbach GmbH & Co. KG", "address": "Am Fleckenberg 2", "city": "Limburg", "zip": "65549", "country": "Germany", "phone": "+49 6431 503 420", "email": "michael.schober@Kurtenbach.de", "lat": 50.403973, "lng": 8.062084}, {"name": "acp collection GmbH", "address": "Fürstenrieder Str. 281", "city": "München", "zip": "81377", "country": "Germany", "phone": "0049 8922 840 0", "email": "office@acpcollection.com", "lat": 48.1085646, "lng": 11.4999928}, {"name": "Jürgen Bohnenstengel HIT", "address": "Gabelsbergerstraße 8", "city": "Nürnberg", "zip": "90459", "country": "Germany", "phone": "0049 911 3766420", "email": "info@imagetextil.de", "lat": 49.4392, "lng": 11.07845}, {"name": "Bruns Berufmode GmbH & Co. KG", "address": "Posthalterweg 17", "city": "Oldenburg", "zip": "26129", "country": "Germany", "phone": "0441 – 7 77 00 81", "email": "info@bruns-berufsmode.de", "lat": 53.16065, "lng": 8.17148}, {"name": "Arbeitsschutz u. Berufbekleidung Bischkopf GmbH", "address": "Dreherstrasse 1", "city": "Rastatt", "zip": "76437", "country": "Germany", "phone": "", "email": "info@bischkopf-gmbh.de", "lat": 48.85746, "lng": 8.20168}, {"name": "Praxiswaesche.de", "address": "Versmolder Straße 1", "city": "Sassenberg", "zip": "48336", "country": "Germany", "phone": "+49 02583-1254", "email": "praxiswaesche@waescherei-rose.de", "lat": 51.9965, "lng": 8.05261}, {"name": "Shiefer Berufsmode GmbH", "address": "", "city": "Linz", "zip": "4020", "country": "Austria", "phone": "+43 7323 30030", "email": "office@schiefer-linz.at", "lat": 48.30067, "lng": 14.29264}, {"name": "Hospital-Textil Handelsgesellschaft mbH", "address": "Albert-Schweitzer-Strasse 7", "city": "Marchtrenk", "zip": "4614", "country": "Austria", "phone": "+43 72 43 52 032 0", "email": "office@hospital-textil.at", "lat": 48.198161, "lng": 14.147581}, {"name": "Der Walter Berufskleidung GmbH", "address": "Landgutgasse 15", "city": "Wien", "zip": "1100", "country": "Austria", "phone": "+43 1604 4231", "email": "office@derwalter.at", "lat": 48.18109, "lng": 16.37659}, {"name": "Oehrli AG Schürzen + Brufsmode", "address": "Schachenstraße 10a", "city": "Emmenbrücke", "zip": "6020", "country": "Switzerland", "phone": "+41 41 4291 090", "email": "info@oehrli-lu.ch", "lat": 47.06807, "lng": 8.28795}, {"name": "Van Herck B.V.B.A", "address": "Gasthuisstraat 46", "city": "Geel", "zip": "2440", "country": "Belgium", "phone": "+32 145 88480", "email": "info@van-herck.be", "lat": 51.159349, "lng": 4.996465}, {"name": "BAKK Werkkledij bvba", "address": "Waversteenweg 120", "city": "Lier", "zip": "2500", "country": "Belgium", "phone": "+32 3489 1622", "email": "info@bakk.be", "lat": 51.123959, "lng": 4.568052}, {"name": "Comforta Oy", "address": "Tehdaskatu 15", "city": "Kajanni", "zip": "87100", "country": "Finland", "phone": "+358201443700", "email": "", "lat": 64.23106, "lng": 27.69689}, {"name": "Kemilux", "address": "Á Hjalla 14", "city": "Tórshavn", "zip": "100", "country": "Faroe Islands", "phone": "+298662000", "email": "kemilux@kemilux.com", "lat": 62.04834, "lng": -6.79566}, {"name": "Handelsselskabet H.J. A/S", "address": "Ryttervangen 13", "city": "Give", "zip": "7323", "country": "Greenland", "phone": "+45 75735826", "email": "", "lat": 64.18141, "lng": -51.694138}, {"name": "NDO Supply A/S", "address": "Skovbovej 34, Valsgård", "city": "Hobro", "zip": "9500", "country": "Greenland", "phone": "+45 98 54 45 66", "email": "lonny@ndosupply.dk", "lat": 61.161978, "lng": -45.432021}, {"name": "Cheap-workwear", "address": "", "city": "", "zip": "", "country": "United Kingdom", "phone": "+45 96 74 20 30", "email": "info@cheap-workwear.com", "lat": 51.507351, "lng": -0.127758}]</script>
   </div>
 </section>
 
@@ -1154,6 +1806,28 @@ nav .logo{height:86px}
   send.addEventListener('click',function(){var v=inp.value.trim();if(v){ask(v);inp.value='';}});
   inp.addEventListener('keydown',function(e){if(e.key==='Enter'){var v=inp.value.trim();if(v){ask(v);inp.value='';}}});
   [].slice.call(document.querySelectorAll('.chipsq button')).forEach(function(b){b.addEventListener('click',function(){ask(b.textContent);});});
+})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script>
+/* dealer map */
+(function(){
+var el=document.getElementById("dealerMap"),ds=document.getElementById("dealerData");if(!el||!ds)return;
+var data=JSON.parse(ds.textContent);var esc=function(s){return String(s||"").replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];});};
+if(typeof L==="undefined"){el.style.display="none";return;}
+var map=L.map(el,{scrollWheelZoom:false});
+L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{attribution:"&copy; OpenStreetMap &copy; CARTO",subdomains:"abcd",maxZoom:19}).addTo(map);
+var layer=L.layerGroup().addTo(map),markers={},current=null;
+function popup(d){return "<b>"+esc(d.name)+"</b>"+esc(d.address)+"<br>"+esc((d.zip?d.zip+" ":"")+d.city)+", "+esc(d.country)+(d.phone?"<br>Tlf. "+esc(d.phone):"")+(d.email?"<br><a href=\"mailto:"+esc(d.email)+"\">"+esc(d.email)+"</a>":"");}
+function render(country){layer.clearLayers();markers={};var b=[];data.forEach(function(d,i){if(country&&d.country!==country)return;var m=L.circleMarker([d.lat,d.lng],{radius:7,color:"#fff",weight:2,fillColor:"#C20016",fillOpacity:.95}).bindPopup(popup(d));m.addTo(layer);markers[i]=m;b.push([d.lat,d.lng]);});if(b.length)map.fitBounds(b,{padding:[36,36],maxZoom:country?7:5});
+ [].slice.call(document.querySelectorAll("#dealgrid .dealcol")).forEach(function(c){c.style.display=(!country||c.getAttribute("data-c")===country)?"":"none";});}
+render(null);
+[].slice.call(document.querySelectorAll("#dchips .dchip")).forEach(function(ch){ch.addEventListener("click",function(){[].slice.call(document.querySelectorAll("#dchips .dchip")).forEach(function(x){x.classList.remove("active");});ch.classList.add("active");current=ch.getAttribute("data-c")||null;render(current);});});
+[].slice.call(document.querySelectorAll("#dealgrid .dl")).forEach(function(li){li.addEventListener("click",function(){var i=+li.getAttribute("data-i"),d=data[i];if(!markers[i]){current=null;[].slice.call(document.querySelectorAll("#dchips .dchip")).forEach(function(x){x.classList.toggle("active",!x.getAttribute("data-c"));});render(null);}
+ [].slice.call(document.querySelectorAll("#dealgrid .dl.hit")).forEach(function(x){x.classList.remove("hit");});li.classList.add("hit");
+ var top=el.getBoundingClientRect().top+window.scrollY-140;window.scrollTo({top:top,behavior:"smooth"});map.flyTo([d.lat,d.lng],11,{duration:.9});setTimeout(function(){if(markers[i])markers[i].openPopup();},1000);});});
+setTimeout(function(){map.invalidateSize();},400);
 })();
 </script>
 </body>
